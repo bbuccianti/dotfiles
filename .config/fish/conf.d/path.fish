@@ -1,0 +1,1 @@
+set PATH /home/benja/.npm $PATH

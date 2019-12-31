@@ -1,0 +1,85 @@
+theme = "plain"
+icons = "awesome"
+
+[[block]]
+block = "net"
+device = "wlp2s0"
+ssid = true
+ip = true
+speed_up = false
+speed_down = false
+interval = 60
+
+[[block]]
+block = "net"
+device = "enp0s25"
+ip = true
+speed_up = false
+speed_down = false
+interval = 10
+
+[[block]]
+block = "disk_space"
+path = "/"
+alias = "/"
+info_type = "available"
+unit = "GiB"
+interval = 60
+warning = 20.0
+alert = 10.0
+
+[[block]]
+block = "disk_space"
+path = "/home"
+alias = "/home"
+info_type = "available"
+unit = "GiB"
+interval = 60
+warning = 20.0
+alert = 10.0
+
+[[block]]
+block = "pacman"
+interval = 300
+
+[[block]]
+block = "memory"
+display_type = "memory"
+format_mem = "{MUp}% / {MTg}GiB"
+format_swap = "{SUp}%"
+interval = 10
+
+[[block]]
+block = "cpu"
+interval = 10
+
+[[block]]
+block = "load"
+interval = 10
+format = "{1m}"
+
+[[block]]
+block = "temperature"
+interval = 10
+collapsed = false
+format = "{average}°"
+
+[[block]]
+block = "sound"
+
+[[block]]
+block = "maildir"
+interval = 60
+inboxes = ["/home/bex/.mail/local", "/home/bex/.mail/gmail/Inbox"]
+threshold_warning = 1
+threshold_critical = 10
+
+[[block]]
+block = "custom"
+command = "upower -i $(upower -e | awk /BAT/) | awk '/percentage/ {bat = $2} END {print (length(bat) == 0) ? \"AC\" : bat}'"
+interval = 10
+
+[[block]]
+block = "time"
+interval = 60
+format = "%d/%m %R"
