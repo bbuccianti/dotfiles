@@ -1,0 +1,11 @@
+[user]
+	name = Benjamin Buccianti
+	email = benjamin@buccianti.dev
+	signingkey = 5A2C1CEEA1F500020454BD0CBF431C87F615B0E7
+[pull]
+	rebase = true
+[gpg]
+	program = gpg2
+[commit]
+	gpgsign = true
+
