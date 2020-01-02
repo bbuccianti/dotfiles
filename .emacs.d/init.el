@@ -3,7 +3,6 @@
 (let ((file-name-handler-alist nil)
       (gc-cons-threshold 402653184)
       (gc-cons-percentage 0.6))
-
   (setq straight-use-package-by-default t)
   (defvar bootstrap-version)
   (let ((bootstrap-file
@@ -83,13 +82,13 @@
 
   (use-package ido
     :straight nil
+    :custom
+    (ido-enable-flex-matching t)
+    (ido-enable-prefix nil)
+    (ido-auto-merge-work-directories-length -1)
+    (ido-create-new-buffer 'always)
+    (ido-use-filename-at-point nil)
     :init
-    (setq ido-enable-flex-matching t
-	  ido-enable-prefix nil
-	  ido-auto-merge-work-directories-length -1
-	  ido-create-new-buffer 'always
-	  ido-use-filename-at-point nil
-	  ido-everywhere t)
     (ido-mode 1))
 
   (use-package ido-completing-read+
@@ -98,7 +97,8 @@
 
   (use-package ido-vertical-mode
     :init (ido-vertical-mode 1)
-    :config (setq ido-vertical-define-keys 'C-n-and-C-p-only))
+    :custom
+    (ido-vertical-define-keys 'C-n-and-C-p-only))
 
   (use-package amx
     :commands amx)
@@ -106,28 +106,28 @@
   (use-package dired
     :straight nil
     :hook (dired-mode . dired-hide-details-mode)
-    :config
-    (setq dired-recursive-copies 'always
-	  dired-recursive-deletes 'top
-	  dired-use-ls-dired nil
-	  dired-listing-switches "-lha1v --group-directories-f"))
+    :custom
+    (dired-recursive-copies 'always)
+    (dired-recursive-deletes 'top)
+    (dired-use-ls-dired nil)
+    (dired-listing-switches "-lha1v --group-directories-f"))
 
   (use-package mu4e
     :straight nil
     :load-path "/usr/share/emacs/site-lisp/mu4e"
     :commands mu4e
-    :config
-    (setq mu4e-maildir "~/.mail"
-	  mu4e-get-mail-command "mbsync -a"
-	  mu4e-view-show-addresses t
-	  fill-column 72))
+    :custom
+    (mu4e-maildir "~/.mail")
+    (mu4e-get-mail-command "mbsync -a")
+    (mu4e-view-show-addresses t)
+    (fill-column 72))
 
   (use-package whitespace
     :straight nil
     :hook (prog-mode . whitespace-mode)
-    :config
-    (setq whitespace-line-column 80
-	  whitespace-style '(face lines-tail trailing space-before-tab)))
+    :custom
+    (whitespace-line-column 80)
+    (whitespace-style '(face lines-tail trailing space-before-tab)))
 
   (use-package rainbow-delimiters
     :defer t
@@ -149,7 +149,7 @@
   (use-package company
     :commands company-complete
     :hook (prog-mode . company-mode)
-    :config (setq company-idle-delay nil))
+    :custom (company-idle-delay nil))
 
   (use-package php-mode
     :defer t
@@ -163,12 +163,12 @@
 
   (use-package elfeed
     :defer t
-    :config
-    (setq elfeed-feeds '("http://planet.clojure.in/atom.xml"
-			 "https://planet.emacslife.com/atom.xml"
-			 "http://planet.kernel.org/rss20.xml"
-			 "http://planet.lisp.org/rss20.xml"
-			 "https://twobithistory.org/feed.xml")))
+    :custom
+    (elfeed-feeds '("http://planet.clojure.in/atom.xml"
+		    "https://planet.emacslife.com/atom.xml"
+		    "http://planet.kernel.org/rss20.xml"
+		    "http://planet.lisp.org/rss20.xml"
+		    "https://twobithistory.org/feed.xml")))
 
   (use-package clojure-mode
     :defer t)
@@ -185,8 +185,7 @@
     (go-mode . (lambda ()
 		 (setq indent-tabs-mode 1)
 		 (setq tab-width 2)))
-    :config
-    (setq gofmt-command "/usr/bin/gofmt"))
+    :custom (gofmt-command "/usr/bin/gofmt"))
 
   (use-package fennel-mode
     :defer t)
@@ -207,37 +206,37 @@
   (use-package org
     :defer t
     :hook (org-mode . auto-fill-mode)
-    :config
-    (setq org-startup-indented t
-	  org-startup-truncated nil
-	  org-agenda-window-setup 'current-window
-	  org-agenda-start-on-weekday nil
-	  org-agenda-compact-blocks t
-	  org-hide-leading-stars t
-	  org-latex-toc-command "\\tableofcontents \\clearpage"
-	  org-export-async-init-file "~/.emacs.d/org-init.el"
-	  org-src-preserve-indentation t
-	  org-agenda-files '("~/org/projects.org" "~/org/habits.org")
-	  org-default-notes-file "~/org/inbox.org"
-	  org-refile-targets '(("~/org/projects.org" :maxlevel . 1))
-	  org-capture-templates '(("t" "Todo"
-				   entry (file "~/org/inbox.org")
-				   "* TODO %?\n %u\n"))
-	  org-agenda-prefix-format '((agenda . " %i %-12:c%?-12t% s")
-				     (todo . " %i %-12:c %b")
-				     (tags . " %i %-12:c")
-				     (search . " %i %-12:c"))))
+    :custom
+    (org-startup-indented t)
+    (org-startup-truncated nil)
+    (org-agenda-window-setup 'current-window)
+    (org-agenda-start-on-weekday nil)
+    (org-agenda-compact-blocks t)
+    (org-hide-leading-stars t)
+    (org-latex-toc-command "\\tableofcontents \\clearpage")
+    (org-export-async-init-file "~/.emacs.d/org-init.el")
+    (org-src-preserve-indentation t)
+    (org-agenda-files '("~/org/projects.org" "~/org/habits.org"))
+    (org-default-notes-file "~/org/inbox.org")
+    (org-refile-targets '(("~/org/projects.org" :maxlevel . 1)))
+    (org-capture-templates '(("t" "Todo"
+			      entry (file "~/org/inbox.org")
+			      "* TODO %?\n %u\n")))
+    (org-agenda-prefix-format '((agenda . " %i %-12:c%?-12t% s")
+				(todo . " %i %-12:c %b")
+				(tags . " %i %-12:c")
+				(search . " %i %-12:c"))))
 
   (use-package ox-reveal
     :after org
-    :config
-    (setq org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js@3.8.0"))
+    :custom (org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js@3.8.0"))
 
   (use-package ox-latex
     :straight nil
     :after org
+    :custom
+    (org-latex-create-formula-image-program 'dvipng)
     :config
-    (setq org-latex-create-formula-image-program 'dvipng)
     (org-babel-do-load-languages 'org-babel-load-languages '((latex . t))))
 
   (use-package htmlize
@@ -248,7 +247,7 @@
     :mode (("\\.pug\\'" . pug-mode))
     :hook (pug-mode . (lambda ()
                         (setq indent-tabs-mode nil)))
-    :config (setq pug-tab-width 2))
+    :custom (pug-tab-width 2))
 
   (use-package personal-keybindings
     :straight nil
@@ -258,7 +257,8 @@
     (global-unset-key "\C-z")
     (line-number-mode -1)
     (column-number-mode -1)
-    (setq search-whitespace-regexp ".*")
+    :custom
+    (search-whitespace-regexp ".*")
     :hook
     (prog-mode . prettify-symbols-mode)
     (css-mode . electric-pair-mode)
