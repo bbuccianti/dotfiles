@@ -199,7 +199,11 @@
     :defer t)
 
   (use-package magit
-    :commands magit-status)
+    :commands magit-status
+    :custom
+    (magit-repository-directories '(("/home/benja/work" . 2)
+				    ("/home/benja/src" . 3)
+				    ("/home/benja/projects" . 2))))
 
   (use-package org
     :defer t
