@@ -202,8 +202,7 @@
     :commands magit-status
     :custom
     (magit-repository-directories '(("/home/benja/work" . 2)
-				    ("/home/benja/src" . 3)
-				    ("/home/benja/projects" . 2))))
+				    ("/home/benja/src" . 3))))
 
   (use-package org
     :defer t
@@ -264,23 +263,6 @@
     (prog-mode . prettify-symbols-mode)
     (css-mode . electric-pair-mode)
     :bind
-    (:map mode-specific-map
-	  ("C-SPC t" . eshell)
-	  ("C-SPC C-t" . ansi-term)
-	  ("C-SPC i" . imenu)
-	  ("C-SPC C-i" . company-complete)
-	  ("C-SPC @" . mu4e)
-	  ("C-SPC p" . project-find-file)
-	  ("C-SPC C-r" . recompile)
-	  ("C-SPC r" . compile)
-	  ("C-SPC l" . slime)
-	  ("C-SPC m" . monroe)
-	  ("C-SPC e" . elfeed)
-	  ("C-SPC c" . org-capture)
-	  ("C-SPC a" . org-agenda)
-	  ("C-SPC x" . (lambda ()
-			 (interactive)
-			 (org-latex-export-to-pdf t))))
     (:map global-map
 	  ("M-SPC" . cycle-spacing)
 	  ("M-x" . amx)
@@ -289,7 +271,22 @@
 	  ("C-w" . backward-kill-word)
 	  ("C-=" . er/expand-region)
 	  ("<up>" . move-text-up)
-	  ("<down>" . move-text-down))
+	  ("<down>" . move-text-down)
+	  ("C-. t" . eshell)
+	  ("C-. C-t" . ansi-term)
+	  ("C-. i" . imenu)
+	  ("C-. C-i" . company-complete)
+	  ("C-. @" . mu4e)
+	  ("C-. p" . project-find-file)
+	  ("C-. C-r" . recompile)
+	  ("C-. r" . compile)
+	  ("C-. l" . slime)
+	  ("C-. m" . monroe)
+	  ("C-. g" . magit-list-repositories)
+	  ("C-. e" . elfeed)
+	  ("C-. c" . org-capture)
+	  ("C-. a" . org-agenda)
+	  ("C-. x" . (lambda () (interactive) (org-latex-export-to-pdf t))))
     (:map ctl-x-map
 	  ("C-k" . kill-region)
 	  ("g" . magit-status)
