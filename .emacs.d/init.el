@@ -6,6 +6,12 @@
 (setq gc-cons-threshold most-positive-fixnum ; 2^61 bytes
       gc-cons-percentage 0.6)
 
+(add-hook 'emacs-startup-hook
+	  (lambda ()
+	    (setq gc-cons-threshold 16777216 ; 16mb
+		  gc-cons-percentage 0.1
+		  file-name-handler-alist bb--file-name-handler-alist)))
+
 (setq straight-use-package-by-default t)
 (defvar bootstrap-version)
 (let ((bootstrap-file
@@ -95,11 +101,14 @@
   (ido-mode 1))
 
 (use-package ido-completing-read+
-  :init
+  :after ido
+  :config
   (ido-ubiquitous-mode 1))
 
 (use-package ido-vertical-mode
-  :init (ido-vertical-mode 1)
+  :after ido
+  :config
+  (ido-vertical-mode 1)
   :custom
   (ido-vertical-define-keys 'C-n-and-C-p-only))
 
@@ -188,8 +197,8 @@
   :defer t
   :hook
   (go-mode . (lambda ()
-	       (setq indent-tabs-mode 1)
-	       (setq tab-width 2)))
+	       (setq indent-tabs-mode 1
+		     tab-width 2)))
   :custom (gofmt-command "/usr/bin/gofmt"))
 
 (use-package fennel-mode
@@ -250,8 +259,7 @@
 (use-package pug-mode
   :defer t
   :mode (("\\.pug\\'" . pug-mode))
-  :hook (pug-mode . (lambda ()
-		      (setq indent-tabs-mode nil)))
+  :hook (pug-mode . (lambda () (setq indent-tabs-mode nil)))
   :custom (pug-tab-width 2))
 
 (use-package personal-keybindings
@@ -297,9 +305,3 @@
 	("C-k" . kill-region)
 	("g" . magit-status)
 	("C-b" . ibuffer)))
-
-(add-hook 'emacs-startup-hook
-	  (lambda ()
-	    (setq gc-cons-threshold 16777216 ; 16mb
-		  gc-cons-percentage 0.1
-		  file-name-handler-alist bb--file-name-handler-alist)))
