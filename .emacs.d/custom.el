@@ -11,7 +11,7 @@
  '(org-modules (quote (org-habit ol-info ol-mhe ol-rmail org-velocity)))
  '(package-selected-packages
    (quote
-    (ox-reveal magit lua-mode fennel-mode monroe which-key expand-region company slime rainbow-delimiters exec-path-from-shell))))
+    (ox-reveal magit lua-mode fennel-mode monroe expand-region company rainbow-delimiters exec-path-from-shell))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

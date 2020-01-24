@@ -1,16 +1,26 @@
 ;; -*- lexical-binding: t -*
 
-(defvar bb--file-name-handler-alist file-name-handler-alist)
-(setq file-name-handler-alist nil)
-
-(setq gc-cons-threshold most-positive-fixnum ; 2^61 bytes
-      gc-cons-percentage 0.6)
-
 (add-hook 'emacs-startup-hook
-	  (lambda ()
-	    (setq gc-cons-threshold 16777216 ; 16mb
-		  gc-cons-percentage 0.1
-		  file-name-handler-alist bb--file-name-handler-alist)))
+          (let ((old-list file-name-handler-alist))
+            (lambda ()
+              (message "Emacs ready in %s with %d garbage collections."
+                       (format "%.2f seconds"
+                               (float-time
+                                (time-subtract after-init-time before-init-time)))
+                       gcs-done)
+              (setq file-name-handler-alist old-list
+                    gc-cons-threshold 16777216 ; 16mb
+                    gc-cons-percentage 0.1)
+              (garbage-collect)))
+          t)
+
+(setq package-enable-at-startup nil
+      package--init-file-ensured t
+      file-name-handler-alist nil
+      message-log-max 16384
+      gc-cons-threshold most-positive-fixnum
+      gc-cons-percentage 0.6
+      auto-window-vscroll nil)
 
 (setq straight-use-package-by-default t)
 (defvar bootstrap-version)
@@ -83,11 +93,14 @@
 
 (use-package monokai-theme
   :defer t
-  :init (load-theme 'monokai))
+  :init (load-theme 'monokai t))
 
 (use-package battery
   :defer t
   :config (display-battery-mode))
+
+(use-package esup
+  :defer t)
 
 (use-package ido
   :straight nil
@@ -189,9 +202,34 @@
 
 (use-package monroe
   :defer t
+  :commands monroe
   :hook
   (clojure-mode . clojure-enable-monroe)
   (monroe-mode . paredit-mode))
+
+(use-package lsp-mode
+  :commands lsp
+  :custom
+  (lsp-enable-indentation nil)
+  (lsp-prefer-flymake nil)
+  (lsp-enable-imenu t)
+  (lsp-enable-folding nil)
+  :config
+  (dolist (m '(clojure-mode))
+    (add-to-list 'lsp-language-id-configuration `(,m . "clojure"))))
+
+(use-package company-lsp
+  :commands company-lsp)
+
+(use-package lsp-ui
+  :commands lsp-ui-mode
+  :hook (lsp-mode . lsp-ui-mode)
+  :custom
+  (lsp-ui-doc-enable nil))
+
+(use-package flycheck
+  :commands flycheck-mode
+  :hook (lsp-mode . flycheck))
 
 (use-package go-mode
   :defer t
