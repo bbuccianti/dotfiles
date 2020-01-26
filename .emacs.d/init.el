@@ -201,7 +201,7 @@
   :defer t)
 
 (use-package monroe
-  :defer t
+  :after clojure-mode
   :commands monroe
   :hook
   (clojure-mode . clojure-enable-monroe)
