@@ -92,7 +92,6 @@
   :init (exec-path-from-shell-initialize))
 
 (use-package monokai-theme
-  :defer t
   :init (load-theme 'monokai t))
 
 (use-package battery
@@ -179,7 +178,6 @@
   :custom (company-idle-delay nil))
 
 (use-package php-mode
-  :defer t
   :mode (("\\.php\\'" . php-mode)))
 
 (use-package sass-mode
@@ -189,7 +187,6 @@
   :commands er/expand-region)
 
 (use-package elfeed
-  :defer t
   :custom
   (elfeed-feeds '("http://planet.clojure.in/atom.xml"
 		  "https://planet.emacslife.com/atom.xml"
@@ -198,7 +195,7 @@
 		  "https://twobithistory.org/feed.xml")))
 
 (use-package clojure-mode
-  :defer t)
+  :mode (("\\.clj\\[s\\*\\'" . clojure-mode)))
 
 (use-package monroe
   :after clojure-mode
@@ -215,8 +212,7 @@
   (lsp-enable-imenu t)
   (lsp-enable-folding nil)
   :config
-  (dolist (m '(clojure-mode))
-    (add-to-list 'lsp-language-id-configuration `(,m . "clojure"))))
+  (add-to-list 'lsp-language-id-configuration '(clojure-mode . "clojure")))
 
 (use-package company-lsp
   :commands company-lsp)
@@ -243,7 +239,6 @@
   :defer t)
 
 (use-package lua-mode
-  :defer t
   :mode (("\\.lua\\'" . lua-mode)))
 
 (use-package company-lua
@@ -295,7 +290,6 @@
   :defer t)
 
 (use-package pug-mode
-  :defer t
   :mode (("\\.pug\\'" . pug-mode))
   :hook (pug-mode . (lambda () (setq indent-tabs-mode nil)))
   :custom (pug-tab-width 2))
