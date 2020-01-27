@@ -195,7 +195,9 @@
 		  "https://twobithistory.org/feed.xml")))
 
 (use-package clojure-mode
-  :mode (("\\.clj\\[s\\*\\'" . clojure-mode)))
+  :mode (("\\.clj\\[s\\*\\'" . clojure-mode))
+  :config
+  (put-clojure-indent 'match 1))
 
 (use-package monroe
   :after clojure-mode
