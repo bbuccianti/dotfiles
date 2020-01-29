@@ -22,7 +22,8 @@
       gc-cons-percentage 0.6
       auto-window-vscroll nil)
 
-(setq straight-use-package-by-default t)
+(setq straight-use-package-by-default t
+      straight-check-for-modifications '(check-on-save find-when-checking))
 (defvar bootstrap-version)
 (let ((bootstrap-file
        (expand-file-name "straight/repos/straight.el/bootstrap.el"
@@ -38,21 +39,20 @@
   (load bootstrap-file nil 'nomessage))
 
 (setq custom-file "~/.emacs.d/custom.el")
-(load custom-file 'noerror)
+;; (load custom-file 'noerror)
 
 (setq user-full-name "Benjamín Buccianti"
       user-mail-address "benjamin@buccianti.dev")
 
 (setq bidi-display-reordering nil
-      show-trailing-whitespace t
-      large-file-warning-threshold 100000000
-      auto-window-vscroll nil
-      blink-matching-paren nil
-      cursor-in-non-selected-windows nil
       inhibit-startup-screen t
       inhibit-default-init t
       inhibit-startup-message t
       initial-scratch-message nil
+      show-trailing-whitespace t
+      cursor-in-non-selected-windows nil
+      large-file-warning-threshold 100000000
+      blink-matching-paren nil
       default-frame-alist '((font . "Hack-10"))
       backup-directory-alist '(("." . "~/.emacs.d/backups"))
       create-lockfiles nil
@@ -64,32 +64,18 @@
       visible-cursor nil
       epg-gpg-program "gpg2"
       inferior-lisp-program "/usr/bin/sbcl"
-      explicit-shell-file-name "/bin/sh")
-
-(add-to-list 'vc-directory-exclusion-list "node_modules")
-(add-to-list 'vc-directory-exclusion-list "target")
-(fset 'yes-or-no-p 'y-or-n-p)
-(put 'upcase-region 'disabled nil)
-(put 'downcase-region 'disabled nil)
-(put 'dired-find-alternate-file 'disabled nil)
-
-(setq mail-user-agent 'message-user-agent
-      smtpmail-default-smtp-server "mail.buccianti.dev"
-      smtpmail-smtp-server "mail.buccianti.dev"
-      smtpmail-local-domain "buccianti.dev"
-      message-send-mail-function 'message-smtpmail-send-it
-      smtpmail-debug-info t
-      message-default-mail-headers "Cc: \nBcc: \n"
-      message-auto-save-directory "~/.mail/drafts"
-      message-kill-buffer-on-exit t
-      message-directory "~/.mail/sent")
+      explicit-shell-file-name "/bin/sh"
+      browse-url-browser-function 'browse-url-firefox)
 
 ;; packages
+
+(setq use-package-verbose t)
 
 (straight-use-package 'use-package)
 
 (use-package exec-path-from-shell
-  :init (exec-path-from-shell-initialize))
+  :if (memq window-system '(mac ns))
+  :config (exec-path-from-shell-initialize))
 
 (use-package monokai-theme
   :init (load-theme 'monokai t))
@@ -97,9 +83,6 @@
 (use-package battery
   :defer t
   :config (display-battery-mode))
-
-(use-package esup
-  :defer t)
 
 (use-package ido
   :straight nil
@@ -109,8 +92,9 @@
   (ido-auto-merge-work-directories-length -1)
   (ido-create-new-buffer 'always)
   (ido-use-filename-at-point nil)
-  :init
-  (ido-mode 1))
+  :config
+  (ido-mode 1)
+  (ido-everywhere 1))
 
 (use-package ido-completing-read+
   :after ido
@@ -118,7 +102,7 @@
   (ido-ubiquitous-mode 1))
 
 (use-package ido-vertical-mode
-  :after ido
+  :after ido-completing-read+
   :config
   (ido-vertical-mode 1)
   :custom
@@ -134,7 +118,9 @@
   (dired-recursive-copies 'always)
   (dired-recursive-deletes 'top)
   (dired-use-ls-dired nil)
-  (dired-listing-switches "-lha1v --group-directories-f"))
+  (dired-listing-switches "-lha1v --group-directories-f")
+  :config
+  (put 'dired-find-alternate-file 'disabled nil))
 
 (use-package mu4e
   :straight nil
@@ -144,10 +130,21 @@
   (mu4e-maildir "~/.mail")
   (mu4e-get-mail-command "mbsync -a")
   (mu4e-view-show-addresses t)
-  (fill-column 72))
+  (fill-column 72)
+  (mail-user-agent 'message-user-agent)
+  (smtpmail-default-smtp-server "mail.buccianti.dev")
+  (smtpmail-smtp-server "mail.buccianti.dev")
+  (smtpmail-local-domain "buccianti.dev")
+  (message-send-mail-function 'message-smtpmail-send-it)
+  (smtpmail-debug-info t)
+  (message-default-mail-headers "Cc: \nBcc: \n")
+  (message-auto-save-directory "~/.mail/drafts")
+  (message-kill-buffer-on-exit t)
+  (message-directory "~/.mail/sent"))
 
 (use-package whitespace
   :straight nil
+  :defer t
   :hook (prog-mode . whitespace-mode)
   :custom
   (whitespace-line-column 80)
@@ -187,6 +184,7 @@
   :commands er/expand-region)
 
 (use-package elfeed
+  :commands elfeed
   :custom
   (elfeed-feeds '("http://planet.clojure.in/atom.xml"
 		  "https://planet.emacslife.com/atom.xml"
@@ -207,6 +205,7 @@
   (monroe-mode . paredit-mode))
 
 (use-package lsp-mode
+  :disabled t
   :commands lsp
   :custom
   (lsp-enable-indentation nil)
@@ -217,15 +216,18 @@
   (add-to-list 'lsp-language-id-configuration '(clojure-mode . "clojure")))
 
 (use-package company-lsp
+  :disabled t
   :commands company-lsp)
 
 (use-package lsp-ui
+  :disabled t
   :commands lsp-ui-mode
   :hook (lsp-mode . lsp-ui-mode)
   :custom
   (lsp-ui-doc-enable nil))
 
 (use-package flycheck
+  :disabled t
   :commands flycheck-mode
   :hook (lsp-mode . flycheck))
 
@@ -261,6 +263,7 @@
   (org-agenda-window-setup 'current-window)
   (org-agenda-start-on-weekday nil)
   (org-agenda-compact-blocks t)
+  (org-modules '(org-habit ol-info ol-mhe ol-rmail org-velocity))
   (org-hide-leading-stars t)
   (org-latex-toc-command "\\tableofcontents \\clearpage")
   (org-export-async-init-file "~/.emacs.d/org-init.el")
@@ -304,6 +307,11 @@
   (global-unset-key "\C-z")
   (line-number-mode -1)
   (column-number-mode -1)
+  (dolist (folder '("node_modules" "target" "out" ".cljs_node_repl"))
+    (add-to-list 'vc-directory-exclusion-list folder))
+  (fset 'yes-or-no-p 'y-or-n-p)
+  (put 'upcase-region 'disabled nil)
+  (put 'downcase-region 'disabled nil)
   :custom
   (search-whitespace-regexp ".*")
   :hook
