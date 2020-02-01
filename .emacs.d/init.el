@@ -171,6 +171,9 @@
 (use-package noccur
   :defer t)
 
+(use-package nov
+  :defer t)
+
 (use-package company
   :hook (prog-mode . company-mode)
   :custom (company-idle-delay nil))
