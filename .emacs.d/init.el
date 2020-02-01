@@ -69,8 +69,8 @@
 
 ;; packages
 
-(setq use-package-verbose t)
 
+;; (setq use-package-verbose t)
 (straight-use-package 'use-package)
 
 (use-package exec-path-from-shell
@@ -102,17 +102,20 @@
   (ido-ubiquitous-mode 1))
 
 (use-package ido-vertical-mode
-  :after ido-completing-read+
+  :after ido
   :config
   (ido-vertical-mode 1)
   :custom
   (ido-vertical-define-keys 'C-n-and-C-p-only))
 
 (use-package amx
-  :commands amx)
+  :commands amx
+  :custom
+  (amx-show-key-bindings nil))
 
 (use-package dired
   :straight nil
+  :after ido
   :hook (dired-mode . dired-hide-details-mode)
   :custom
   (dired-recursive-copies 'always)
@@ -136,7 +139,7 @@
   (smtpmail-smtp-server "mail.buccianti.dev")
   (smtpmail-local-domain "buccianti.dev")
   (message-send-mail-function 'message-smtpmail-send-it)
-  (smtpmail-debug-info t)
+  (smtpmail-debug-info nil)
   (message-default-mail-headers "Cc: \nBcc: \n")
   (message-auto-save-directory "~/.mail/drafts")
   (message-kill-buffer-on-exit t)
@@ -163,14 +166,12 @@
   (clojure-mode . paredit-mode))
 
 (use-package move-text
-  :defer t
   :commands (move-text-up move-text-down))
 
 (use-package noccur
   :defer t)
 
 (use-package company
-  :commands company-complete
   :hook (prog-mode . company-mode)
   :custom (company-idle-delay nil))
 
@@ -199,7 +200,6 @@
 
 (use-package monroe
   :after clojure-mode
-  :commands monroe
   :hook
   (clojure-mode . clojure-enable-monroe)
   (monroe-mode . paredit-mode))
@@ -249,7 +249,7 @@
   :defer t)
 
 (use-package magit
-  :commands magit-status
+  :commands (magit-status magit-list-repositories)
   :custom
   (magit-repository-directories '(("/home/benja/work" . 2)
 				  ("/home/benja/src" . 3))))
@@ -328,7 +328,7 @@
 	("<up>" . move-text-up)
 	("<down>" . move-text-down)
 	("C-. t" . eshell)
-	("C-. C-t" . ansi-term)
+	("C-. C-t" . shell)
 	("C-. i" . imenu)
 	("C-. C-i" . company-complete)
 	("C-. @" . mu4e)
