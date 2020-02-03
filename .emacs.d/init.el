@@ -147,23 +147,22 @@
 
 (use-package whitespace
   :straight nil
-  :defer t
   :hook (prog-mode . whitespace-mode)
   :custom
   (whitespace-line-column 80)
   (whitespace-style '(face lines-tail trailing space-before-tab)))
 
 (use-package rainbow-delimiters
-  :defer t
   :hook (prog-mode . rainbow-delimiters-mode))
 
 (use-package paredit
-  :defer t
+  :bind
+  (:map paredit-mode-map ("C-w" . paredit-backward-kill-word))
   :hook
-  (emacs-lisp-mode . paredit-mode)
-  (lisp-mode . paredit-mode)
-  (lisp-interaction-mode . paredit-mode)
-  (clojure-mode . paredit-mode))
+  (emacs-lisp-mode . enable-paredit-mode)
+  (lisp-mode . enable-paredit-mode)
+  (lisp-interaction-mode . enable-paredit-mode)
+  (clojure-mode . enable-paredit-mode))
 
 (use-package move-text
   :commands (move-text-up move-text-down))
@@ -235,7 +234,6 @@
   :hook (lsp-mode . flycheck))
 
 (use-package go-mode
-  :defer t
   :hook
   (go-mode . (lambda ()
 	       (setq indent-tabs-mode 1
@@ -258,7 +256,6 @@
 				  ("/home/benja/src" . 3))))
 
 (use-package org
-  :defer t
   :hook (org-mode . auto-fill-mode)
   :custom
   (org-startup-indented t)
