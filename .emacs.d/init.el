@@ -69,7 +69,6 @@
 
 ;; packages
 
-
 ;; (setq use-package-verbose t)
 (straight-use-package 'use-package)
 
@@ -124,6 +123,11 @@
   (dired-listing-switches "-lha1v --group-directories-f")
   :config
   (put 'dired-find-alternate-file 'disabled nil))
+
+(use-package gnus
+  :straight nil
+  :custom
+  (gnus-select-method '(nntp "news.gmane.io")))
 
 (use-package mu4e
   :straight nil
