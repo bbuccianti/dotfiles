@@ -1,4 +1,4 @@
-alias xbin='doas xbps-install -S'
-alias xbup='doas xbps-install -Syuv'
-alias xbrm='doas xbps-remove -R'
-alias xbqu='xbps-query -Rs'
+alias xi='doas xbps-install -S'
+alias xu='doas xbps-install -Syuv'
+alias xr='doas xbps-remove -R'
+alias xq='xbps-query -Rs'
