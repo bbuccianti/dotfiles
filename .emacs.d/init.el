@@ -126,6 +126,7 @@
 
 (use-package gnus
   :straight nil
+  :hook (gnus-group-mode . gnus-topic-mode)
   :custom
   (gnus-select-method '(nntp "news.gmane.io")))
 
