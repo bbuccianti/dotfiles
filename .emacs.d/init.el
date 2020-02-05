@@ -208,34 +208,7 @@
   :after clojure-mode
   :hook
   (clojure-mode . clojure-enable-monroe)
-  (monroe-mode . paredit-mode))
-
-(use-package lsp-mode
-  :disabled t
-  :commands lsp
-  :custom
-  (lsp-enable-indentation nil)
-  (lsp-prefer-flymake nil)
-  (lsp-enable-imenu t)
-  (lsp-enable-folding nil)
-  :config
-  (add-to-list 'lsp-language-id-configuration '(clojure-mode . "clojure")))
-
-(use-package company-lsp
-  :disabled t
-  :commands company-lsp)
-
-(use-package lsp-ui
-  :disabled t
-  :commands lsp-ui-mode
-  :hook (lsp-mode . lsp-ui-mode)
-  :custom
-  (lsp-ui-doc-enable nil))
-
-(use-package flycheck
-  :disabled t
-  :commands flycheck-mode
-  :hook (lsp-mode . flycheck))
+  (monroe-mode . enable-paredit-mode))
 
 (use-package go-mode
   :hook
