@@ -1,27 +1,5 @@
 ;; -*- lexical-binding: t -*
 
-(add-hook 'emacs-startup-hook
-          (let ((old-list file-name-handler-alist))
-            (lambda ()
-              (message "Emacs ready in %s with %d garbage collections."
-                       (format "%.2f seconds"
-                               (float-time
-                                (time-subtract after-init-time before-init-time)))
-                       gcs-done)
-              (setq file-name-handler-alist old-list
-                    gc-cons-threshold 16777216 ; 16mb
-                    gc-cons-percentage 0.1)
-              (garbage-collect)))
-          t)
-
-(setq package-enable-at-startup nil
-      package--init-file-ensured t
-      file-name-handler-alist nil
-      message-log-max 16384
-      gc-cons-threshold most-positive-fixnum
-      gc-cons-percentage 0.6
-      auto-window-vscroll nil)
-
 (setq straight-use-package-by-default t
       straight-check-for-modifications '(check-on-save find-when-checking))
 (defvar bootstrap-version)
@@ -42,30 +20,26 @@
 ;; (load custom-file 'noerror)
 
 (setq user-full-name "Benjamín Buccianti"
-      user-mail-address "benjamin@buccianti.dev")
-
-(setq bidi-display-reordering nil
-      inhibit-startup-screen t
-      inhibit-default-init t
-      inhibit-startup-message t
-      initial-scratch-message nil
+      user-mail-address "benjamin@buccianti.dev"
+      message-log-max 16384
       show-trailing-whitespace t
       cursor-in-non-selected-windows nil
       large-file-warning-threshold 100000000
       blink-matching-paren nil
-      default-frame-alist '((font . "Hack-10"))
-      backup-directory-alist '(("." . "~/.emacs.d/backups"))
-      create-lockfiles nil
-      auto-save-default nil
       transient-mark-mode nil
       font-lock-maximum-decoration 2
       tooltip-use-echo-area t
       use-dialog-box nil
       visible-cursor nil
-      epg-gpg-program "gpg2"
-      inferior-lisp-program "/usr/bin/sbcl"
-      explicit-shell-file-name "/bin/sh"
       browse-url-browser-function 'browse-url-firefox)
+
+;; functions
+
+(defun ido-kill-ring (element)
+  "Uses ido to insert a string from the kill-ring."
+  (interactive
+   (list (ido-completing-read "Kill-ring: " kill-ring)))
+  (insert element))
 
 ;; packages
 
@@ -176,7 +150,7 @@
   :defer t)
 
 (use-package nov
-  :defer t)
+  :mode (("\\.epub\\'" . nov-mode)))
 
 (use-package company
   :hook (prog-mode . company-mode)
@@ -283,13 +257,8 @@
   (global-hl-line-mode)
   (windmove-default-keybindings)
   (global-unset-key "\C-z")
-  (line-number-mode -1)
-  (column-number-mode -1)
   (dolist (folder '("node_modules" "target" "out" ".cljs_node_repl"))
     (add-to-list 'vc-directory-exclusion-list folder))
-  (fset 'yes-or-no-p 'y-or-n-p)
-  (put 'upcase-region 'disabled nil)
-  (put 'downcase-region 'disabled nil)
   :custom
   (search-whitespace-regexp ".*")
   :hook
@@ -315,6 +284,7 @@
 	("C-. n" . noccur-project)
 	("C-. C-r" . recompile)
 	("C-. r" . compile)
+	("C-. y" . ido-kill-ring)
 	("C-. m" . monroe)
 	("C-. g" . magit-list-repositories)
 	("C-. e" . elfeed)
