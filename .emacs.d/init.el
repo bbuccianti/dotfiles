@@ -1,7 +1,9 @@
-;; -*- lexical-binding: t -*
+;; -*- lexical-binding: t; -*-
 
 (setq straight-use-package-by-default t
-      straight-check-for-modifications '(check-on-save find-when-checking))
+      straight-check-for-modifications nil
+      straight-cache-autoloads t)
+
 (defvar bootstrap-version)
 (let ((bootstrap-file
        (expand-file-name "straight/repos/straight.el/bootstrap.el"
@@ -33,13 +35,46 @@
       visible-cursor nil
       browse-url-browser-function 'browse-url-firefox)
 
+(setq file-name-handler-alist nil
+      auto-window-vscroll nil
+      default-frame-alist '((font . "Hack-10"))
+      backup-directory-alist '(("." . "~/.emacs.d/backups"))
+      bidi-display-reordering nil
+      inhibit-startup-screen t
+      inhibit-default-init t
+      inhibit-startup-message t
+      initial-scratch-message nil
+      frame-inhibit-implied-resize t
+      create-lockfiles nil
+      auto-save-default nil
+      epg-gpg-program "gpg2"
+      inferior-lisp-program "/usr/bin/sbcl"
+      explicit-shell-file-name "/bin/sh")
+
+(fset 'yes-or-no-p 'y-or-n-p)
+(put 'upcase-region 'disabled nil)
+(put 'downcase-region 'disabled nil)
+
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (message "Emacs ready in %s with %d garbage collections."
+                     (format "%.2f seconds"
+                             (float-time
+                              (time-subtract after-init-time before-init-time)))
+                     gcs-done)
+            (setq file-name-handler-alist old--file-name-handler-alist
+                  gc-cons-threshold 16777216 ; 16mb
+                  gc-cons-percentage 0.1)
+            (garbage-collect))
+          t)
+
 ;; functions
 
-(defun ido-kill-ring (element)
+(defun ido-kill-ring (choice)
   "Uses ido to insert a string from the kill-ring."
   (interactive
    (list (ido-completing-read "Kill-ring: " kill-ring)))
-  (insert element))
+  (insert choice))
 
 ;; packages
 
@@ -59,15 +94,15 @@
 
 (use-package ido
   :straight nil
-  :custom
-  (ido-enable-flex-matching t)
-  (ido-enable-prefix nil)
-  (ido-auto-merge-work-directories-length -1)
-  (ido-create-new-buffer 'always)
-  (ido-use-filename-at-point nil)
+  :defer t
   :config
   (ido-mode 1)
-  (ido-everywhere 1))
+  (ido-everywhere 1)
+  (setq qido-enable-flex-matching t
+	ido-enable-prefix nil
+	ido-auto-merge-work-directories-length -1
+	ido-create-new-buffer 'always
+	ido-use-filename-at-point nil))
 
 (use-package ido-completing-read+
   :after ido
@@ -88,21 +123,21 @@
 
 (use-package dired
   :straight nil
-  :after ido
+  :defer t
   :hook (dired-mode . dired-hide-details-mode)
-  :custom
-  (dired-recursive-copies 'always)
-  (dired-recursive-deletes 'top)
-  (dired-use-ls-dired nil)
-  (dired-listing-switches "-lha1v --group-directories-f")
   :config
+  (setq dired-recursive-copies 'always
+	dired-recursive-deletes 'top
+	dired-use-ls-dired nil
+	dired-listing-switches "-lha1v --group-directories-f")
   (put 'dired-find-alternate-file 'disabled nil))
 
 (use-package gnus
   :straight nil
+  :defer t
   :hook (gnus-group-mode . gnus-topic-mode)
-  :custom
-  (gnus-select-method '(nntp "news.gmane.io")))
+  :config
+  (setq gnus-select-method '(nntp "news.gmane.io")))
 
 (use-package mu4e
   :straight nil
@@ -186,10 +221,9 @@
   (monroe-mode . enable-paredit-mode))
 
 (use-package go-mode
+  :defer t
   :hook
-  (go-mode . (lambda ()
-	       (setq indent-tabs-mode 1
-		     tab-width 2)))
+  (go-mode . (lambda () (setq indent-tabs-mode 1 tab-width 2)))
   :custom (gofmt-command "/usr/bin/gofmt"))
 
 (use-package fennel-mode
