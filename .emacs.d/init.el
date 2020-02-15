@@ -54,6 +54,7 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
+(remove-hook 'find-file-hooks 'vc-find-file-hook)
 
 (add-hook 'emacs-startup-hook
           (lambda ()
@@ -82,27 +83,26 @@
 (straight-use-package 'use-package)
 
 (use-package exec-path-from-shell
-  :if (memq window-system '(mac ns))
+  :disabled
   :config (exec-path-from-shell-initialize))
 
-(use-package monokai-theme
-  :init (load-theme 'monokai t))
+(use-package gruvbox-theme
+  :init (load-theme 'gruvbox-dark-hard t))
 
 (use-package battery
-  :defer t
   :config (display-battery-mode))
 
 (use-package ido
   :straight nil
-  :defer t
   :config
   (ido-mode 1)
   (ido-everywhere 1)
-  (setq qido-enable-flex-matching t
-	ido-enable-prefix nil
-	ido-auto-merge-work-directories-length -1
-	ido-create-new-buffer 'always
-	ido-use-filename-at-point nil))
+  :custom
+  (qido-enable-flex-matching t)
+  (ido-enable-prefix nil)
+  (ido-auto-merge-work-directories-length -1)
+  (ido-create-new-buffer 'always)
+  (ido-use-filename-at-point nil))
 
 (use-package ido-completing-read+
   :after ido
@@ -123,7 +123,7 @@
 
 (use-package dired
   :straight nil
-  :defer t
+  :commands (ido-select-text dired)
   :hook (dired-mode . dired-hide-details-mode)
   :config
   (setq dired-recursive-copies 'always
@@ -134,7 +134,7 @@
 
 (use-package gnus
   :straight nil
-  :defer t
+  :commands gnus
   :hook (gnus-group-mode . gnus-topic-mode)
   :config
   (setq gnus-select-method '(nntp "news.gmane.io")))
@@ -182,20 +182,24 @@
   :commands (move-text-up move-text-down))
 
 (use-package noccur
-  :defer t)
+  :commands noccur-project)
 
 (use-package nov
   :mode (("\\.epub\\'" . nov-mode)))
 
 (use-package company
+  :commands company-complete
   :hook (prog-mode . company-mode)
-  :custom (company-idle-delay nil))
+  :bind (:map company-active-map (("C-n" . company-select-next)
+				  ("C-p" . company-select-previous)))
+  :config
+  (setq company-idle-delay nil))
 
 (use-package php-mode
   :mode (("\\.php\\'" . php-mode)))
 
 (use-package sass-mode
-  :defer t)
+  :disabled t)
 
 (use-package expand-region
   :commands er/expand-region)
@@ -215,25 +219,22 @@
   (put-clojure-indent 'match 1))
 
 (use-package monroe
-  :after clojure-mode
+  :commands monroe
   :hook
   (clojure-mode . clojure-enable-monroe)
   (monroe-mode . enable-paredit-mode))
 
 (use-package go-mode
-  :defer t
+  :mode (("\\.go\\'" . go-mode))
   :hook
   (go-mode . (lambda () (setq indent-tabs-mode 1 tab-width 2)))
   :custom (gofmt-command "/usr/bin/gofmt"))
 
 (use-package fennel-mode
-  :defer t)
+  :mode (("\\.fnl\\'" . fennel-mode)))
 
 (use-package lua-mode
   :mode (("\\.lua\\'" . lua-mode)))
-
-(use-package company-lua
-  :defer t)
 
 (use-package magit
   :commands (magit-status magit-list-repositories)
@@ -242,43 +243,45 @@
 				  ("/home/benja/src" . 3))))
 
 (use-package org
+  :straight nil
+  :mode (("\\.org\\'" . org-mode))
   :hook (org-mode . auto-fill-mode)
-  :custom
-  (org-startup-indented t)
-  (org-startup-truncated nil)
-  (org-agenda-window-setup 'current-window)
-  (org-agenda-start-on-weekday nil)
-  (org-agenda-compact-blocks t)
-  (org-modules '(org-habit ol-info ol-mhe ol-rmail org-velocity))
-  (org-hide-leading-stars t)
-  (org-latex-toc-command "\\tableofcontents \\clearpage")
-  (org-export-async-init-file "~/.emacs.d/org-init.el")
-  (org-src-preserve-indentation t)
-  (org-agenda-files '("~/org/projects.org" "~/org/habits.org"))
-  (org-default-notes-file "~/org/inbox.org")
-  (org-refile-targets '(("~/org/projects.org" :maxlevel . 1)))
-  (org-capture-templates '(("t" "Todo"
-			    entry (file "~/org/inbox.org")
-			    "* TODO %?\n %u\n")))
-  (org-agenda-prefix-format '((agenda . " %i %-12:c%?-12t% s")
-			      (todo . " %i %-12:c %b")
-			      (tags . " %i %-12:c")
-			      (search . " %i %-12:c"))))
+  :config
+  (setq org-startup-indented t
+	org-startup-truncated nil
+	org-agenda-window-setup 'current-window
+	org-agenda-start-on-weekday nil
+	org-agenda-compact-blocks t
+	org-modules '(org-habit ol-info ol-mhe ol-rmail org-velocity)
+	org-hide-leading-stars t
+	org-latex-toc-command "\\tableofcontents \\clearpage"
+	org-export-async-init-file "~/.emacs.d/org-init.el"
+	org-src-preserve-indentation t
+	org-agenda-files '("~/org/projects.org" "~/org/habits.org")
+	org-default-notes-file "~/org/inbox.org"
+	org-refile-targets '(("~/org/projects.org" :maxlevel . 1))
+	org-capture-templates '(("t" "Todo"
+				   entry (file "~/org/inbox.org")
+				   "* TODO %?\n %u\n"))
+	org-agenda-prefix-format '((agenda . " %i %-12:c%?-12t% s")
+				     (todo . " %i %-12:c %b")
+				     (tags . " %i %-12:c")
+				     (search . " %i %-12:c"))))
 
 (use-package ox-reveal
-  :after org
+  :disabled t
   :custom (org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js@3.8.0"))
 
 (use-package ox-latex
   :straight nil
-  :after org
+  :disabled t
   :custom
   (org-latex-create-formula-image-program 'dvipng)
   :config
   (org-babel-do-load-languages 'org-babel-load-languages '((latex . t))))
 
 (use-package htmlize
-  :defer t)
+  :disabled t)
 
 (use-package pug-mode
   :mode (("\\.pug\\'" . pug-mode))
