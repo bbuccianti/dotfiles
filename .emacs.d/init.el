@@ -135,18 +135,18 @@
 (use-package gnus
   :straight nil
   :commands gnus
-  :hook (gnus-group-mode . gnus-topic-mode)
   :config
   (setq gnus-select-method '(nntp "news.gmane.io")))
 
 (use-package mu4e
   :straight nil
-  :load-path "/usr/share/emacs/site-lisp/mu4e"
+  :load-path "~/src/github/djcb/mu/mu4e"
   :commands mu4e
   :custom
   (mu4e-maildir "~/.mail")
   (mu4e-get-mail-command "mbsync -a")
   (mu4e-view-show-addresses t)
+  (mu4e-user-mail-address-list '("benjamin@buccianti.dev"))
   (fill-column 72)
   (mail-user-agent 'message-user-agent)
   (smtpmail-default-smtp-server "mail.buccianti.dev")
