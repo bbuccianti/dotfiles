@@ -200,7 +200,7 @@
   :mode (("\\.php\\'" . php-mode)))
 
 (use-package sass-mode
-  :disabled t)
+  :disabled)
 
 (use-package expand-region
   :commands er/expand-region)
@@ -270,19 +270,19 @@
 				     (search . " %i %-12:c"))))
 
 (use-package ox-reveal
-  :disabled t
+  :disabled
   :custom (org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js@3.8.0"))
 
 (use-package ox-latex
   :straight nil
-  :disabled t
+  :disabled
   :custom
   (org-latex-create-formula-image-program 'dvipng)
   :config
   (org-babel-do-load-languages 'org-babel-load-languages '((latex . t))))
 
 (use-package htmlize
-  :disabled t)
+  :disabled)
 
 (use-package pug-mode
   :mode (("\\.pug\\'" . pug-mode))
