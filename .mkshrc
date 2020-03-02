@@ -1,5 +1,5 @@
 export PATH=~/bin:$PATH
-export PS1="\$(pwd) \$ "
+export PS1="\$(pwd | sed 's,^$HOME,~,') \$ "
 
 # Aliases for package management
 alias xi='doas xbps-install -S'
