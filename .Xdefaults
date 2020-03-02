@@ -4,8 +4,6 @@ emacs.verticalScrollBars: false
 emacs.menuBar: false
 emacs.scrollBar: false
 emacs.toolBar: false
-!!emacs.FontBackend: xft
-!!emacs.background: #263238
 
 Xft.autohint: 1
 Xft.antialias: 1

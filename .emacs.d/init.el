@@ -37,7 +37,7 @@
 
 (setq file-name-handler-alist nil
       auto-window-vscroll nil
-      default-frame-alist '((font . "Hack-10"))
+      initial-frame-alist '((font . "Hack-10"))
       backup-directory-alist '(("." . "~/.emacs.d/backups"))
       bidi-display-reordering nil
       inhibit-startup-screen t
