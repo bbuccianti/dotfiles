@@ -135,6 +135,7 @@
 
 (use-package gnus
   :straight nil
+  :disabled
   :commands gnus
   :config
   (setq gnus-select-method '(nntp "news.gmane.io")))
