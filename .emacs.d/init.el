@@ -90,6 +90,7 @@
   :init (load-theme 'gruvbox-dark-hard t))
 
 (use-package battery
+  :disabled
   :config (display-battery-mode))
 
 (use-package ido
