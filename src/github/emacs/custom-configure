@@ -1,0 +1,11 @@
+#!/bin/sh
+
+./configure --with-sound=no \
+	    --with-x-toolkit=lucid \
+	    --with-cairo \
+	    --with-xft \
+	    --with-harfbuzz \
+	    --with-libotf \
+	    --with-m17n-flt \
+	    --without-toolkit-scroll-bars \
+	    --with-gnutls=ifavailable
