@@ -33,9 +33,8 @@
       tooltip-use-echo-area t
       use-dialog-box nil
       visible-cursor nil
-      browse-url-browser-function 'browse-url-firefox)
-
-(setq file-name-handler-alist nil
+      browse-url-browser-function 'browse-url-firefox
+      file-name-handler-alist nil
       auto-window-vscroll nil
       initial-frame-alist '((font . "Hack-10"))
       backup-directory-alist '(("." . "~/.emacs.d/backups"))
@@ -47,6 +46,7 @@
       frame-inhibit-implied-resize t
       create-lockfiles nil
       auto-save-default nil
+      vc-follow-symlinks t
       epg-gpg-program "gpg2"
       inferior-lisp-program "/usr/bin/sbcl"
       explicit-shell-file-name "/bin/sh")

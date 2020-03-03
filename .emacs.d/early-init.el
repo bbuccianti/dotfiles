@@ -12,7 +12,8 @@
       horizontal-scroll-bar-mode nil
       line-number-mode nil
       column-number-mode nil
-      frame-inhibit-implied-resize t)
+      frame-inhibit-implied-resize t
+      site-run-file nil)
 
 (advice-add #'package--ensure-init-file :override #'ignore)
 (advice-add #'x-apply-session-resources :override #'ignore)
