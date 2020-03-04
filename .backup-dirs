@@ -1,0 +1,14 @@
+.ssh
+.gnupg
+.cert
+.secrets
+.config
+downloads
+inspt
+org
+facturas
+projects
+work
+wallpapers
+ctf
+cron
