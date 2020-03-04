@@ -83,7 +83,7 @@
 (straight-use-package 'use-package)
 
 (use-package exec-path-from-shell
-  :disabled
+  :after (:any eshell shell)
   :config (exec-path-from-shell-initialize))
 
 (use-package gruvbox-theme

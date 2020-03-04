@@ -1,6 +1,3 @@
-export PATH=~/bin:$PATH
-export PS1=$'\1\e[34m\1$(echo $PWD | sed "s,^$HOME,~,")\1\e[32m\1 $ \e[0m'
-
 # Aliases for package management
 alias xi='doas xbps-install -S'
 alias xu='doas xbps-install -Syuv'
