@@ -248,27 +248,25 @@
   :straight nil
   :mode (("\\.org\\'" . org-mode))
   :hook (org-mode . auto-fill-mode)
-  :config
-  (setq org-startup-indented t
-	org-startup-truncated nil
-	org-agenda-window-setup 'current-window
-	org-agenda-start-on-weekday nil
-	org-agenda-compact-blocks t
-	org-modules '(org-habit ol-info ol-mhe ol-rmail org-velocity)
-	org-hide-leading-stars t
-	org-latex-toc-command "\\tableofcontents \\clearpage"
-	org-export-async-init-file "~/.emacs.d/org-init.el"
-	org-src-preserve-indentation t
-	org-agenda-files '("~/org/projects.org" "~/org/habits.org")
-	org-default-notes-file "~/org/inbox.org"
-	org-refile-targets '(("~/org/projects.org" :maxlevel . 1))
-	org-capture-templates '(("t" "Todo"
-				   entry (file "~/org/inbox.org")
-				   "* TODO %?\n %u\n"))
-	org-agenda-prefix-format '((agenda . " %i %-12:c%?-12t% s")
-				     (todo . " %i %-12:c %b")
-				     (tags . " %i %-12:c")
-				     (search . " %i %-12:c"))))
+  :custom
+  (org-startup-indented t)
+  (org-startup-truncated nil)
+  (org-agenda-window-setup 'current-window)
+  (org-agenda-start-on-weekday nil)
+  (org-agenda-compact-blocks t)
+  (org-modules '(org-habit ol-info ol-mhe ol-rmail org-velocity))
+  (org-hide-leading-stars t)
+  (org-latex-toc-command "\\tableofcontents \\clearpage")
+  (org-export-async-init-file "~/.emacs.d/org-init.el")
+  (org-src-preserve-indentation t)
+  (org-default-notes-file "~/org/inbox.org")
+  (org-capture-templates '(("t" "Todo"
+			    entry (file "~/org/inbox.org")
+			    "* TODO %?\n %u\n")))
+  (org-agenda-prefix-format '((agenda . " %i %-12:c%?-12t% s")
+			      (todo . " %i %-12:c %b")
+			      (tags . " %i %-12:c")
+			      (search . " %i %-12:c"))))
 
 (use-package ox-reveal
   :disabled
