@@ -8,5 +8,3 @@ if test -z "${XDG_RUNTIME_DIR}"; then
   fi
 fi
 
-export PATH=~/bin:$PATH
-export PS1=$'\1\e[34m\1$(echo $PWD | sed "s,^$HOME,~,")\1\e[32m\1 $ \e[0m'
