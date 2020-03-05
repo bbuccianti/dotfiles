@@ -49,7 +49,7 @@
       vc-follow-symlinks t
       epg-gpg-program "gpg2"
       inferior-lisp-program "/usr/bin/sbcl"
-      explicit-shell-file-name "/bin/sh")
+      explicit-shell-file-name "/bin/mksh")
 
 (fset 'yes-or-no-p 'y-or-n-p)
 (put 'upcase-region 'disabled nil)
@@ -84,7 +84,8 @@
 
 (use-package exec-path-from-shell
   :after (:any eshell shell)
-  :config (exec-path-from-shell-initialize))
+  :config (exec-path-from-shell-initialize)
+  :custom (exec-path-from-shell-check-startup-files nil))
 
 (use-package gruvbox-theme
   :init (load-theme 'gruvbox-dark-hard t))
@@ -241,8 +242,7 @@
 (use-package magit
   :commands (magit-status magit-list-repositories)
   :custom
-  (magit-repository-directories '(("/home/benja/work" . 2)
-				  ("/home/benja/src" . 3))))
+  (magit-repository-directories '(("~/work" . 2) ("~/src" . 3))))
 
 (use-package org
   :straight nil
