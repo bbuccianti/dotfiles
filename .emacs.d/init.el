@@ -100,7 +100,7 @@
   (ido-mode 1)
   (ido-everywhere 1)
   :custom
-  (qido-enable-flex-matching t)
+  (ido-enable-flex-matching t)
   (ido-enable-prefix nil)
   (ido-auto-merge-work-directories-length -1)
   (ido-create-new-buffer 'always)
@@ -117,6 +117,11 @@
   (ido-vertical-mode 1)
   :custom
   (ido-vertical-define-keys 'C-n-and-C-p-only))
+
+(use-package fzf
+  :commands fzf
+  :custom
+  (fzf/args "-x --ansi --color 16 --print-query"))
 
 (use-package amx
   :commands amx
@@ -316,11 +321,12 @@
 	("C-. i" . imenu)
 	("C-. C-i" . company-complete)
 	("C-. @" . mu4e)
-	("C-. p" . project-find-file)
+	("C-. p" . fzf-git-files)
 	("C-. /" . project-find-regexp)
 	("C-. n" . noccur-project)
 	("C-. C-r" . recompile)
 	("C-. r" . compile)
+	("C-. f" . fzf)
 	("C-. y" . ido-kill-ring)
 	("C-. m" . monroe)
 	("C-. g" . magit-list-repositories)
