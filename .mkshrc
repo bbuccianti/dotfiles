@@ -13,6 +13,10 @@ VISUAL="emacs"
 EDITOR=$"VISUAL"
 set -o emacs
 
+# Useful
+PAGER=less
+BEMENU_BACKEND=wayland
+
 # Aliases for package management
 alias xi='doas xbps-install -S'
 alias xu='doas xbps-install -Syuv'
