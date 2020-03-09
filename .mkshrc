@@ -1,7 +1,17 @@
 # Prompt
 PS1=$'\1\e[34m\1$(echo $PWD | sed "s,^$HOME,~,")\1\e[32m\1 $ \e[0m'
 
+# History file
+HISTFILE="$HOME/.mkshistory"
+HISTSIZE=10000
+
+# PATH
 PATH=~/bin:$PATH
+
+# Editor
+VISUAL="emacs"
+EDITOR=$"VISUAL"
+set -o emacs
 
 # Aliases for package management
 alias xi='doas xbps-install -S'
