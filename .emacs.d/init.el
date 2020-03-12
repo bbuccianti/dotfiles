@@ -136,7 +136,7 @@
   (setq dired-recursive-copies 'always
 	dired-recursive-deletes 'top
 	dired-use-ls-dired nil
-	dired-listing-switches "-lha1v --group-directories-f")
+	dired-listing-switches "-lha1v --group-directories-first")
   (put 'dired-find-alternate-file 'disabled nil))
 
 (use-package gnus
@@ -259,7 +259,7 @@
   (org-agenda-window-setup 'current-window)
   (org-agenda-start-on-weekday nil)
   (org-agenda-compact-blocks t)
-  (org-modules '(org-habit ol-info ol-mhe ol-rmail org-velocity))
+  (org-modules '(org-habit ol-info ol-mhe ol-rmail))
   (org-hide-leading-stars t)
   (org-latex-toc-command "\\tableofcontents \\clearpage")
   (org-export-async-init-file "~/.emacs.d/org-init.el")
@@ -321,7 +321,7 @@
 	("C-. i" . imenu)
 	("C-. C-i" . company-complete)
 	("C-. @" . mu4e)
-	("C-. p" . fzf-git-files)
+	("C-. p" . project-find-file)
 	("C-. /" . project-find-regexp)
 	("C-. n" . noccur-project)
 	("C-. C-r" . recompile)
