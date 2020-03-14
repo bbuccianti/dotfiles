@@ -1,3 +1,6 @@
 #!/bin/sh
 
-date +%e/%m\ %H:%M
+DATE=$(date +%e/%m\ %H:%M)
+MAILS=$(mu find flag:unread | wc -l)
+
+echo "$MAILS emails | $DATE"
