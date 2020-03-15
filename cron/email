@@ -1,4 +1,5 @@
 #!/bin/sh
 
-# reindex all emails using mu
-mbsync -a && mu index
+/bin/mbsync -a
+/usr/local/bin/mu index
+
