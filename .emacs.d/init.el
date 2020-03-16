@@ -288,6 +288,9 @@
 (use-package htmlize
   :disabled)
 
+(use-package markdown-mode
+  :mode (("\\.md\\'" . markdown-mode)))
+
 (use-package pug-mode
   :mode (("\\.pug\\'" . pug-mode))
   :hook (pug-mode . (lambda () (setq indent-tabs-mode nil)))
