@@ -27,13 +27,11 @@ alias xq='xbps-query -Rs'
 # Bindings
 bind '^L'='clear-screen'
 
-# Functions
-function fd {
-    dir=$(find ${1:-.} -path '*/\.*' -prune -o -type d -print \
-	       2> /dev/null | fzf +m) &&
-    cd $dir
-}
+# Source fzf-mksh
+source ~/src/github/seanlaguna/fzf-mksh/key-bindings.mksh
 
+# Functions
 function help {
+    # Get a cheat sheet of examples
     curl cht.sh/$1
 }
