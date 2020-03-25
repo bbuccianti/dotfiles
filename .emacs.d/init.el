@@ -248,6 +248,15 @@
 (use-package lua-mode
   :mode (("\\.lua\\'" . lua-mode)))
 
+(use-package ansi-color
+  :straight nil
+  :hook
+  (compilation-filter
+   . (lambda ()
+       (toggle-read-only)
+       (ansi-color-apply-on-region compilation-filter-start (point))
+       (toggle-read-only))))
+
 (use-package magit
   :commands (magit-status magit-list-repositories)
   :custom
