@@ -232,6 +232,10 @@
   (clojure-mode . clojure-enable-monroe)
   (monroe-mode . enable-paredit-mode))
 
+(use-package haskell-mode
+  :mode (("\\.hs\\'" . haskell-mode))
+  :hook (haskell-mode . interactive-haskell-mode))
+
 (use-package go-mode
   :mode (("\\.go\\'" . go-mode))
   :hook
