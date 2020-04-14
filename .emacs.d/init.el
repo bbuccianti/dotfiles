@@ -33,7 +33,7 @@
       tooltip-use-echo-area t
       use-dialog-box nil
       visible-cursor nil
-      browse-url-browser-function 'browse-url-firefox
+      browse-url-browser-function 'browse-url-chromium
       file-name-handler-alist nil
       auto-window-vscroll nil
       initial-frame-alist '((font . "Hack-10"))
