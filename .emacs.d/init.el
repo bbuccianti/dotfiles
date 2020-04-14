@@ -19,7 +19,7 @@
   (load bootstrap-file nil 'nomessage))
 
 (setq custom-file "~/.emacs.d/custom.el")
-;; (load custom-file 'noerror)
+(load custom-file 'noerror)
 
 (setq user-full-name "Benjamín Buccianti"
       user-mail-address "benjamin@buccianti.dev"
@@ -87,8 +87,8 @@
   :config (exec-path-from-shell-initialize)
   :custom (exec-path-from-shell-check-startup-files nil))
 
-(use-package gruvbox-theme
-  :init (load-theme 'gruvbox-dark-hard t))
+(use-package one-themes
+  :init (load-theme 'one-dark t))
 
 (use-package battery
   :disabled
@@ -224,7 +224,8 @@
 (use-package clojure-mode
   :mode (("\\.clj\\[s\\*\\'" . clojure-mode))
   :config
-  (put-clojure-indent 'match 1))
+  (put-clojure-indent 'match 1)
+  (put-clojure-indent 'fn-traced 1))
 
 (use-package monroe
   :commands monroe
@@ -315,7 +316,8 @@
   (global-hl-line-mode)
   (windmove-default-keybindings)
   (global-unset-key "\C-z")
-  (dolist (folder '("node_modules" "target" "out" ".cljs_node_repl"))
+  (dolist (folder '("node_modules" "target" "out"
+		    ".cljs_node_repl" ".shadow-cljs"))
     (add-to-list 'vc-directory-exclusion-list folder))
   :custom
   (search-whitespace-regexp ".*")
@@ -337,7 +339,7 @@
 	("C-. i" . imenu)
 	("C-. C-i" . company-complete)
 	("C-. @" . mu4e)
-	("C-. p" . project-find-file)
+	("C-. p" . fzf-git-files)
 	("C-. /" . project-find-regexp)
 	("C-. n" . noccur-project)
 	("C-. C-r" . recompile)
