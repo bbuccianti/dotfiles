@@ -87,8 +87,9 @@
   :config (exec-path-from-shell-initialize)
   :custom (exec-path-from-shell-check-startup-files nil))
 
-(use-package one-themes
-  :init (load-theme 'one-dark t))
+(use-package spacemacs-theme
+  :defer t
+  :init (load-theme 'spacemacs-dark t))
 
 (use-package battery
   :disabled
@@ -272,20 +273,34 @@
   (org-startup-truncated nil)
   (org-agenda-window-setup 'current-window)
   (org-agenda-start-on-weekday nil)
-  (org-agenda-compact-blocks t)
-  (org-modules '(org-habit ol-info ol-mhe ol-rmail))
+  (org-agenda-compact-blocks nil)
+  (org-modules '(ol-info ol-mhe ol-rmail))
   (org-hide-leading-stars t)
   (org-latex-toc-command "\\tableofcontents \\clearpage")
   (org-export-async-init-file "~/.emacs.d/org-init.el")
   (org-src-preserve-indentation t)
   (org-default-notes-file "~/org/inbox.org")
+  (org-refile-use-outline-path t)
+  (org-outline-path-complete-in-steps nil)
+  (org-completion-use-ido t)
+  (org-refile-targets '((nil :maxlevel . 9)
+			(org-agenda-files :maxlevel . 9)))
   (org-capture-templates '(("t" "Todo"
 			    entry (file "~/org/inbox.org")
 			    "* TODO %?\n %u\n")))
   (org-agenda-prefix-format '((agenda . " %i %-12:c%?-12t% s")
-			      (todo . " %i %-12:c %b")
-			      (tags . " %i %-12:c")
-			      (search . " %i %-12:c"))))
+			      (todo . "%T: ")
+			      (tags . "%l")
+			      (search . " %i %-12:c")))
+  (org-todo-keywords (quote ((sequence "TODO(t)" "NEXT(n)" "DONE(d)"))))
+  (org-todo-keyword-faces '(("TODO" :foreground "red" :weight bold)
+			    ("NEXT" :foreground "deep sky blue" :weight bold)
+			    ("DONE" :foreground "forest green" :weight bold)))
+  (org-agenda-files '("~/org/inbox.org"
+		      "~/inspt/sistemas-computacion-2/final/todo.org"
+		      "~/src/sourcehut/bbuccianti/lambda/todo.org"
+		      "~/src/sourcehut/bbuccianti/fp/todo.org"
+		      "~/src/sourcehut/bbuccianti/buccianti.dev/todo.org")))
 
 (use-package ox-reveal
   :disabled
