@@ -283,6 +283,8 @@
   (org-refile-use-outline-path t)
   (org-outline-path-complete-in-steps nil)
   (org-completion-use-ido t)
+  (org-log-done "note")
+  (org-blank-before-new-entry '((heading . t) (plain-list-item . auto)))
   (org-refile-targets '((nil :maxlevel . 9)
 			(org-agenda-files :maxlevel . 9)))
   (org-capture-templates '(("t" "Todo"
@@ -292,6 +294,14 @@
 			      (todo . "%T: ")
 			      (tags . "%l")
 			      (search . " %i %-12:c")))
+  (org-agenda-custom-commands
+   '(("d" "Day plan" ((agenda "" ((org-agenda-span 'day)))
+		      (todo "NEXT"
+			    ((org-agenda-sorting-strategy '(priority-down))
+			     (org-agenda-overriding-header "Next actions")))))
+     ("w" "Week view" ((agenda "" ((org-agenda-span 'week)))
+		       (stuck "")))))
+  (org-stuck-projects '("+LEVEL>=1/-DONE" ("NEXT") nil "SCHEDULED:"))
   (org-todo-keywords (quote ((sequence "TODO(t)" "NEXT(n)" "DONE(d)"))))
   (org-todo-keyword-faces '(("TODO" :foreground "red" :weight bold)
 			    ("NEXT" :foreground "deep sky blue" :weight bold)
