@@ -155,6 +155,7 @@
   (mu4e-maildir "~/.mail")
   (mu4e-get-mail-command "mbsync -a")
   (mu4e-view-show-addresses t)
+  (mu4e-confirm-quit nil)
   (fill-column 72)
   (mail-user-agent 'message-user-agent)
   (smtpmail-default-smtp-server "mail.buccianti.dev")
