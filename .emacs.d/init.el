@@ -155,7 +155,6 @@
   (mu4e-maildir "~/.mail")
   (mu4e-get-mail-command "mbsync -a")
   (mu4e-view-show-addresses t)
-  (mu4e-user-mail-address-list '("benjamin@buccianti.dev"))
   (fill-column 72)
   (mail-user-agent 'message-user-agent)
   (smtpmail-default-smtp-server "mail.buccianti.dev")
@@ -284,29 +283,42 @@
   (org-outline-path-complete-in-steps nil)
   (org-completion-use-ido t)
   (org-log-done "note")
+  (org-agenda-skip-deadline-if-done t)
+  (org-agenda-skip-scheduled-if-deadline-is-shown t)
+  (org-agenda-skip-scheduled-if-done t)
+  (org-agenda-skip-unavailable-files t)
+  (org-fast-tag-selection-single-key 'expert)
   (org-blank-before-new-entry '((heading . t) (plain-list-item . auto)))
   (org-refile-targets '((nil :maxlevel . 9)
 			(org-agenda-files :maxlevel . 9)))
   (org-capture-templates '(("t" "Todo"
 			    entry (file "~/org/inbox.org")
-			    "* TODO %?\n %u\n")))
+			    "* TODO %?\n %u\n")
+			   ("n" "Note"
+			    entry (file "~/org/notes.org")
+			    "* NOTE %?")))
   (org-agenda-prefix-format '((agenda . " %i %-12:c%?-12t% s")
 			      (todo . "%T: ")
 			      (tags . "%l")
 			      (search . " %i %-12:c")))
   (org-agenda-custom-commands
-   '(("d" "Day plan" ((agenda "" ((org-agenda-span 'day)))
-		      (todo "NEXT"
-			    ((org-agenda-sorting-strategy '(priority-down))
-			     (org-agenda-overriding-header "Next actions")))))
-     ("w" "Week view" ((agenda "" ((org-agenda-span 'week)))
-		       (stuck "")))))
-  (org-stuck-projects '("+LEVEL>=1/-DONE" ("NEXT") nil "SCHEDULED:"))
-  (org-todo-keywords (quote ((sequence "TODO(t)" "NEXT(n)" "DONE(d)"))))
-  (org-todo-keyword-faces '(("TODO" :foreground "red" :weight bold)
+   '(("d" "Day plan"
+      ((agenda "" ((org-agenda-span 'day)))
+       (todo "NEXT"
+	     ((org-agenda-sorting-strategy '(priority-down))
+	      (org-agenda-overriding-header "Next actions")
+	      (org-agenda-skip-function '(org-agenda-skip-entry-if
+					  'deadline 'scheduled))))))
+     ("w" "Week view"
+      ((agenda "" ((org-agenda-span 'week)))
+       (stuck "" ((org-agenda-overriding-header "Projects without next action")))))))
+  (org-stuck-projects '("+LEVEL=1/-DONE" ("NEXT") ("") ""))
+  (org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)" "CANCELED(c)")))
+  (org-todo-keyword-faces '(("TODO" :foreground "gold" :weight bold)
 			    ("NEXT" :foreground "deep sky blue" :weight bold)
-			    ("DONE" :foreground "forest green" :weight bold)))
-  (org-agenda-files '("~/org/inbox.org"
+			    ("DONE" :foreground "forest green" :weight bold)
+			    ("CANCELED" :foreground "red" :weight bold)))
+  (org-agenda-files '("~/org"
 		      "~/inspt/sistemas-computacion-2/final/todo.org"
 		      "~/src/sourcehut/bbuccianti/lambda/todo.org"
 		      "~/src/sourcehut/bbuccianti/fp/todo.org"
