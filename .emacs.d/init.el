@@ -289,7 +289,7 @@
   (org-agenda-skip-scheduled-if-done t)
   (org-agenda-skip-unavailable-files t)
   (org-fast-tag-selection-single-key 'expert)
-  (org-blank-before-new-entry '((heading . t) (plain-list-item . auto)))
+  (org-blank-before-new-entry '((heading . auto) (plain-list-item . auto)))
   (org-refile-targets '((nil :maxlevel . 9)
 			(org-agenda-files :maxlevel . 9)))
   (org-capture-templates '(("t" "Todo"
@@ -299,8 +299,8 @@
 			    entry (file "~/org/notes.org")
 			    "* NOTE %?")))
   (org-agenda-prefix-format '((agenda . " %i %-12:c%?-12t% s")
-			      (todo . "%T: ")
-			      (tags . "%l")
+			      (todo . "%-10:c")
+			      (tags . "")
 			      (search . " %i %-12:c")))
   (org-agenda-custom-commands
    '(("d" "Day plan"
@@ -314,16 +314,14 @@
       ((agenda "" ((org-agenda-span 'week)))
        (stuck "" ((org-agenda-overriding-header "Projects without next action")))))))
   (org-stuck-projects '("+LEVEL=1/-DONE" ("NEXT") ("") ""))
-  (org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)" "CANCELED(c)")))
+  (org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)" "CANCELLED(c)")))
   (org-todo-keyword-faces '(("TODO" :foreground "gold" :weight bold)
 			    ("NEXT" :foreground "deep sky blue" :weight bold)
 			    ("DONE" :foreground "forest green" :weight bold)
-			    ("CANCELED" :foreground "red" :weight bold)))
-  (org-agenda-files '("~/org"
-		      "~/inspt/sistemas-computacion-2/final/todo.org"
-		      "~/src/sourcehut/bbuccianti/lambda/todo.org"
-		      "~/src/sourcehut/bbuccianti/fp/todo.org"
-		      "~/src/sourcehut/bbuccianti/buccianti.dev/todo.org")))
+			    ("CANCELLED" :foreground "red" :weight bold)))
+  (org-agenda-files '("~/org/projects.org"
+		      "~/org/tasks.org"
+		      "~/org/inbox.org")))
 
 (use-package ox-reveal
   :disabled
