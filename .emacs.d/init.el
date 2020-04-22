@@ -77,36 +77,6 @@
    (list (ido-completing-read "Kill-ring: " kill-ring)))
   (insert choice))
 
-(defun org-current-is-todo ()
-  (member (org-get-todo-state) '("TODO")))
-
-(defun my-org-agenda-should-skip-p ()
-  "Skip all but the first non-done entry."
-  (let (should-skip-entry)
-    (unless (org-current-is-todo)
-      (setq should-skip-entry t))
-    (when (or (org-get-scheduled-time (point))
-              (org-get-deadline-time (point)))
-      (setq should-skip-entry t))
-    (when (/= (point)
-              (save-excursion
-                (org-goto-first-child)
-                (point)))
-      (setq should-skip-entry t))
-    (save-excursion
-      (while (and (not should-skip-entry) (org-goto-sibling t))
-        (when (and (org-current-is-todo)
-                   (not (org-get-scheduled-time (point)))
-                   (not (org-get-deadline-time (point))))
-          (setq should-skip-entry t))))
-    should-skip-entry))
-
-(defun my-org-agenda-skip-all-siblings-but-first ()
-  "Skip all but the first non-done entry."
-  (when (my-org-agenda-should-skip-p)
-    (or (outline-next-heading)
-        (goto-char (point-max)))))
-
 ;; packages
 
 ;; (setq use-package-verbose t)
@@ -324,37 +294,37 @@
 			(org-agenda-files :maxlevel . 9)))
   (org-capture-templates '(("t" "Todo"
 			    entry (file+headline "~/org/projects.org" "Inbox")
-			    "* TODO %?\n:PROPERTIES:\n:CREATED: %U\n:END:")
+			    "* TODO %? :inbox:\n:PROPERTIES:\n:CREATED: %U\n:END:")
 			   ("n" "Note"
 			    entry (file "~/org/notes.org")
 			    "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:")))
   (org-agenda-prefix-format '((agenda . " %i %-12:c%?-12t% s")
-			      (todo . "" )
-			      (tags . "")
+			      (todo . "%l" )
+			      (tags . "%l")
 			      (search . " %i %-12:c")))
   (org-agenda-custom-commands
-   '(("a" "Priority #A tasks" agenda ""
-      ((org-agenda-span 'day)
-       (org-agenda-overriding-header "Today's prioriy #A tasks: ")
-       (org-agenda-skip-function
-	(quote (org-agenda-skip-entry-if
-		(quote notregexp) "\\=.*\\[#A\\]")))))
-     ("b" "Prioriy #A and #B tasks: " agenda ""
-      ((org-agenda-span 'day)
-       (org-agenda-overriding-header "Today's priority #A and #B tasks: ")
-       (org-agenda-skip-function
-	(quote (org-agenda-skip-entry-if
-		(quote regexp)
-		"\\=.*\\[#C\\]")))))
-     ("n" "Next actions" alltodo ""
-      ((org-agenda-overriding-header "Project Next Actions")
-       (org-agenda-skip-function
-	#'my-org-agenda-skip-all-siblings-but-first)))
-     ("i" "Inbox" tags-todo "inbox")
+   '(("d" "Today tasks"
+      ((agenda "" ((org-agenda-span 'day)))
+       (org-ql-block '(and (todo "TODO")
+			   (priority "A")
+			   (scheduled :on today))
+		     ((org-ql-block-header "Today's priority A tasks\n")))
+       (org-ql-block '(and (todo "TODO")
+			   (priority "B")
+			   (scheduled :on today))
+		     ((org-ql-block-header "Today's priority B tasks\n")))
+       (org-ql-block '(and (todo "TODO")
+			   (priority "C")
+			   (scheduled :on today))
+		     ((org-ql-block-header "Today's priority C tasks\n")))))
      ("w" "Week planning"
       ((agenda "" ((org-agenda-span 'week)))
-       (alltodo "" ((org-agenda-skip-function
-		     '(org-agenda-skip-entry-if 'scheduled 'deadline))))))))
+       (org-ql-block '(tags "inbox")
+		     ((org-ql-block-header "Inbox\n")))
+       (org-ql-block '(and (todo)
+			   (not (scheduled))
+			   (not (deadline)))
+		     ((org-ql-block-header "All projects tasks\n")))))))
   (org-stuck-projects '("TODO=PROJECT" ("TODO") nil ""))
   (org-todo-keywords '((sequence "TODO(t)" "PROJECT(p)" "|"
 				 "DONE(d)" "CANCELLED(c)")))
@@ -362,6 +332,9 @@
 			    ("DONE" :foreground "forest green" :weight bold)
 			    ("CANCELLED" :foreground "red" :weight bold)))
   (org-agenda-files '("~/org/projects.org" "~/org/notes.org")))
+
+(use-package org-ql
+  :defer t)
 
 (use-package ox-reveal
   :disabled
