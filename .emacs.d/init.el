@@ -92,10 +92,32 @@
   :init (load-theme 'spacemacs-dark t))
 
 (use-package battery
-  :disabled
+  :defer t
   :config (display-battery-mode))
 
+(use-package selectrum
+  :init (selectrum-mode t))
+
+(use-package prescient
+  :defer t
+  :config (prescient-persist-mode t))
+
+(use-package selectrum-prescient
+  :after selectrum
+  :config (selectrum-prescient-mode t))
+
+(use-package ivy
+  :disabled
+  :init (ivy-mode 1)
+  :custom
+  (ivy-use-virtual-buffers t)
+  (ivy-height 15)
+  (enable-recursive-minibuffers t)
+  (ivy-display-style 'fancy)
+  (ivy-count-format "(%d/%d) "))
+
 (use-package ido
+  :disabled
   :straight nil
   :config
   (ido-mode 1)
@@ -108,11 +130,13 @@
   (ido-use-filename-at-point nil))
 
 (use-package ido-completing-read+
+  :disabled
   :after ido
   :config
   (ido-ubiquitous-mode 1))
 
 (use-package ido-vertical-mode
+  :disabled
   :after ido
   :config
   (ido-vertical-mode 1)
@@ -127,7 +151,7 @@
 (use-package amx
   :commands amx
   :custom
-  (amx-show-key-bindings nil))
+  (amx-show-key-bindings t))
 
 (use-package dired
   :straight nil
@@ -197,6 +221,7 @@
   :mode (("\\.epub\\'" . nov-mode)))
 
 (use-package company
+  :defer t
   :commands company-complete
   :hook (prog-mode . company-mode)
   :bind (:map company-active-map (("C-n" . company-select-next)
@@ -252,6 +277,7 @@
 
 (use-package ansi-color
   :straight nil
+  :defer t
   :hook
   (compilation-filter
    . (lambda ()
@@ -279,10 +305,10 @@
   (org-latex-toc-command "\\tableofcontents \\clearpage")
   (org-export-async-init-file "~/.emacs.d/org-init.el")
   (org-src-preserve-indentation t)
-  (org-default-notes-file "~/org/inbox.org")
+  (org-default-notes-file "~/org/notes.org")
   (org-refile-use-outline-path t)
   (org-outline-path-complete-in-steps nil)
-  (org-completion-use-ido t)
+  (org-completion-use-ido nil)
   (org-log-done "note")
   (org-agenda-skip-deadline-if-done t)
   (org-agenda-skip-scheduled-if-deadline-is-shown t)
@@ -294,7 +320,7 @@
 			(org-agenda-files :maxlevel . 9)))
   (org-capture-templates '(("t" "Todo"
 			    entry (file+headline "~/org/projects.org" "Inbox")
-			    "* TODO %? :inbox:\n:PROPERTIES:\n:CREATED: %U\n:END:")
+			    "* TODO %?\n:PROPERTIES:\n:CREATED: %U\n:END:")
 			   ("n" "Note"
 			    entry (file "~/org/notes.org")
 			    "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:")))
@@ -308,30 +334,39 @@
        (org-ql-block '(and (todo "TODO")
 			   (priority "A")
 			   (scheduled :on today))
-		     ((org-ql-block-header "Today's priority A tasks\n")))
+		     ((org-ql-block-header "Today's priority A tasks")))
        (org-ql-block '(and (todo "TODO")
 			   (priority "B")
 			   (scheduled :on today))
-		     ((org-ql-block-header "Today's priority B tasks\n")))
+		     ((org-ql-block-header "Today's priority B tasks")))
        (org-ql-block '(and (todo "TODO")
 			   (priority "C")
 			   (scheduled :on today))
-		     ((org-ql-block-header "Today's priority C tasks\n")))))
+		     ((org-ql-block-header "Today's priority C tasks")))))
      ("w" "Week planning"
       ((agenda "" ((org-agenda-span 'week)))
-       (org-ql-block '(tags "inbox")
-		     ((org-ql-block-header "Inbox\n")))
        (org-ql-block '(and (todo)
-			   (not (scheduled))
-			   (not (deadline)))
-		     ((org-ql-block-header "All projects tasks\n")))))))
+			   (tags "inbox"))
+		     ((org-ql-block-header "Inbox")))
+       (org-ql-block '(and (or (todo "PROJECT") (todo "TODO"))
+			   (not (tags "notes"))
+			   (not (descendants (todo "NEXT")))
+			   (not (or (scheduled) (deadline))))
+		     ((org-ql-block-header "Stuck projects")))))
+     ("u" "Study time!"
+      ((agenda "" ((org-agenda-span 'week)))
+       (org-ql-block '(and (tags "notes")
+			   (todo)
+			   (not (or (scheduled) (deadline))))
+		     ((org-ql-block-header "Study time!")))))))
   (org-stuck-projects '("TODO=PROJECT" ("TODO") nil ""))
-  (org-todo-keywords '((sequence "TODO(t)" "PROJECT(p)" "|"
+  (org-todo-keywords '((sequence "TODO(t)" "PROJECT(p)" "NEXT(n)" "|"
 				 "DONE(d)" "CANCELLED(c)")))
   (org-todo-keyword-faces '(("TODO" :foreground "gold" :weight bold)
+			    ("NEXT" :foreground "deep sky blue" :weight bold)
 			    ("DONE" :foreground "forest green" :weight bold)
 			    ("CANCELLED" :foreground "red" :weight bold)))
-  (org-agenda-files '("~/org/projects.org" "~/org/notes.org")))
+  (org-agenda-files '("~/org/")))
 
 (use-package org-ql
   :defer t)

@@ -79,4 +79,9 @@ Bcc:
  '(rainbow-delimiters-depth-6-face ((t (:foreground "#BE5046" :weight bold))))
  '(rainbow-delimiters-depth-7-face ((t (:foreground "#56B6C2" :weight bold))))
  '(rainbow-delimiters-depth-8-face ((t (:foreground "#E5C07B" :weight bold))))
- '(rainbow-delimiters-depth-9-face ((t (:foreground "#61AFEF" :weight bold)))))
+ '(rainbow-delimiters-depth-9-face ((t (:foreground "#61AFEF" :weight bold))))
+ '(selectrum-current-candidate ((t (:background "#222226"
+						:weight bold
+						:foreground "gainsboro"))))
+ '(selectrum-primary-highlight ((t (:foreground "#c56ec3"))))
+ '(selectrum-secondary-highlight ((t (:foreground "#2d9574")))))
