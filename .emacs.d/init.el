@@ -348,9 +348,14 @@
        (org-ql-block '(and (todo)
 			   (tags "inbox"))
 		     ((org-ql-block-header "Inbox")))
-       (org-ql-block '(and (or (todo "PROJECT") (todo "TODO"))
+       (org-ql-block '(and (todo "PROJECT" "NEXT")
+			   (or (descendants (todo "NEXT"))
+			       (todo "NEXT")))
+		     ((org-ql-block-header "Next tasks")))
+       (org-ql-block '(and (todo "PROJECT" "TODO")
 			   (not (tags "notes"))
-			   (not (descendants (todo "NEXT")))
+			   (not (ancestors (children (todo "NEXT"))))
+			   (not (children (todo "NEXT")))
 			   (not (or (scheduled) (deadline))))
 		     ((org-ql-block-header "Stuck projects")))))
      ("u" "Study time!"
@@ -359,8 +364,7 @@
 			   (todo)
 			   (not (or (scheduled) (deadline))))
 		     ((org-ql-block-header "Study time!")))))))
-  (org-stuck-projects '("TODO=PROJECT" ("TODO") nil ""))
-  (org-todo-keywords '((sequence "TODO(t)" "PROJECT(p)" "NEXT(n)" "|"
+  (org-todo-keywords '((sequence "PROJECT(p)" "TODO(t)" "NEXT(n)" "|"
 				 "DONE(d)" "CANCELLED(c)")))
   (org-todo-keyword-faces '(("TODO" :foreground "gold" :weight bold)
 			    ("NEXT" :foreground "deep sky blue" :weight bold)
