@@ -71,10 +71,10 @@
 
 ;; functions
 
-(defun ido-kill-ring (choice)
-  "Uses ido to insert a string from the kill-ring."
+(defun yank-from-kill-ring (choice)
+  "Uses completion-read to insert a string from the kill-ring."
   (interactive
-   (list (ido-completing-read "Kill-ring: " kill-ring)))
+   (list (selectrum-read "Kill-ring: " kill-ring )))
   (insert choice))
 
 ;; packages
@@ -95,8 +95,15 @@
   :defer t
   :config (display-battery-mode))
 
+(use-package orderless
+  :defer t
+  :straight (:host github :repo "oantolin/orderless" :branch "master"))
+
 (use-package selectrum
-  :init (selectrum-mode t))
+  :init (selectrum-mode t)
+  :custom
+  (selectrum-refine-candidates-function #'orderless-filter)
+  (selectrum-highlight-candidates-function #'orderless-highlight-matches))
 
 (use-package prescient
   :defer t
@@ -342,16 +349,16 @@
        (org-ql-block '(and (todo "TODO")
 			   (priority "C")
 			   (scheduled :on today))
-		     ((org-ql-block-header "Today's priority C tasks")))))
+		     ((org-ql-block-header "Today's priority C tasks")))
+       (org-ql-block '(and (todo "PROJECT" "NEXT")
+			   (or (descendants (todo "NEXT"))
+			       (todo "NEXT")))
+		     ((org-ql-block-header "Next tasks")))))
      ("w" "Week planning"
       ((agenda "" ((org-agenda-span 'week)))
        (org-ql-block '(and (todo)
 			   (tags "inbox"))
 		     ((org-ql-block-header "Inbox")))
-       (org-ql-block '(and (todo "PROJECT" "NEXT")
-			   (or (descendants (todo "NEXT"))
-			       (todo "NEXT")))
-		     ((org-ql-block-header "Next tasks")))
        (org-ql-block '(and (todo "PROJECT" "TODO")
 			   (not (tags "notes"))
 			   (not (ancestors (children (todo "NEXT"))))
@@ -433,7 +440,7 @@
 	("C-. C-r" . recompile)
 	("C-. r" . compile)
 	("C-. f" . fzf)
-	("C-. y" . ido-kill-ring)
+	("C-. y" . yank-from-kill-ring)
 	("C-. m" . monroe)
 	("C-. g" . magit-list-repositories)
 	("C-. e" . elfeed)
