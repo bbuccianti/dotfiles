@@ -8,7 +8,7 @@
 	    --with-libotf \
 	    --with-m17n-flt \
 	    --without-lcms2 \
-	    --without-xml2 \
+	    --with-xml2 \
 	    --without-toolkit-scroll-bars \
 	    --with-gnutls=ifavailable \
 	    --with-ns=no \
