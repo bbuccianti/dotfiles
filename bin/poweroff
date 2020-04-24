@@ -1,4 +1,3 @@
 #!/bin/sh
 
-umount -flat nfs,nfs4
-/bin/poweroff
+umount -flat nfs,nfs4 && /bin/poweroff
