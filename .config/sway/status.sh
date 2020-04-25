@@ -5,7 +5,7 @@ MAILS=$(mu find flag:unread | wc -l)
 
 if test "$MAILS" != "0"
 then
-   notify-send.sh --replace-file=/tmp/email_notification "$MAILS new emails"
+    notify-send.sh --replace-file=/tmp/email "$MAILS new emails"
 fi
 
 echo "$MAILS | $DATE"
