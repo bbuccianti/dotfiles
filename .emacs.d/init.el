@@ -95,15 +95,8 @@
   :defer t
   :config (display-battery-mode))
 
-(use-package orderless
-  :defer t
-  :straight (:host github :repo "oantolin/orderless" :branch "master"))
-
 (use-package selectrum
-  :init (selectrum-mode t)
-  :custom
-  (selectrum-refine-candidates-function #'orderless-filter)
-  (selectrum-highlight-candidates-function #'orderless-highlight-matches))
+  :init (selectrum-mode t))
 
 (use-package prescient
   :defer t
@@ -300,7 +293,8 @@
 (use-package org
   :straight nil
   :mode (("\\.org\\'" . org-mode))
-  :hook (org-mode . auto-fill-mode)
+  :hook ((org-mode . org-roam-mode)
+	 (org-mode . auto-fill-mode))
   :custom
   (org-startup-indented t)
   (org-startup-truncated nil)
@@ -383,10 +377,11 @@
   :defer t)
 
 (use-package org-roam
-  :defer t
+  :after org
   :custom
-  (org-roam-directory "~/notes")
+  (org-roam-directory "/home/bbuccianti/notes")
   (org-roam-completion-system 'default)
+  (org-roam-link-title-format "@%s")
   :bind (:map org-roam-mode-map
          (("C-c n l" . org-roam)
           ("C-c n f" . org-roam-find-file)
