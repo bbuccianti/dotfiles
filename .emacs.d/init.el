@@ -290,11 +290,17 @@
   :custom
   (magit-repository-directories '(("~/work" . 2) ("~/src" . 3))))
 
+(use-package deft
+  :commands deft
+  :custom
+  (deft-use-filenam-as-title t)
+  (deft-extensions '("org"))
+  (deft-directory "/home/bbuccianti/notes"))
+
 (use-package org
   :straight nil
   :mode (("\\.org\\'" . org-mode))
-  :hook ((org-mode . org-roam-mode)
-	 (org-mode . auto-fill-mode))
+  :hook (org-mode . auto-fill-mode)
   :custom
   (org-startup-indented t)
   (org-startup-truncated nil)
@@ -306,11 +312,12 @@
   (org-latex-toc-command "\\tableofcontents \\clearpage")
   (org-export-async-init-file "~/.emacs.d/org-init.el")
   (org-src-preserve-indentation t)
-  (org-default-notes-file "~/org/notes.org")
+  (org-default-notes-file "/home/bbuccianti/org/notes.org")
   (org-refile-use-outline-path t)
   (org-outline-path-complete-in-steps nil)
   (org-completion-use-ido nil)
   (org-log-done "note")
+  (org-tags-column -60)
   (org-agenda-skip-deadline-if-done t)
   (org-agenda-skip-scheduled-if-deadline-is-shown t)
   (org-agenda-skip-scheduled-if-done t)
@@ -371,12 +378,17 @@
 			    ("NEXT" :foreground "deep sky blue" :weight bold)
 			    ("DONE" :foreground "forest green" :weight bold)
 			    ("CANCELLED" :foreground "red" :weight bold)))
-  (org-agenda-files '("~/org/")))
+  (org-agenda-files '("/home/bbuccianti/org/"))
+  (org-directory "/home/bbuccianti/notes/"))
+
+(use-package org-sidebar
+  :after org)
 
 (use-package org-ql
-  :defer t)
+  :after org)
 
 (use-package org-roam
+  :disabled
   :after org
   :custom
   (org-roam-directory "/home/bbuccianti/notes")
@@ -454,6 +466,7 @@
 	("C-. e" . elfeed)
 	("C-. c" . org-capture)
 	("C-. a" . org-agenda)
+	("C-. d" . deft)
 	("C-. x" . (lambda () (interactive) (org-latex-export-to-pdf t))))
   (:map ctl-x-map
 	("C-k" . kill-region)
