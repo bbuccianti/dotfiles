@@ -229,8 +229,9 @@
   :config
   (setq company-idle-delay nil))
 
-(use-package php-mode
-  :mode (("\\.php\\'" . php-mode)))
+(use-package web-mode
+  :mode (("\\.php\\'" . web-mode))
+  :hook (web-mode . (lambda () (setq web-mode-markup-indent-offset 2))))
 
 (use-package sass-mode
   :disabled)
