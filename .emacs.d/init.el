@@ -33,7 +33,7 @@
       tooltip-use-echo-area t
       use-dialog-box nil
       visible-cursor nil
-      browse-url-browser-function 'browse-url-chromium
+      browse-url-browser-function 'browse-url-firefox
       file-name-handler-alist nil
       auto-window-vscroll nil
       initial-frame-alist '((font . "Hack-10"))
@@ -291,12 +291,14 @@
   :custom
   (magit-repository-directories '(("~/work" . 2) ("~/src" . 3))))
 
-(use-package deft
-  :commands deft
+(straight-use-package
+ `(notdeft :type git :local-repo "/home/bbuccianti/src/github/hasu/notdeft"))
+
+(use-package notdeft
+  :defer t
   :custom
-  (deft-use-filenam-as-title t)
-  (deft-extensions '("org"))
-  (deft-directory "/home/bbuccianti/notes"))
+  (notdeft-xapian-program "/home/bbuccianti/bin/notdeft-xapian")
+  (notdeft-directories '("/home/bbuccianti/notes")))
 
 (use-package org
   :straight nil
@@ -467,7 +469,7 @@
 	("C-. e" . elfeed)
 	("C-. c" . org-capture)
 	("C-. a" . org-agenda)
-	("C-. d" . deft)
+	("C-. d" . notdeft)
 	("C-. x" . (lambda () (interactive) (org-latex-export-to-pdf t))))
   (:map ctl-x-map
 	("C-k" . kill-region)
