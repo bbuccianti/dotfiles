@@ -106,43 +106,6 @@
   :after selectrum
   :config (selectrum-prescient-mode t))
 
-(use-package ivy
-  :disabled
-  :init (ivy-mode 1)
-  :custom
-  (ivy-use-virtual-buffers t)
-  (ivy-height 15)
-  (enable-recursive-minibuffers t)
-  (ivy-display-style 'fancy)
-  (ivy-count-format "(%d/%d) "))
-
-(use-package ido
-  :disabled
-  :straight nil
-  :config
-  (ido-mode 1)
-  (ido-everywhere 1)
-  :custom
-  (ido-enable-flex-matching t)
-  (ido-enable-prefix nil)
-  (ido-auto-merge-work-directories-length -1)
-  (ido-create-new-buffer 'always)
-  (ido-use-filename-at-point nil))
-
-(use-package ido-completing-read+
-  :disabled
-  :after ido
-  :config
-  (ido-ubiquitous-mode 1))
-
-(use-package ido-vertical-mode
-  :disabled
-  :after ido
-  :config
-  (ido-vertical-mode 1)
-  :custom
-  (ido-vertical-define-keys 'C-n-and-C-p-only))
-
 (use-package fzf
   :commands fzf
   :custom
@@ -232,9 +195,6 @@
 (use-package web-mode
   :mode (("\\.php\\'" . web-mode))
   :hook (web-mode . (lambda () (setq web-mode-markup-indent-offset 2))))
-
-(use-package sass-mode
-  :disabled)
 
 (use-package expand-region
   :commands er/expand-region)
@@ -389,21 +349,6 @@
 
 (use-package org-ql
   :after org)
-
-(use-package org-roam
-  :disabled
-  :after org
-  :custom
-  (org-roam-directory "/home/bbuccianti/notes")
-  (org-roam-completion-system 'default)
-  (org-roam-link-title-format "@%s")
-  :bind (:map org-roam-mode-map
-         (("C-c n l" . org-roam)
-          ("C-c n f" . org-roam-find-file)
-	  ("C-c n b" . org-roam-switch-to-buffer)
-	  ("C-c n g" . org-roam-graph))
-         :map org-mode-map
-         (("C-c n i" . org-roam-insert))))
 
 (use-package ox-reveal
   :disabled
