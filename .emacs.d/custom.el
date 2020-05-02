@@ -9,7 +9,7 @@
  '(custom-safe-themes
    '("4e839b24f87c529e837535d0a7880f40ac3867b6e3e73a2cf2bb40bab53d4658" "fcc707b42f328f7b842941e6a1396089262cfac9f7799176976392efb9a306c8" "ed91d4e59412defda16b551eb705213773531f30eb95b69319ecd142fab118ca" "687e997f50a47c647c5132f0671df27b8a3ff4f18e31210dc53abeaa7ea8cde3" "a67b6cb65db241e033b6aed5eeaf0805a1b62e598cedc605c71d003a1d5c00c6" "c335adbb7d7cb79bc34de77a16e12d28e6b927115b992bccc109fb752a365c72" "b73a23e836b3122637563ad37ae8c7533121c2ac2c8f7c87b381dd7322714cd0" "0dd2666921bd4c651c7f8a724b3416e95228a13fca1aa27dc0022f4e023bf197" default))
  '(elfeed-feeds
-   '("http://planet.clojure.in/atom.xml" "https://planet.emacslife.com/atom.xml" "http://planet.kernel.org/rss20.xml" "http://planet.lisp.org/rss20.xml" "https://twobithistory.org/feed.xml") t)
+   '("http://planet.clojure.in/atom.xml" "https://planet.emacslife.com/atom.xml" "http://planet.kernel.org/rss20.xml" "http://planet.lisp.org/rss20.xml" "https://twobithistory.org/feed.xml"))
  '(exec-path-from-shell-check-startup-files nil)
  '(fill-column 72)
  '(fzf/args "-x --ansi --color 16 --print-query")
@@ -48,9 +48,14 @@ Bcc:
       (file "~/org/inbox.org")
       "* TODO %?
  %u
-")) t)
+")))
  '(org-default-notes-file "~/org/inbox.org")
  '(org-export-async-init-file "~/.emacs.d/org-init.el" t)
+ '(org-file-apps
+   '((auto-mode . emacs)
+     ("\\.mm\\'" . default)
+     ("\\.x?html?\\'" . default)
+     ("\\.pdf\\'" . "zathura %s")))
  '(org-hide-leading-stars t)
  '(org-latex-toc-command "\\tableofcontents \\clearpage" t)
  '(org-modules '(ol-info ol-mhe ol-rmail))
@@ -80,8 +85,6 @@ Bcc:
  '(rainbow-delimiters-depth-7-face ((t (:foreground "#56B6C2" :weight bold))))
  '(rainbow-delimiters-depth-8-face ((t (:foreground "#E5C07B" :weight bold))))
  '(rainbow-delimiters-depth-9-face ((t (:foreground "#61AFEF" :weight bold))))
- '(selectrum-current-candidate ((t (:background "#222226"
-						:weight bold
-						:foreground "gainsboro"))))
+ '(selectrum-current-candidate ((t (:background "#222226" :weight bold :foreground "gainsboro"))))
  '(selectrum-primary-highlight ((t (:foreground "#c56ec3"))))
  '(selectrum-secondary-highlight ((t (:foreground "#2d9574")))))

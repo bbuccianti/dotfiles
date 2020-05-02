@@ -263,7 +263,6 @@
 (use-package org
   :straight nil
   :mode (("\\.org\\'" . org-mode))
-  :hook (org-mode . auto-fill-mode)
   :custom
   (org-startup-indented t)
   (org-startup-truncated nil)
