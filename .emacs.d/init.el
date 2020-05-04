@@ -83,9 +83,8 @@
 (straight-use-package 'use-package)
 
 (use-package exec-path-from-shell
-  :after (:any eshell shell)
-  :config (exec-path-from-shell-initialize)
-  :custom (exec-path-from-shell-check-startup-files nil))
+  :after (:any shell eshell)
+  :config (exec-path-from-shell-initialize))
 
 (use-package spacemacs-theme
   :defer t
@@ -113,12 +112,11 @@
 
 (use-package amx
   :commands amx
-  :custom
-  (amx-show-key-bindings t))
+  :custom (amx-show-key-bindings t))
 
 (use-package dired
   :straight nil
-  :commands (ido-select-text dired)
+  :commands dired
   :hook (dired-mode . dired-hide-details-mode)
   :config
   (setq dired-recursive-copies 'always
@@ -166,21 +164,18 @@
   :hook (prog-mode . rainbow-delimiters-mode))
 
 (use-package paredit
-  :bind
-  (:map paredit-mode-map ("C-w" . paredit-backward-kill-word))
+  :bind (:map paredit-mode-map ("C-w" . paredit-backward-kill-word))
   :hook
   (emacs-lisp-mode . enable-paredit-mode)
   (lisp-mode . enable-paredit-mode)
   (lisp-interaction-mode . enable-paredit-mode)
   (clojure-mode . enable-paredit-mode))
 
-(use-package move-text
-  :commands (move-text-up move-text-down))
-
 (use-package noccur
   :commands noccur-project)
 
 (use-package nov
+  :disabled
   :mode (("\\.epub\\'" . nov-mode)))
 
 (use-package company
@@ -189,14 +184,14 @@
   :hook (prog-mode . company-mode)
   :bind (:map company-active-map (("C-n" . company-select-next)
 				  ("C-p" . company-select-previous)))
-  :config
-  (setq company-idle-delay nil))
+  :custom (company-idle-delay nil))
 
 (use-package web-mode
   :mode (("\\.php\\'" . web-mode))
   :hook (web-mode . (lambda () (setq web-mode-markup-indent-offset 2))))
 
 (use-package expand-region
+  :disabled
   :commands er/expand-region)
 
 (use-package elfeed
@@ -221,10 +216,12 @@
   (monroe-mode . enable-paredit-mode))
 
 (use-package haskell-mode
+  :disabled
   :mode (("\\.hs\\'" . haskell-mode))
   :hook (haskell-mode . interactive-haskell-mode))
 
 (use-package go-mode
+  :disabled
   :mode (("\\.go\\'" . go-mode))
   :hook
   (go-mode . (lambda () (setq indent-tabs-mode 1 tab-width 2)))
@@ -258,7 +255,8 @@
   :defer t
   :custom
   (notdeft-xapian-program "/home/bbuccianti/bin/notdeft-xapian")
-  (notdeft-directories '("/home/bbuccianti/notes")))
+  (notdeft-directories '("/home/bbuccianti/notes"))
+  (notdeft-notename-function 'notdeft-default-title-to-notename))
 
 (use-package org
   :straight nil
@@ -344,6 +342,7 @@
   (org-directory "/home/bbuccianti/notes/"))
 
 (use-package org-sidebar
+  :disabled
   :after org)
 
 (use-package org-ql
@@ -365,9 +364,11 @@
   :disabled)
 
 (use-package markdown-mode
+  :disabled
   :mode (("\\.md\\'" . markdown-mode)))
 
 (use-package pug-mode
+  :disabled
   :mode (("\\.pug\\'" . pug-mode))
   :hook (pug-mode . (lambda () (setq indent-tabs-mode nil)))
   :custom (pug-tab-width 2))
