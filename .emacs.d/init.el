@@ -395,8 +395,6 @@
 	("C-z" . call-last-kbd-macro)
 	("C-w" . backward-kill-word)
 	("C-=" . er/expand-region)
-	("<up>" . move-text-up)
-	("<down>" . move-text-down)
 	("C-. t" . eshell)
 	("C-. C-t" . shell)
 	("C-. i" . imenu)
