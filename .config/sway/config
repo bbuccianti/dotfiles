@@ -17,9 +17,9 @@ set $menu bemenu-run --fn "Hack 12" -i -l 10 -m all | xargs swaymsg exec
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output eDP-1 bg /home/benja/wallpapers/rubik.jpg fill
-output HDMI-A-1 bg /home/benja/wallpapers/ship.jpg fill
-output DP-2 bg /home/benja/wallpapers/jediorder.jpg fill
+output eDP-1 bg ~/wallpapers/rubik.jpg fill
+output HDMI-A-1 bg ~/wallpapers/ship.jpg fill
+output DP-2 bg ~/wallpapers/jediorder.jpg fill
 
 input * {
       xkb_layout us,us
