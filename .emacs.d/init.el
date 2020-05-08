@@ -375,8 +375,6 @@
 (use-package personal-keybindings
   :straight nil
   :init
-  (global-hl-line-mode)
-  (windmove-default-keybindings)
   (global-unset-key "\C-z")
   (dolist (folder '("node_modules" "target" "out"
 		    ".cljs_node_repl" ".shadow-cljs"))
@@ -386,16 +384,21 @@
   (search-whitespace-regexp ".*")
   :hook
   (prog-mode . prettify-symbols-mode)
+  (prog-mode . global-hl-line-mode)
   (css-mode . electric-pair-mode)
   :bind
   (:map global-map
+	("C-." . bb-map)
 	("M-SPC" . cycle-spacing)
 	("M-x" . amx)
 	("M-/" . hippie-expand)
 	("C-z" . call-last-kbd-macro)
 	("C-w" . backward-kill-word)
 	("C-=" . er/expand-region)
-	("C-." . bb-map))
+	("S-<left>" . windmove-left)
+	("S-<up>" . windmove-up)
+	("S-<down>" . windmove-down)
+	("S-<right>" . windmove-right))
   (:map bb-map
 	("t" . eshell)
 	("C-t" . shell)
