@@ -191,7 +191,6 @@
   :hook (web-mode . (lambda () (setq web-mode-markup-indent-offset 2))))
 
 (use-package expand-region
-  :disabled
   :commands er/expand-region)
 
 (use-package elfeed
