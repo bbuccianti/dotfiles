@@ -1,5 +1,4 @@
 #!/bin/sh
 
-/bin/mbsync -a
-/usr/local/bin/mu index
+/bin/mbsync -a && /usr/local/bin/mu index
 
