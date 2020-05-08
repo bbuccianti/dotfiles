@@ -2,8 +2,6 @@
 .gnupg
 .cert
 .secrets
-.config
-downloads
 inspt
 org
 facturas
