@@ -13,5 +13,8 @@
 	    --with-gnutls=ifavailable \
 	    --with-ns=no \
 	    --with-xwidgets=no \
-	    --without-compress-install
+	    --without-compress-install \
+	    --with-nativecomp
+
+
 

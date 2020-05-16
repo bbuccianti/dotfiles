@@ -340,10 +340,6 @@
   (org-agenda-files '("/home/bbuccianti/org/"))
   (org-directory "/home/bbuccianti/notes/"))
 
-(use-package org-sidebar
-  :disabled
-  :after org)
-
 (use-package org-ql
   :after org)
 
