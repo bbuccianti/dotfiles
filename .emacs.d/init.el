@@ -232,6 +232,9 @@
 (use-package lua-mode
   :mode (("\\.lua\\'" . lua-mode)))
 
+(use-package haxe-mode
+  :mode (("\\.hx\\'" . haxe-mode)))
+
 (use-package ansi-color
   :straight nil
   :defer t
