@@ -201,6 +201,7 @@ bar {
     #status_command i3status-rs ~/.config/sway/status.toml
 }
 
+for_window [class="hl"] floating enable
 for_window [class="^.*"] border pixel 2
 smart_borders on
 focus_follows_mouse no
