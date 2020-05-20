@@ -5,7 +5,6 @@
 (setq gc-cons-threshold most-positive-fixnum
       gc-cons-percentage 0.6
       package-enable-at-startup nil
-      package--init-file-ensured t
       menu-bar-mode nil
       tool-bar-mode nil
       scroll-bar-mode nil

@@ -82,6 +82,9 @@
 ;; (setq use-package-verbose t)
 (straight-use-package 'use-package)
 
+(use-package esup
+  :commands (esup))
+
 (use-package exec-path-from-shell
   :after (:any shell eshell)
   :config (exec-path-from-shell-initialize))
@@ -247,8 +250,8 @@
 
 (use-package magit
   :commands (magit-status magit-list-repositories)
-  :custom
-  (magit-repository-directories '(("~/work" . 2) ("~/src" . 3))))
+  :custom (magit-repository-directories '(("~/work" . 2)
+					  ("~/src" . 3))))
 
 (straight-use-package
  `(notdeft :type git :local-repo "/home/bbuccianti/src/github/hasu/notdeft"))
@@ -261,89 +264,91 @@
   (notdeft-notename-function 'notdeft-default-title-to-notename))
 
 (use-package org
+  :defer t
   :straight nil
   :mode (("\\.org\\'" . org-mode))
-  :custom
-  (org-startup-indented t)
-  (org-startup-truncated nil)
-  (org-agenda-window-setup 'current-window)
-  (org-agenda-start-on-weekday nil)
-  (org-agenda-compact-blocks nil)
-  (org-modules '(ol-info ol-mhe ol-rmail))
-  (org-hide-leading-stars t)
-  (org-latex-toc-command "\\tableofcontents \\clearpage")
-  (org-export-async-init-file "~/.emacs.d/org-init.el")
-  (org-src-preserve-indentation t)
-  (org-default-notes-file "/home/bbuccianti/org/notes.org")
-  (org-refile-use-outline-path t)
-  (org-outline-path-complete-in-steps nil)
-  (org-completion-use-ido nil)
-  (org-log-done "note")
-  (org-tags-column -60)
-  (org-agenda-skip-deadline-if-done t)
-  (org-agenda-skip-scheduled-if-deadline-is-shown t)
-  (org-agenda-skip-scheduled-if-done t)
-  (org-agenda-skip-unavailable-files t)
-  (org-fast-tag-selection-single-key 'expert)
-  (org-blank-before-new-entry '((heading . auto) (plain-list-item . auto)))
-  (org-refile-targets '((nil :maxlevel . 9)
-			(org-agenda-files :maxlevel . 9)))
-  (org-capture-templates '(("t" "Todo"
-			    entry (file+headline "~/org/projects.org" "Inbox")
-			    "* TODO %?\n:PROPERTIES:\n:CREATED: %U\n:END:")
-			   ("n" "Note"
-			    entry (file "~/org/notes.org")
-			    "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:")))
-  (org-agenda-prefix-format '((agenda . " %i %-12:c%?-12t% s")
-			      (todo . "%l" )
-			      (tags . "%l")
-			      (search . " %i %-12:c")))
-  (org-agenda-custom-commands
-   '(("d" "Today tasks"
-      ((agenda "" ((org-agenda-span 'day)))
-       (org-ql-block '(and (todo "TODO")
-			   (priority "A")
-			   (scheduled :on today))
-		     ((org-ql-block-header "Today's priority A tasks")))
-       (org-ql-block '(and (todo "TODO")
-			   (priority "B")
-			   (scheduled :on today))
-		     ((org-ql-block-header "Today's priority B tasks")))
-       (org-ql-block '(and (todo "TODO")
-			   (priority "C")
-			   (scheduled :on today))
-		     ((org-ql-block-header "Today's priority C tasks")))
-       (org-ql-block '(and (todo "PROJECT" "NEXT")
-			   (or (descendants (todo "NEXT"))
-			       (todo "NEXT")))
-		     ((org-ql-block-header "Next tasks")))))
-     ("w" "Week planning"
-      ((agenda "" ((org-agenda-span 'week)))
-       (org-ql-block '(and (todo)
-			   (tags "inbox"))
-		     ((org-ql-block-header "Inbox")))
-       (org-ql-block '(and (todo "PROJECT" "TODO")
-			   (not (tags "notes"))
-			   (not (ancestors (children (todo "NEXT"))))
-			   (not (children (todo "NEXT")))
-			   (not (or (scheduled) (deadline))))
-		     ((org-ql-block-header "Stuck projects")))))
-     ("u" "Study time!"
-      ((agenda "" ((org-agenda-span 'week)))
-       (org-ql-block '(and (tags "notes")
-			   (todo)
-			   (not (or (scheduled) (deadline))))
-		     ((org-ql-block-header "Study time!")))))))
-  (org-todo-keywords '((sequence "PROJECT(p)" "TODO(t)" "NEXT(n)" "|"
-				 "DONE(d)" "CANCELLED(c)")))
-  (org-todo-keyword-faces '(("TODO" :foreground "gold" :weight bold)
-			    ("NEXT" :foreground "deep sky blue" :weight bold)
-			    ("DONE" :foreground "forest green" :weight bold)
-			    ("CANCELLED" :foreground "red" :weight bold)))
-  (org-agenda-files '("/home/bbuccianti/org/"))
-  (org-directory "/home/bbuccianti/notes/"))
+  :config
+  (setq org-startup-indented t
+	org-startup-truncated nil
+	org-agenda-window-setup 'current-window
+	org-agenda-start-on-weekday nil
+	org-agenda-compact-blocks nil
+	org-modules '(ol-info ol-mhe ol-rmail)
+	org-hide-leading-stars t
+	org-latex-toc-command "\\tableofcontents \\clearpage"
+	org-export-async-init-file "~/.emacs.d/org-init.el"
+	org-src-preserve-indentation t
+	org-default-notes-file "/home/bbuccianti/org/notes.org"
+	org-refile-use-outline-path t
+	org-outline-path-complete-in-steps nil
+	org-completion-use-ido nil
+	org-log-done "note"
+	org-tags-column -60
+	org-agenda-skip-deadline-if-done t
+	org-agenda-skip-scheduled-if-deadline-is-shown t
+	org-agenda-skip-scheduled-if-done t
+	org-agenda-skip-unavailable-files t
+	org-fast-tag-selection-single-key 'expert
+	org-blank-before-new-entry '((heading . auto) (plain-list-item . auto))
+	org-refile-targets '((nil :maxlevel . 9)
+			       (org-agenda-files :maxlevel . 9))
+	org-capture-templates '(("t" "Todo"
+				   entry (file+headline "~/org/projects.org" "Inbox")
+				   "* TODO %?\n:PROPERTIES:\n:CREATED: %U\n:END:")
+				  ("n" "Note"
+				   entry (file "~/org/notes.org")
+				   "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:"))
+	org-agenda-prefix-format '((agenda . " %i %-12:c%?-12t% s")
+				     (todo . "%l" )
+				     (tags . "%l")
+				     (search . " %i %-12:c"))
+	org-agenda-custom-commands
+	'(("d" "Today tasks"
+	   ((agenda "" ((org-agenda-span 'day)))
+	    (org-ql-block '(and (todo "TODO")
+				(priority "A")
+				(scheduled :on today))
+			  ((org-ql-block-header "Today's priority A tasks")))
+	    (org-ql-block '(and (todo "TODO")
+				(priority "B")
+				(scheduled :on today))
+			  ((org-ql-block-header "Today's priority B tasks")))
+	    (org-ql-block '(and (todo "TODO")
+				(priority "C")
+				(scheduled :on today))
+			  ((org-ql-block-header "Today's priority C tasks")))
+	    (org-ql-block '(and (todo "PROJECT" "NEXT")
+				(or (descendants (todo "NEXT"))
+				    (todo "NEXT")))
+			  ((org-ql-block-header "Next tasks")))))
+	  ("w" "Week planning"
+	   ((agenda "" ((org-agenda-span 'week)))
+	    (org-ql-block '(and (todo)
+				(tags "inbox"))
+			  ((org-ql-block-header "Inbox")))
+	    (org-ql-block '(and (todo "PROJECT" "TODO")
+				(not (tags "notes"))
+				(not (ancestors (children (todo "NEXT"))))
+				(not (children (todo "NEXT")))
+				(not (or (scheduled) (deadline))))
+			  ((org-ql-block-header "Stuck projects")))))
+	  ("u" "Study time!"
+	   ((agenda "" ((org-agenda-span 'week)))
+	    (org-ql-block '(and (tags "notes")
+				(todo)
+				(not (or (scheduled) (deadline))))
+			  ((org-ql-block-header "Study time!"))))))
+	org-todo-keywords '((sequence "PROJECT(p)" "TODO(t)" "NEXT(n)" "|"
+					"DONE(d)" "CANCELLED(c)"))
+	org-todo-keyword-faces '(("TODO" :foreground "gold" :weight bold)
+				   ("NEXT" :foreground "deep sky blue" :weight bold)
+				   ("DONE" :foreground "forest green" :weight bold)
+				   ("CANCELLED" :foreground "red" :weight bold))
+	org-agenda-files '("/home/bbuccianti/org/")
+	org-directory "/home/bbuccianti/notes/"))
 
 (use-package org-ql
+  :defer t
   :after org)
 
 (use-package ox-reveal
