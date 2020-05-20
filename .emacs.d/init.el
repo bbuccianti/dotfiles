@@ -36,7 +36,7 @@
       browse-url-browser-function 'browse-url-firefox
       file-name-handler-alist nil
       auto-window-vscroll nil
-      initial-frame-alist '((font . "Hack-10"))
+      initial-frame-alist '((font . "SourceCodePro-11"))
       backup-directory-alist '(("." . "~/.emacs.d/backups"))
       bidi-display-reordering nil
       inhibit-startup-screen t
@@ -89,9 +89,9 @@
   :after (:any shell eshell)
   :config (exec-path-from-shell-initialize))
 
-(use-package spacemacs-theme
+(use-package apropospriate-theme
   :defer t
-  :init (load-theme 'spacemacs-dark t))
+  :init (load-theme 'apropospriate-dark t))
 
 (use-package battery
   :defer t
@@ -107,11 +107,6 @@
 (use-package selectrum-prescient
   :after selectrum
   :config (selectrum-prescient-mode t))
-
-(use-package fzf
-  :commands fzf
-  :custom
-  (fzf/args "-x --ansi --color 16 --print-query"))
 
 (use-package amx
   :commands amx
@@ -249,6 +244,7 @@
        (toggle-read-only))))
 
 (use-package magit
+  :defer t
   :commands (magit-status magit-list-repositories)
   :custom (magit-repository-directories '(("~/work" . 2)
 					  ("~/src" . 3))))
@@ -383,6 +379,7 @@
   (dolist (folder '("node_modules" "target" "out"
 		    ".cljs_node_repl" ".shadow-cljs"))
     (add-to-list 'vc-directory-exclusion-list folder))
+  (fringe-mode 2)
   (define-prefix-command 'bb-map)
   :custom
   (search-whitespace-regexp ".*")
@@ -409,12 +406,11 @@
 	("i" . imenu)
 	("C-i" . company-complete)
 	("@" . mu4e)
-	("p" . fzf-git-files)
+	("p" . project-find-file)
 	("/" . project-find-regexp)
 	("n" . noccur-project)
 	("C-r" . recompile)
 	("r" . compile)
-	("f" . fzf)
 	("y" . yank-from-kill-ring)
 	("m" . monroe)
 	("g" . magit-list-repositories)

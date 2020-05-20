@@ -3,7 +3,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(amx-show-key-bindings nil t)
+ '(amx-show-key-bindings nil)
  '(company-quickhelp-color-background "#3E4452")
  '(company-quickhelp-color-foreground "#ABB2BF")
  '(custom-safe-themes
@@ -12,7 +12,7 @@
    '("http://planet.clojure.in/atom.xml" "https://planet.emacslife.com/atom.xml" "http://planet.kernel.org/rss20.xml" "http://planet.lisp.org/rss20.xml" "https://twobithistory.org/feed.xml") t)
  '(exec-path-from-shell-check-startup-files nil)
  '(fill-column 72)
- '(fzf/args "-x --ansi --color 16 --print-query" t)
+ '(global-hl-line-mode t)
  '(gofmt-command "/usr/bin/gofmt" t)
  '(ido-auto-merge-work-directories-length -1)
  '(ido-create-new-buffer 'always)
@@ -68,8 +68,8 @@ Bcc:
  '(smtpmail-default-smtp-server "mail.buccianti.dev" t)
  '(smtpmail-local-domain "buccianti.dev" t)
  '(smtpmail-smtp-server "mail.buccianti.dev" t)
- '(whitespace-line-column 80 t)
- '(whitespace-style '(face lines-tail trailing space-before-tab) t))
+ '(whitespace-line-column 80)
+ '(whitespace-style '(face lines-tail trailing space-before-tab)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
