@@ -2,7 +2,8 @@
 
 (setq straight-use-package-by-default t
       straight-check-for-modifications nil
-      straight-cache-autoloads t)
+      straight-cache-autoloads t
+      straight-vc-git-default-clone-depth 1)
 
 (defvar bootstrap-version)
 (let ((bootstrap-file
@@ -33,6 +34,7 @@
       tooltip-use-echo-area t
       use-dialog-box nil
       visible-cursor nil
+      make-backup-files nil
       browse-url-browser-function 'browse-url-firefox
       file-name-handler-alist nil
       auto-window-vscroll nil
@@ -80,6 +82,7 @@
 ;; packages
 
 ;; (setq use-package-verbose t)
+(setq use-package-always-defer t)
 (straight-use-package 'use-package)
 
 (use-package esup
@@ -90,23 +93,26 @@
   :config (exec-path-from-shell-initialize))
 
 (use-package apropospriate-theme
-  :defer t
   :init (load-theme 'apropospriate-dark t))
 
 (use-package battery
-  :defer t
   :config (display-battery-mode))
 
 (use-package selectrum
-  :init (selectrum-mode t))
+  :straight (:host github :repo "raxod502/selectrum")
+  :init (selectrum-mode +1))
 
 (use-package prescient
-  :defer t
-  :config (prescient-persist-mode t))
+  :config
+  (prescient-persist-mode +1)
+  (setq prescient-history-length 1000))
 
 (use-package selectrum-prescient
+  :straight (:host github :repo "raxod502/prescient.el"
+		   :files ("selectrum-prescient.el"))
+  :demand t
   :after selectrum
-  :config (selectrum-prescient-mode t))
+  :config (selectrum-prescient-mode +1))
 
 (use-package amx
   :commands amx
@@ -124,8 +130,8 @@
   (put 'dired-find-alternate-file 'disabled nil))
 
 (use-package gnus
-  :straight nil
   :disabled
+  :straight nil
   :commands gnus
   :config
   (setq gnus-select-method '(nntp "news.gmane.io")))
@@ -177,7 +183,6 @@
   :mode (("\\.epub\\'" . nov-mode)))
 
 (use-package company
-  :defer t
   :commands company-complete
   :hook (prog-mode . company-mode)
   :bind (:map company-active-map (("C-n" . company-select-next)
@@ -235,7 +240,6 @@
 
 (use-package ansi-color
   :straight nil
-  :defer t
   :hook
   (compilation-filter
    . (lambda ()
@@ -244,7 +248,6 @@
        (toggle-read-only))))
 
 (use-package magit
-  :defer t
   :commands (magit-status magit-list-repositories)
   :custom (magit-repository-directories '(("~/work" . 2)
 					  ("~/src" . 3))))
@@ -253,22 +256,17 @@
  `(notdeft :type git :local-repo "/home/bbuccianti/src/github/hasu/notdeft"))
 
 (use-package notdeft
-  :defer t
   :custom
   (notdeft-xapian-program "/home/bbuccianti/bin/notdeft-xapian")
   (notdeft-directories '("/home/bbuccianti/notes"))
   (notdeft-notename-function 'notdeft-default-title-to-notename))
 
 (use-package org
-  :defer t
   :straight nil
   :mode (("\\.org\\'" . org-mode))
   :config
   (setq org-startup-indented t
 	org-startup-truncated nil
-	org-agenda-window-setup 'current-window
-	org-agenda-start-on-weekday nil
-	org-agenda-compact-blocks nil
 	org-modules '(ol-info ol-mhe ol-rmail)
 	org-hide-leading-stars t
 	org-latex-toc-command "\\tableofcontents \\clearpage"
@@ -280,10 +278,6 @@
 	org-completion-use-ido nil
 	org-log-done "note"
 	org-tags-column -60
-	org-agenda-skip-deadline-if-done t
-	org-agenda-skip-scheduled-if-deadline-is-shown t
-	org-agenda-skip-scheduled-if-done t
-	org-agenda-skip-unavailable-files t
 	org-fast-tag-selection-single-key 'expert
 	org-blank-before-new-entry '((heading . auto) (plain-list-item . auto))
 	org-refile-targets '((nil :maxlevel . 9)
@@ -294,10 +288,33 @@
 				  ("n" "Note"
 				   entry (file "~/org/notes.org")
 				   "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:"))
+	org-todo-keywords '((sequence "PROJECT(p)" "TODO(t)" "NEXT(n)" "|"
+					"DONE(d)" "CANCELLED(c)"))
+	org-todo-keyword-faces '(("TODO" :foreground "gold" :weight bold)
+				   ("NEXT" :foreground "deep sky blue" :weight bold)
+				   ("DONE" :foreground "forest green" :weight bold)
+				   ("CANCELLED" :foreground "red" :weight bold))
+
+	org-directory "/home/bbuccianti/notes/"))
+
+(use-package org-ql
+  :after org)
+
+(use-package org-agenda
+  :straight nil
+  :config
+  (setq org-agenda-files '("/home/bbuccianti/org/")
+	org-agenda-skip-deadline-if-done t
+	org-agenda-skip-scheduled-if-deadline-is-shown t
+	org-agenda-skip-scheduled-if-done t
+	org-agenda-skip-unavailable-files t
+	org-agenda-window-setup 'current-window
+	org-agenda-start-on-weekday nil
+	org-agenda-compact-blocks nil
 	org-agenda-prefix-format '((agenda . " %i %-12:c%?-12t% s")
-				     (todo . "%l" )
-				     (tags . "%l")
-				     (search . " %i %-12:c"))
+				   (todo . "%l" )
+				   (tags . "%l")
+				   (search . " %i %-12:c"))
 	org-agenda-custom-commands
 	'(("d" "Today tasks"
 	   ((agenda "" ((org-agenda-span 'day)))
@@ -333,19 +350,7 @@
 	    (org-ql-block '(and (tags "notes")
 				(todo)
 				(not (or (scheduled) (deadline))))
-			  ((org-ql-block-header "Study time!"))))))
-	org-todo-keywords '((sequence "PROJECT(p)" "TODO(t)" "NEXT(n)" "|"
-					"DONE(d)" "CANCELLED(c)"))
-	org-todo-keyword-faces '(("TODO" :foreground "gold" :weight bold)
-				   ("NEXT" :foreground "deep sky blue" :weight bold)
-				   ("DONE" :foreground "forest green" :weight bold)
-				   ("CANCELLED" :foreground "red" :weight bold))
-	org-agenda-files '("/home/bbuccianti/org/")
-	org-directory "/home/bbuccianti/notes/"))
-
-(use-package org-ql
-  :defer t
-  :after org)
+			  ((org-ql-block-header "Study time!"))))))))
 
 (use-package ox-reveal
   :disabled
