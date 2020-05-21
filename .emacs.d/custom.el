@@ -12,7 +12,6 @@
    '("http://planet.clojure.in/atom.xml" "https://planet.emacslife.com/atom.xml" "http://planet.kernel.org/rss20.xml" "http://planet.lisp.org/rss20.xml" "https://twobithistory.org/feed.xml") t)
  '(exec-path-from-shell-check-startup-files nil)
  '(fill-column 72)
- '(global-hl-line-mode t)
  '(gofmt-command "/usr/bin/gofmt" t)
  '(ido-auto-merge-work-directories-length -1)
  '(ido-create-new-buffer 'always)
