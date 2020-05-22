@@ -1,20 +1,22 @@
 #!/bin/sh
 
 ./configure --with-sound=no \
+	    --with-file-notification=inotify \
+	    --with-modules \
 	    --with-x-toolkit=lucid \
 	    --with-cairo \
+	    --with-tiff \
 	    --with-xft \
 	    --with-harfbuzz \
 	    --with-libotf \
 	    --with-m17n-flt \
+	    --without-imagemagick \
 	    --without-lcms2 \
 	    --with-xml2 \
 	    --without-toolkit-scroll-bars \
 	    --with-gnutls=ifavailable \
 	    --with-ns=no \
 	    --with-xwidgets=no \
-	    --without-compress-install \
-	    --with-nativecomp
-
+	    --without-compress-install
 
 

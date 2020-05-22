@@ -2,8 +2,7 @@
 
 (setq straight-use-package-by-default t
       straight-check-for-modifications nil
-      straight-cache-autoloads t
-      straight-vc-git-default-clone-depth 1)
+      straight-cache-autoloads t)
 
 (defvar bootstrap-version)
 (let ((bootstrap-file
@@ -89,8 +88,7 @@
   :commands (esup))
 
 (use-package exec-path-from-shell
-  :after (:any shell eshell)
-  :config (exec-path-from-shell-initialize))
+  :init (exec-path-from-shell-initialize))
 
 (use-package apropospriate-theme
   :init (load-theme 'apropospriate-dark t))
@@ -137,8 +135,8 @@
   (setq gnus-select-method '(nntp "news.gmane.io")))
 
 (use-package mu4e
-  :straight nil
-  :load-path "~/src/github/djcb/mu/mu4e"
+  :straight (:host github :repo "emacsmirror/mu4e"
+		   :files (:defaults "mu4e/*.el"))
   :commands mu4e
   :custom
   (mu4e-maildir "~/.mail")
@@ -181,13 +179,6 @@
 (use-package nov
   :disabled
   :mode (("\\.epub\\'" . nov-mode)))
-
-(use-package company
-  :commands company-complete
-  :hook (prog-mode . company-mode)
-  :bind (:map company-active-map (("C-n" . company-select-next)
-				  ("C-p" . company-select-previous)))
-  :custom (company-idle-delay nil))
 
 (use-package web-mode
   :mode (("\\.php\\'" . web-mode))
@@ -409,7 +400,6 @@
 	("t" . eshell)
 	("C-t" . shell)
 	("i" . imenu)
-	("C-i" . company-complete)
 	("@" . mu4e)
 	("p" . project-find-file)
 	("/" . project-find-regexp)
