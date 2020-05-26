@@ -177,7 +177,6 @@
   :commands noccur-project)
 
 (use-package nov
-  :disabled
   :mode (("\\.epub\\'" . nov-mode)))
 
 (use-package web-mode
@@ -209,12 +208,10 @@
   (monroe-mode . enable-paredit-mode))
 
 (use-package haskell-mode
-  :disabled
   :mode (("\\.hs\\'" . haskell-mode))
   :hook (haskell-mode . interactive-haskell-mode))
 
 (use-package go-mode
-  :disabled
   :mode (("\\.go\\'" . go-mode))
   :hook
   (go-mode . (lambda () (setq indent-tabs-mode 1 tab-width 2)))
@@ -344,26 +341,29 @@
 			  ((org-ql-block-header "Study time!"))))))))
 
 (use-package ox-reveal
-  :disabled
   :custom (org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js@3.8.0"))
 
 (use-package ox-latex
   :straight nil
-  :disabled
   :custom
   (org-latex-create-formula-image-program 'dvipng)
   :config
   (org-babel-do-load-languages 'org-babel-load-languages '((latex . t))))
 
-(use-package htmlize
-  :disabled)
+(use-package htmlize)
 
 (use-package markdown-mode
-  :disabled
   :mode (("\\.md\\'" . markdown-mode)))
 
+(use-package define-word)
+
+(use-package flyspell
+  :straight nil
+  :config
+  (setq ispell-program-name "aspell"
+	ispell-extra-args '("--sug-mode=ultra" "--lang=en_US")))
+
 (use-package pug-mode
-  :disabled
   :mode (("\\.pug\\'" . pug-mode))
   :hook (pug-mode . (lambda () (setq indent-tabs-mode nil)))
   :custom (pug-tab-width 2))
