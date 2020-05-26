@@ -1,6 +1,7 @@
 ;; -*- lexical-binding: t; -*-
 
 (setq straight-use-package-by-default t
+      use-package-always-defer t
       straight-check-for-modifications nil
       straight-cache-autoloads t)
 
@@ -71,7 +72,6 @@
           t)
 
 ;; functions
-
 (defun yank-from-kill-ring (choice)
   "Uses completion-read to insert a string from the kill-ring."
   (interactive
@@ -79,9 +79,7 @@
   (insert choice))
 
 ;; packages
-
-;; (setq use-package-verbose t)
-(setq use-package-always-defer t)
+;; (setq use-package-verbose t) ;; debug only
 (straight-use-package 'use-package)
 
 (use-package esup
@@ -321,7 +319,10 @@
 	    (org-ql-block '(and (todo "PROJECT" "NEXT")
 				(or (descendants (todo "NEXT"))
 				    (todo "NEXT")))
-			  ((org-ql-block-header "Next tasks")))))
+			  ((org-ql-block-header "Next tasks")))
+	    (org-ql-block '(and (todo "PROJECT" "TODO")
+				(tags "research" "reading"))
+			  ((org-ql-block-header "Study time!")))))
 	  ("w" "Week planning"
 	   ((agenda "" ((org-agenda-span 'week)))
 	    (org-ql-block '(and (todo)
@@ -329,16 +330,11 @@
 			  ((org-ql-block-header "Inbox")))
 	    (org-ql-block '(and (todo "PROJECT" "TODO")
 				(not (tags "notes"))
+				(not (tags "inbox"))
 				(not (ancestors (children (todo "NEXT"))))
 				(not (children (todo "NEXT")))
 				(not (or (scheduled) (deadline))))
-			  ((org-ql-block-header "Stuck projects")))))
-	  ("u" "Study time!"
-	   ((agenda "" ((org-agenda-span 'week)))
-	    (org-ql-block '(and (tags "notes")
-				(todo)
-				(not (or (scheduled) (deadline))))
-			  ((org-ql-block-header "Study time!"))))))))
+			  ((org-ql-block-header "Stuck projects"))))))))
 
 (use-package ox-reveal
   :custom (org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js@3.8.0"))
