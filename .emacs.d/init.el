@@ -381,11 +381,10 @@
   (css-mode . electric-pair-mode)
   :bind
   (:map global-map
-	("C-." . bb-map)
+	("C-z" . bb-map)
 	("M-SPC" . cycle-spacing)
 	("M-x" . amx)
 	("M-/" . hippie-expand)
-	("C-z" . call-last-kbd-macro)
 	("C-w" . backward-kill-word)
 	("C-=" . er/expand-region)
 	("S-<left>" . windmove-left)
