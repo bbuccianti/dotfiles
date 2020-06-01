@@ -21,12 +21,17 @@ output eDP-1 bg ~/wallpapers/rubik.jpg fill
 output HDMI-A-1 bg ~/wallpapers/ship.jpg fill
 output DP-2 bg ~/wallpapers/jediorder.jpg fill
 
-input * {
+input 4617:41445:Technomancy_Atreus {
       xkb_layout us,us
       xkb_variant dvorak,dvorak-intl
       xkb_options grp:win_space_toggle,ctrl:nocaps
       repeat_delay 300
       repeat_rate 60
+}
+
+input 1133:16448:Logitech_M280/320/275 {
+      accel_profile adaptive
+      pointer_accel 1
 }
 
 output eDP-1 pos 0 0 res 1600x900
