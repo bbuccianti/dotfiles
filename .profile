@@ -11,5 +11,6 @@
 # If running from tty1 start sway
 if [ "$(tty)" = "/dev/tty1" ]; then
     #exec sway
-    exec dbus-launch --sh-syntax --exit-with-session sway
+    #exec dbus-launch --sh-syntax --exit-with-session sway
+    exec dbus-run-session sway
 fi

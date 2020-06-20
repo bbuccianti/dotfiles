@@ -17,9 +17,9 @@ set $menu bemenu-run --fn "Hack 12" -i -l 10 -m all | xargs swaymsg exec
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output eDP-1 bg ~/wallpapers/rubik.jpg fill
+output DVI-D-1 bg ~/wallpapers/rubik.jpg fill
 output HDMI-A-1 bg ~/wallpapers/ship.jpg fill
-output DP-2 bg ~/wallpapers/jediorder.jpg fill
+##output DP-2 bg ~/wallpapers/jediorder.jpg fill
 
 input 4617:41445:Technomancy_Atreus {
       xkb_layout us,us
@@ -34,11 +34,24 @@ input 1133:16448:Logitech_M280/320/275 {
       pointer_accel 1
 }
 
-output eDP-1 pos 0 0 res 1600x900
-output HDMI-A-1 pos 1600 0 res 1920x1080
-output DP-2 pos 3520 0 transform 90
+input 10429:2310:UGTABLET_6_inch_PenTablet {
+      map_to_output HDMI-A-1
+}
 
-seat * hide_cursor 2000
+seat "seat-1" {
+     attach 10429:2310:UGTABLET_6_inch_PenTablet_Mouse
+     attach 10429:2310:UGTABLET_6_inch_PenTablet_Keyboard
+     attach 10429:2310:UGTABLET_6_inch_PenTablet
+     attach 1:1:AT_Translated_Set_2_keyboard
+}
+
+seat "seat0" {
+     attach *
+     hide_cursor 2000
+}
+
+output HDMI-A-1 pos 0 0 res 1920x1080
+output DVI-D-1 pos 1920 0 transform 90
 
 ### Key bindings
 #
