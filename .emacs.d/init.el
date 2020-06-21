@@ -91,9 +91,6 @@
 (use-package apropospriate-theme
   :init (load-theme 'apropospriate-dark t))
 
-(use-package battery
-  :config (display-battery-mode))
-
 (use-package selectrum
   :straight (:host github :repo "raxod502/selectrum")
   :init (selectrum-mode +1))
