@@ -219,6 +219,11 @@ bar {
     #status_command i3status-rs ~/.config/sway/status.toml
 }
 
+set $gnome-schema org.gnome.desktop.interface
+exec_always {
+    gsettings set $gnome-schema gtk-theme 'Blackbird'
+}
+
 for_window [class="hl"] floating enable
 for_window [class="^.*"] border pixel 2
 smart_borders on
