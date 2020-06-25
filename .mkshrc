@@ -33,6 +33,11 @@ bind '^L'='clear-screen'
 # Source fzf-mksh
 source ~/src/github/seanlaguna/fzf-mksh/key-bindings.mksh
 
+ # added by Nix installer
+if [ -e /home/bbuccianti/.nix-profile/etc/profile.d/nix.sh ]; then
+    . /home/bbuccianti/.nix-profile/etc/profile.d/nix.sh;
+fi
+
 # Functions
 function help {
     # Get a cheat sheet of examples
