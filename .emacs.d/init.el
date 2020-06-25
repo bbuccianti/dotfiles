@@ -235,14 +235,9 @@
   :custom (magit-repository-directories '(("~/work" . 2)
 					  ("~/src" . 3))))
 
-(straight-use-package
- `(notdeft :type git :local-repo "/home/bbuccianti/src/github/hasu/notdeft"))
-
-(use-package notdeft
-  :custom
-  (notdeft-xapian-program "/home/bbuccianti/bin/notdeft-xapian")
-  (notdeft-directories '("/home/bbuccianti/notes"))
-  (notdeft-notename-function 'notdeft-default-title-to-notename))
+(use-package neuron-mode
+  :config
+  (setq neuron-default-zettelkasten-directory (expand-file-name "~/notes")))
 
 (use-package org
   :straight nil
@@ -404,7 +399,7 @@
 	("e" . elfeed)
 	("c" . org-capture)
 	("a" . org-agenda)
-	("d" . notdeft)
+	("z" . neuron-mode)
 	("x" . (lambda () (interactive) (org-latex-export-to-pdf t))))
   (:map ctl-x-map
 	("C-k" . kill-region)
