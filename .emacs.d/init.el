@@ -236,6 +236,7 @@
 					  ("~/src" . 3))))
 
 (use-package neuron-mode
+  :commands (neuron-edit-zettel neuron-new-zettel)
   :config
   (setq neuron-default-zettelkasten-directory (expand-file-name "~/notes")))
 
@@ -399,7 +400,8 @@
 	("e" . elfeed)
 	("c" . org-capture)
 	("a" . org-agenda)
-	("z" . neuron-mode)
+	("o" . neuron-edit-zettel)
+	("n" . neuron-new-zettel)
 	("x" . (lambda () (interactive) (org-latex-export-to-pdf t))))
   (:map ctl-x-map
 	("C-k" . kill-region)
