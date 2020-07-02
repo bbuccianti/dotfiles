@@ -150,6 +150,10 @@
   (message-kill-buffer-on-exit t)
   (message-directory "~/.mail/sent"))
 
+(use-package text-mode
+  :straight nil
+  :hook (text-mode . turn-off-auto-fill))
+
 (use-package whitespace
   :straight nil
   :hook (prog-mode . whitespace-mode)
