@@ -1,2 +1,28 @@
-defaults.ctl.card 2;
-defaults.pcm.card 2;
+pcm.dac {
+  type hw
+  card 2
+}
+
+ctl.dac {
+  type hw
+  card 2
+}
+
+pcm.mic {
+  type hw
+  card 1
+}
+
+pcm.!default {
+  type asym
+  
+  playback.pcm {
+    type plug
+    slave.pcm "dac"
+  }
+  
+  capture.pcm {
+    type plug
+    slave.pcm "mic"
+  }
+}
