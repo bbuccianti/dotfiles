@@ -224,7 +224,7 @@ exec_always {
     gsettings set $gnome-schema gtk-theme 'Blackbird'
 }
 
-for_window [class="hl"] floating enable
+for_window [class="Toplevel"] floating enable
 for_window [class="^.*"] border pixel 2
 smart_borders on
 focus_follows_mouse no
