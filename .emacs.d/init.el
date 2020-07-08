@@ -88,6 +88,9 @@
 (use-package exec-path-from-shell
   :init (exec-path-from-shell-initialize))
 
+(use-package vterm
+  :commands vterm)
+
 (use-package apropospriate-theme
   :init (load-theme 'apropospriate-dark t))
 
@@ -201,10 +204,6 @@
   :hook
   (clojure-mode . clojure-enable-monroe)
   (monroe-mode . enable-paredit-mode))
-
-(use-package haskell-mode
-  :mode (("\\.hs\\'" . haskell-mode))
-  :hook (haskell-mode . interactive-haskell-mode))
 
 (use-package go-mode
   :mode (("\\.go\\'" . go-mode))
@@ -386,7 +385,7 @@
 	("S-<right>" . windmove-right))
   (:map bb-map
 	("t" . eshell)
-	("C-t" . shell)
+	("C-t" . vterm)
 	("@" . notmuch)
 	("p" . project-find-file)
 	("/" . project-find-regexp)
