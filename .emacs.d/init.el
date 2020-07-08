@@ -130,6 +130,7 @@
   (setq gnus-select-method '(nntp "news.gmane.io")))
 
 (use-package mu4e
+  :disabled
   :straight (:host github :repo "emacsmirror/mu4e"
 		   :files (:defaults "mu4e/*.el"))
   :commands mu4e
@@ -148,7 +149,12 @@
   (message-default-mail-headers "Cc: \nBcc: \n")
   (message-auto-save-directory "~/.mail/drafts")
   (message-kill-buffer-on-exit t)
-  (message-directory "~/.mail/sent"))
+  (message-directory "~/.mail/sent")
+  (mu4e-index-cleanup nil)
+  (mu4e-index-lazy-check t))
+
+(use-package notmuch
+  :defer t)
 
 (use-package text-mode
   :straight nil
@@ -391,7 +397,7 @@
   (:map bb-map
 	("t" . eshell)
 	("C-t" . shell)
-	("@" . mu4e)
+	("@" . notmuch)
 	("p" . project-find-file)
 	("/" . project-find-regexp)
 	("n" . noccur-project)
