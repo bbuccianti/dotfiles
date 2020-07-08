@@ -147,7 +147,12 @@
   (message-kill-buffer-on-exit t)
   (message-directory "~/.mail/sent")
   (notmuch-search-oldest-first nil)
-  (notmuch-show-indent-content nil))
+  (notmuch-show-indent-content nil)
+  (notmuch-show-logo nil)
+  (notmuch-show-all-tags-lst t)
+  (notmuch-hello-sections '(notmuch-hello-insert-header
+			    notmuch-hello-insert-inbox
+			    notmuch-hello-insert-footer)))
 
 (use-package text-mode
   :straight nil
