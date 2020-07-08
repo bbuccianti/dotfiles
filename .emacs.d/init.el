@@ -129,16 +129,9 @@
   :config
   (setq gnus-select-method '(nntp "news.gmane.io")))
 
-(use-package mu4e
-  :disabled
-  :straight (:host github :repo "emacsmirror/mu4e"
-		   :files (:defaults "mu4e/*.el"))
-  :commands mu4e
+(use-package notmuch
+  :defer t
   :custom
-  (mu4e-maildir "~/.mail")
-  (mu4e-get-mail-command "mbsync -a")
-  (mu4e-view-show-addresses t)
-  (mu4e-confirm-quit nil)
   (fill-column 72)
   (mail-user-agent 'message-user-agent)
   (smtpmail-default-smtp-server "mail.buccianti.dev")
@@ -150,11 +143,8 @@
   (message-auto-save-directory "~/.mail/drafts")
   (message-kill-buffer-on-exit t)
   (message-directory "~/.mail/sent")
-  (mu4e-index-cleanup nil)
-  (mu4e-index-lazy-check t))
-
-(use-package notmuch
-  :defer t)
+  (notmuch-search-oldest-first nil)
+  (notmuch-show-indent-content nil))
 
 (use-package text-mode
   :straight nil

@@ -2,5 +2,5 @@
 
 MAILTO=""
 
-/bin/mbsync -a && /bin/notmuch new
+/usr/local/bin/mbsync -a && /bin/notmuch new
 
