@@ -221,8 +221,12 @@ exec_always {
     gsettings set $gnome-schema gtk-theme 'Blackbird'
 }
 
+# Scidvspc floating windows have Toplevel class
 for_window [class="Toplevel"] floating enable
+
+# Every window has border pixel 2
 for_window [class="^.*"] border pixel 2
+
 smart_borders on
 focus_follows_mouse no
 default_border pixel
