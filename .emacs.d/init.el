@@ -133,7 +133,7 @@
   (setq gnus-select-method '(nntp "news.gmane.io")))
 
 (use-package notmuch
-  :defer t
+  :commands notmuch
   :custom
   (fill-column 72)
   (mail-user-agent 'message-user-agent)
