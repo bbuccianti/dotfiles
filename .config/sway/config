@@ -73,9 +73,6 @@ output DVI-D-1 pos 1920 0 transform 90
     # start your launcher
     bindsym $mod+t exec $menu
 
-    # dismiss mako notifications
-    bindsym $mod+d exec makoctl dismiss
-
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
     # Despite the name, also works for non-floating windows.
@@ -231,3 +228,5 @@ focus_follows_mouse no
 default_border pixel
 
 include /etc/sway/config.d/*
+
+exec dunst

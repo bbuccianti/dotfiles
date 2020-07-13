@@ -5,7 +5,7 @@ MAILS=$(/bin/notmuch count tag:unread)
 
 if test "$MAILS" != "0"
 then
-    /bin/notify-send.sh --replace-file=/tmp/email --icon=mail-unread "$MAILS new emails"
+    notify-send --icon=mail-unread -t 30000 "$MAILS new emails"
 fi
 
 echo "$MAILS | $DATE"
