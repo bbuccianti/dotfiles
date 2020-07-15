@@ -101,7 +101,8 @@
 (use-package prescient
   :config
   (prescient-persist-mode +1)
-  (setq prescient-history-length 1000))
+  (setq prescient-history-length 1000
+	prescient-filter-method '(literal regexp fuzzy)))
 
 (use-package selectrum-prescient
   :straight (:host github :repo "raxod502/prescient.el"
