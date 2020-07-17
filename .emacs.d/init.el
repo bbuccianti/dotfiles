@@ -166,6 +166,13 @@
   (whitespace-line-column 80)
   (whitespace-style '(face lines-tail trailing space-before-tab)))
 
+(use-package dumb-jump
+  :commands (dumb-jump-go dumb-jump-back)
+  :hook (prog-mode . dumb-jump-mode)
+  :config
+  (setq dumb-jump-selector 'completing-read
+	dumb-jump-force-searcher 'rg))
+
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
 
