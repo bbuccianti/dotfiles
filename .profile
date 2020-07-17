@@ -14,3 +14,11 @@ if [ "$(tty)" = "/dev/tty1" ]; then
     #exec dbus-launch --sh-syntax --exit-with-session sway
     exec dbus-run-session sway
 fi
+
+MOZ_ENABLE_WAYLAND=1
+
+# Useful
+PAGER=less
+_JAVA_AWT_WM_NONREPARENTING=1
+JAVA_HOME=/usr/lib/jvm/openjdk11/
+
