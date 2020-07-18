@@ -153,7 +153,9 @@
   (notmuch-show-all-tags-lst t)
   (notmuch-hello-sections '(notmuch-hello-insert-header
 			    notmuch-hello-insert-inbox
-			    notmuch-hello-insert-footer)))
+			    notmuch-hello-insert-footer))
+  (notmuch-fcc-dirs
+   '(("benjamin@buccianti" . "benjamin/Sent -inbox +sent -unread"))))
 
 (use-package text-mode
   :straight nil
