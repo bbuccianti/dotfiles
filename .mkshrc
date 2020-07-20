@@ -26,6 +26,15 @@ alias xu='doas xbps-install -Syuv'
 alias xr='doas xbps-remove -R'
 alias xq='xbps-query -Rs'
 
+# Function for mounting nfs folders
+function m {
+    doas mount "/mnt/atom/$1"
+}
+
+function u {
+    doas umount "/mnt/atom/$1"
+}
+
 # Bindings
 bind '^L'='clear-screen'
 
