@@ -155,7 +155,7 @@
 			    notmuch-hello-insert-inbox
 			    notmuch-hello-insert-footer))
   (notmuch-fcc-dirs
-   '(("benjamin@buccianti" . "benjamin/Sent -inbox +sent -unread"))))
+   '(("benjamin@buccianti.dev" . "benjamin/Sent -inbox -unread +sent"))))
 
 (use-package text-mode
   :straight nil
