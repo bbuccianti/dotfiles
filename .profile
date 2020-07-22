@@ -20,4 +20,6 @@ MOZ_ENABLE_WAYLAND=1
 PAGER=less
 _JAVA_AWT_WM_NONREPARENTING=1
 JAVA_HOME=/usr/lib/jvm/openjdk11/
+GTK_THEME=Blackbird
 
+export PATH="$HOME/.cargo/bin:$PATH"

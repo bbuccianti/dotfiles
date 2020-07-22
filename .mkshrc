@@ -19,6 +19,7 @@ set -o emacs
 PAGER=less
 _JAVA_AWT_WM_NONREPARENTING=1
 JAVA_HOME=/usr/lib/jvm/openjdk11/
+GTK_THEME=Blackbird
 
 # Aliases for package management
 alias xi='doas xbps-install -S'

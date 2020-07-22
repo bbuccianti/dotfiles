@@ -10,13 +10,13 @@ set $menu dmenu-wl_path | mauncher | xargs swaymsg exec
 ### Output configuration
 output HDMI-A-1 mode 1920x1080@60Hz
 output HDMI-A-1 scale_filter nearest
-output HDMI-A-1 subpixel vrgb
+output HDMI-A-1 subpixel rgb
 output HDMI-A-1 pos 0 0 res 1920x1080
 output HDMI-A-1 bg ~/wallpapers/ship.jpg fill
 
 output DVI-D-1 mode 1360x768@60Hz
 output DVI-D-1 scale_filter nearest
-output DVI-D-1 subpixel rgb
+output DVI-D-1 subpixel vbgr
 output DVI-D-1 pos 1920 0 transform 90
 output DVI-D-1 bg ~/wallpapers/rubik.jpg fill
 
