@@ -252,7 +252,8 @@
 (use-package neuron-mode
   :commands (neuron-edit-zettel neuron-new-zettel)
   :config
-  (setq neuron-default-zettelkasten-directory (expand-file-name "~/notes")))
+  (setq neuron-default-zettelkasten-directory (expand-file-name "~/notes")
+	neuron-executable "~/bin/neuron-linux-bundle"))
 
 (use-package org
   :straight nil
