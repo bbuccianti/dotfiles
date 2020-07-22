@@ -39,7 +39,7 @@ function u {
 bind '^L'='clear-screen'
 
 # Source fzf-mksh
-source ~/src/github/seanlaguna/fzf-mksh/key-bindings.mksh
+source ~/src/fzf-mksh/key-bindings.mksh
 
  # added by Nix installer
 if [ -e /home/bbuccianti/.nix-profile/etc/profile.d/nix.sh ]; then
