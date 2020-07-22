@@ -1,13 +1,9 @@
 .ssh
 .gnupg
 .cert
-.secrets
 inspt
-org
-facturas
 projects
 work
 wallpapers
-ctf
 cron
 notes
