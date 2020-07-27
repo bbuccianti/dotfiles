@@ -1,6 +1,5 @@
 SURFRAW_graphical_browser=/bin/firefox
 #SURFRAW_text_browser=/usr/bin/elinks
 SURFRAW_graphical=yes
-SURFRAW_lang=en
 SURFRAW_translate_from=en
 SURFRAW_translate_to=es
