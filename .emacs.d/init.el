@@ -232,9 +232,6 @@
 (use-package lua-mode
   :mode (("\\.lua\\'" . lua-mode)))
 
-(use-package haxe-mode
-  :mode (("\\.hx\\'" . haxe-mode)))
-
 (use-package ansi-color
   :straight nil
   :hook
@@ -367,6 +364,15 @@
   (setq ispell-program-name "aspell"
 	ispell-extra-args '("--sug-mode=ultra" "--lang=en_US")))
 
+(use-package rjsx-mode
+  :mode (("\\.js\\'" . rjsx-mode)))
+
+(use-package prettier
+  :hook (rjsx-mode . (lambda () (prettier-mode t)))
+  :custom
+  (prettier-el-home
+   "/home/bbuccianti/.emacs.d/straight/repos/prettier.el/dist/"))
+
 (use-package pug-mode
   :mode (("\\.pug\\'" . pug-mode))
   :hook (pug-mode . (lambda () (setq indent-tabs-mode nil)))
@@ -387,6 +393,7 @@
   (prog-mode . prettify-symbols-mode)
   (prog-mode . global-hl-line-mode)
   (css-mode . electric-pair-mode)
+  (rjsx-mode . electric-pair-mode)
   :bind
   (:map global-map
 	("C-z" . bb-map)
