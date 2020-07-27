@@ -6,7 +6,7 @@ HISTFILE="$HOME/.mkshistory"
 HISTSIZE=10000
 
 # PATH
-PATH='/home/bbuccianti/.config/composer/vendor/bin:/home/bbuccianti/src/github/luarocks/./lua_modules/bin:/home/bbuccianti/.luarocks/bin:/home/bbuccianti/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/opt/texlive/2019/bin/x86_64-linuxmusl:/home/bbuccianti/.cargo/bin:/home/bbuccianti/go/bin'
+PATH='/home/bbuccianti/.config/composer/vendor/bin:/home/bbuccianti/src/github/luarocks/./lua_modules/bin:/home/bbuccianti/.luarocks/bin:/home/bbuccianti/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/opt/texlive/2019/bin/x86_64-linuxmusl:/home/bbuccianti/.cargo/bin:/home/bbuccianti/go/bin:/home/bbuccianti/bin/node-v14.6.0-linux-x64/bin'
 LUA_CPATH='/home/bbuccianti/src/github/luarocks/./lua_modules/lib/lua/5.1/?.so;./?.so;/usr/local/lib/lua/5.1/?.so;/usr/lib/lua/5.1/?.so;/usr/local/lib/lua/5.1/loadall.so;/home/bbuccianti/.luarocks/lib/lua/5.1/?.so'
 LUA_PATH='/home/bbuccianti/src/github/luarocks/./lua_modules/share/lua/5.1/?.lua;/home/bbuccianti/src/github/luarocks/./lua_modules/share/lua/5.1/?/init.lua;/usr/local/share/lua/5.1/?.lua;./?.lua;/usr/share/luajit-2.1.0-beta3/?.lua;/usr/local/share/lua/5.1/?/init.lua;/usr/share/lua/5.1/?.lua;/usr/share/lua/5.1/?/init.lua;/home/bbuccianti/.luarocks/share/lua/5.1/?.lua;/home/bbuccianti/.luarocks/share/lua/5.1/?/init.lua'
 
