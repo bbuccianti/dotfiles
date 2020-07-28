@@ -196,6 +196,7 @@ bar {
 set $gnome-schema org.gnome.desktop.interface
 exec_always {
     gsettings set $gnome-schema gtk-theme 'Blackbird'
+    gsettings set $gnome-schema gtk-key-theme 'Emacs'
 }
 
 # Scidvspc floating windows have Toplevel class
