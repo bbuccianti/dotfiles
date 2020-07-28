@@ -38,7 +38,6 @@
       browse-url-browser-function 'browse-url-firefox
       file-name-handler-alist nil
       auto-window-vscroll nil
-      initial-frame-alist '((font . "SourceCodePro-11"))
       backup-directory-alist '(("." . "~/.emacs.d/backups"))
       bidi-display-reordering nil
       inhibit-startup-screen t
