@@ -397,6 +397,7 @@
   (:map global-map
 	("C-z" . bb-map)
 	("M-SPC" . cycle-spacing)
+	("M-o" . other-window)
 	("M-x" . amx)
 	("M-/" . hippie-expand)
 	("C-w" . backward-kill-word)
