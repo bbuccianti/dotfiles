@@ -229,6 +229,7 @@
   :mode (("\\.fnl\\'" . fennel-mode)))
 
 (use-package lua-mode
+  :defer t
   :mode (("\\.lua\\'" . lua-mode)))
 
 (use-package ansi-color
@@ -288,7 +289,11 @@
 	org-directory "/home/bbuccianti/notes/"))
 
 (use-package org-ql
-  :after org)
+  :commands org-ql-block)
+
+(use-package vc-git
+  :straight nil
+  :defer t)
 
 (use-package org-agenda
   :straight nil
@@ -363,6 +368,15 @@
   (setq ispell-program-name "aspell"
 	ispell-extra-args '("--sug-mode=ultra" "--lang=en_US")))
 
+(use-package sdcv
+  :defer t
+  :bind
+  (:map sdcv-mode-map
+	("n" . sdcv-next-line)
+	("p" . sdcv-prev-line)
+	("N" . sdcv-next-dictionary)
+	("P" . sdcv-previous-dictionary)))
+
 (use-package rjsx-mode
   :mode (("\\.js\\'" . rjsx-mode)))
 
@@ -421,6 +435,7 @@
 	("e" . elfeed)
 	("c" . org-capture)
 	("a" . org-agenda)
+	("d" . sdcv-search-input)
 	("z e" . neuron-edit-zettel)
 	("z n" . neuron-new-zettel)
 	("x" . (lambda () (interactive) (org-latex-export-to-pdf t))))
