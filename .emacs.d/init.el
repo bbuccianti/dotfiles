@@ -86,9 +86,8 @@
 (defun vterm-switch-buffer-or-run ()
   "If a vterm buffer is opened, switch to him. Otherwise, run vterm."
   (interactive)
-  (if (get-buffer "vterm")
-      (switch-to-buffer "vterm")
-    (vterm)))
+  (or (and (get-buffer "vterm") (switch-to-buffer "vterm"))
+      (vterm)))
 
 ;; packages
 ;; (setq use-package-verbose t) ;; debug only
