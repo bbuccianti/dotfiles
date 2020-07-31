@@ -203,7 +203,6 @@
   :custom
   (elfeed-feeds '("http://planet.clojure.in/atom.xml"
 		  "https://planet.emacslife.com/atom.xml"
-		  "http://planet.kernel.org/rss20.xml"
 		  "http://planet.lisp.org/rss20.xml"
 		  "https://twobithistory.org/feed.xml")))
 
@@ -229,7 +228,6 @@
   :mode (("\\.fnl\\'" . fennel-mode)))
 
 (use-package lua-mode
-  :defer t
   :mode (("\\.lua\\'" . lua-mode)))
 
 (use-package ansi-color

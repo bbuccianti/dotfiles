@@ -4,7 +4,7 @@ Emacs.verticalScrollBars: false
 Emacs.menuBar: false
 Emacs.scrollBar: false
 Emacs.toolBar: false
-Emacs.font: JetBrains Mono:size=12
+Emacs.font: Source Code Pro:size=13
 
 Xft.autohint: 0
 Xft.antialias: 1
