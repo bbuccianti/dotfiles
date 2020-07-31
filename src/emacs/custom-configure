@@ -17,6 +17,5 @@
 	    --with-gnutls=ifavailable \
 	    --with-ns=no \
 	    --with-xwidgets=no \
-	    --without-compress-install
-
-
+	    --without-compress-install \
+	    CFLAGS="-O3 -mtune=native -march=native -fomit-frame-pointer"
