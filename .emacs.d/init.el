@@ -71,11 +71,17 @@
           t)
 
 ;; functions
-(defun yank-from-kill-ring (choice)
-  "Uses completion-read to insert a string from the kill-ring."
-  (interactive
-   (list (selectrum-read "Kill-ring: " kill-ring )))
-  (insert choice))
+(defun yank-from-kill-ring ()
+  "Uses selectrum-read to insert a string from the kill-ring."
+  (interactive)
+  (let* ((candidates (delete-dups kill-ring))
+	 (candidates (seq-remove (lambda (s)
+				   (string-empty-p (string-trim s)))
+				 candidates))
+	 (string (selectrum-read "Kill-ring: " candidates)))
+    (when (and string (region-active-p))
+      (delete-region (region-beginning) (region-end)))
+    (insert string)))
 
 ;; packages
 ;; (setq use-package-verbose t) ;; debug only
