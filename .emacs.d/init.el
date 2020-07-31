@@ -83,6 +83,13 @@
       (delete-region (region-beginning) (region-end)))
     (insert string)))
 
+(defun vterm-switch-buffer-or-run ()
+  "If a vterm buffer is opened, switch to him. Otherwise, run vterm."
+  (interactive)
+  (if (get-buffer "vterm")
+      (switch-to-buffer "vterm")
+    (vterm)))
+
 ;; packages
 ;; (setq use-package-verbose t) ;; debug only
 (straight-use-package 'use-package)
@@ -426,7 +433,7 @@
 	("S-<right>" . windmove-right))
   (:map bb-map
 	("t" . eshell)
-	("C-t" . vterm)
+	("C-t" . vterm-switch-buffer-or-ru)
 	("@" . notmuch)
 	("p" . project-find-file)
 	("/" . project-find-regexp)
