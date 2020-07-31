@@ -95,10 +95,10 @@
 (straight-use-package 'use-package)
 
 (use-package esup
-  :commands (esup))
+  :commands esup)
 
 (use-package exec-path-from-shell
-  :init (exec-path-from-shell-initialize))
+  :commands exec-path-from-shell-initialize)
 
 (use-package vterm
   :commands vterm)
@@ -181,7 +181,7 @@
   (whitespace-style '(face lines-tail trailing space-before-tab)))
 
 (use-package dumb-jump
-  :commands (dumb-jump-go dumb-jump-back)
+  :commands dumb-jump-go
   :hook (prog-mode . dumb-jump-mode)
   :config
   (setq dumb-jump-selector 'completing-read
@@ -191,7 +191,9 @@
   :hook (prog-mode . rainbow-delimiters-mode))
 
 (use-package paredit
-  :bind (:map paredit-mode-map ("C-w" . paredit-backward-kill-word))
+  :bind
+  (:map paredit-mode-map
+	("C-w" . paredit-backward-kill-word))
   :hook
   (emacs-lisp-mode . enable-paredit-mode)
   (lisp-mode . enable-paredit-mode)
@@ -234,7 +236,9 @@
 (use-package go-mode
   :mode (("\\.go\\'" . go-mode))
   :hook
-  (go-mode . (lambda () (setq indent-tabs-mode 1 tab-width 2)))
+  (go-mode . (lambda ()
+	       (setq indent-tabs-mode 1
+		     tab-width 2)))
   :custom (gofmt-command "/usr/bin/gofmt"))
 
 (use-package fennel-mode
@@ -357,30 +361,35 @@
 			  ((org-ql-block-header "Stuck projects"))))))))
 
 (use-package ox-reveal
+  :defer t
   :custom (org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js@3.8.0"))
 
 (use-package ox-latex
   :straight nil
+  :defer t
   :custom
   (org-latex-create-formula-image-program 'dvipng)
   :config
   (org-babel-do-load-languages 'org-babel-load-languages '((latex . t))))
 
-(use-package htmlize)
+(use-package htmlize
+  :defer t)
 
 (use-package markdown-mode
   :mode (("\\.md\\'" . markdown-mode)))
 
-(use-package define-word)
+(use-package define-word
+  :commands define-word)
 
 (use-package flyspell
   :straight nil
+  :commands flyspell-mode
   :config
   (setq ispell-program-name "aspell"
 	ispell-extra-args '("--sug-mode=ultra" "--lang=en_US")))
 
 (use-package sdcv
-  :defer t
+  :commands sdcv-search-input
   :bind
   (:map sdcv-mode-map
 	("n" . sdcv-next-line)
@@ -433,7 +442,7 @@
 	("S-<right>" . windmove-right))
   (:map bb-map
 	("t" . eshell)
-	("C-t" . vterm-switch-buffer-or-ru)
+	("C-t" . vterm-switch-buffer-or-run)
 	("@" . notmuch)
 	("p" . project-find-file)
 	("/" . project-find-regexp)
