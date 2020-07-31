@@ -430,6 +430,7 @@
 	("@" . notmuch)
 	("p" . project-find-file)
 	("/" . project-find-regexp)
+	("i" . imenu)
 	("n" . noccur-project)
 	("r" . compile)
 	("C-r" . recompile)
@@ -441,8 +442,7 @@
 	("a" . org-agenda)
 	("d" . sdcv-search-input)
 	("z e" . neuron-edit-zettel)
-	("z n" . neuron-new-zettel)
-	("x" . (lambda () (interactive) (org-latex-export-to-pdf t))))
+	("z n" . neuron-new-zettel))
   (:map ctl-x-map
 	("C-k" . kill-region)
 	("g" . magit-status)
