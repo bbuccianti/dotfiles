@@ -134,6 +134,7 @@
   (setq dired-recursive-copies 'always
 	dired-recursive-deletes 'top
 	dired-use-ls-dired nil
+	dired-dwim-target t
 	dired-listing-switches "-lha1v --group-directories-first")
   (put 'dired-find-alternate-file 'disabled nil))
 
