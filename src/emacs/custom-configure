@@ -18,4 +18,4 @@
 	    --with-ns=no \
 	    --with-xwidgets=no \
 	    --without-compress-install \
-	    CFLAGS="-O3 -mtune=native -march=native -fomit-frame-pointer"
+	    CFLAGS="-O2 -mtune=native -march=native -pipe -falign-functions=64 -fomit-frame-pointer -ftracer -funit-at-a-time -fweb -fforce-addr -fpeel-loops -funswitch-loops -frename-registers -mfpmath=sse -ffast-math -fno-finite-math-only -fstack-check -fomit-frame-pointer"

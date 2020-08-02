@@ -426,6 +426,7 @@
     (add-to-list 'vc-directory-exclusion-list folder))
   (fringe-mode 2)
   (define-prefix-command 'bb-map)
+  (set-cursor-color "OrangeRed")
   :config
   (setq search-whitespace-regexp ".*")
   :hook
