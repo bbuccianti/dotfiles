@@ -120,11 +120,17 @@
 		   :files ("selectrum-prescient.el"))
   :demand t
   :after selectrum
-  :config (selectrum-prescient-mode +1))
+  :config
+  (selectrum-prescient-mode +1)
+  (setq selectrum-current-candidate '((t (:background "#222226" :weight bold
+						      :foreground "gainsboro")))
+	selectrum-primary-highlight '((t (:foreground "#c56ec3")))
+	selectrum-secondary-highlight '((t (:foreground "#2d9574")))))
 
 (use-package amx
   :commands amx
-  :custom (amx-show-key-bindings t))
+  :config
+  (setq amx-show-key-bindings t))
 
 (use-package dired
   :straight nil
@@ -147,27 +153,27 @@
 
 (use-package notmuch
   :commands notmuch
-  :custom
-  (fill-column 72)
-  (mail-user-agent 'message-user-agent)
-  (smtpmail-default-smtp-server "mail.buccianti.dev")
-  (smtpmail-smtp-server "mail.buccianti.dev")
-  (smtpmail-local-domain "buccianti.dev")
-  (message-send-mail-function 'message-smtpmail-send-it)
-  (smtpmail-debug-info nil)
-  (message-default-mail-headers "Cc: \nBcc: \n")
-  (message-auto-save-directory "~/.mail/drafts")
-  (message-kill-buffer-on-exit t)
-  (message-directory "~/.mail/sent")
-  (notmuch-search-oldest-first nil)
-  (notmuch-show-indent-content nil)
-  (notmuch-show-logo nil)
-  (notmuch-show-all-tags-lst t)
-  (notmuch-hello-sections '(notmuch-hello-insert-header
-			    notmuch-hello-insert-inbox
-			    notmuch-hello-insert-footer))
-  (notmuch-fcc-dirs
-   '(("benjamin@buccianti.dev" . "benjamin/Sent -inbox -unread +sent"))))
+  :config
+  (setq fill-column 72
+	mail-user-agent 'message-user-agent
+	smtpmail-default-smtp-server "mail.buccianti.dev"
+	smtpmail-smtp-server "mail.buccianti.dev"
+	smtpmail-local-domain "buccianti.dev"
+	message-send-mail-function 'message-smtpmail-send-it
+	smtpmail-debug-info nil
+	message-default-mail-headers "Cc: \nBcc: \n"
+	message-auto-save-directory "~/.mail/drafts"
+	message-kill-buffer-on-exit t
+	message-directory "~/.mail/sent"
+	notmuch-search-oldest-first nil
+	notmuch-show-indent-content nil
+	notmuch-show-logo nil
+	notmuch-show-all-tags-lst t
+	notmuch-hello-sections '(notmuch-hello-insert-header
+				 notmuch-hello-insert-inbox
+				 notmuch-hello-insert-footer)
+	notmuch-fcc-dirs
+	'(("benjamin@buccianti.dev" . "benjamin/Sent -inbox -unread +sent"))))
 
 (use-package text-mode
   :straight nil
@@ -176,9 +182,9 @@
 (use-package whitespace
   :straight nil
   :hook (prog-mode . whitespace-mode)
-  :custom
-  (whitespace-line-column 80)
-  (whitespace-style '(face lines-tail trailing space-before-tab)))
+  :config
+  (setq whitespace-line-column 80
+	whitespace-style '(face lines-tail trailing space-before-tab)))
 
 (use-package dumb-jump
   :commands dumb-jump-go
@@ -215,11 +221,11 @@
 
 (use-package elfeed
   :commands elfeed
-  :custom
-  (elfeed-feeds '("http://planet.clojure.in/atom.xml"
-		  "https://planet.emacslife.com/atom.xml"
-		  "http://planet.lisp.org/rss20.xml"
-		  "https://twobithistory.org/feed.xml")))
+  :config
+  (setq elfeed-feeds '("http://planet.clojure.in/atom.xml"
+		       "https://planet.emacslife.com/atom.xml"
+		       "http://planet.lisp.org/rss20.xml"
+		       "https://twobithistory.org/feed.xml")))
 
 (use-package clojure-mode
   :mode (("\\.clj\\[s\\*\\'" . clojure-mode))
@@ -239,7 +245,7 @@
   (go-mode . (lambda ()
 	       (setq indent-tabs-mode 1
 		     tab-width 2)))
-  :custom (gofmt-command "/usr/bin/gofmt"))
+  :config (setq gofmt-command "/usr/bin/gofmt"))
 
 (use-package fennel-mode
   :mode (("\\.fnl\\'" . fennel-mode)))
@@ -258,8 +264,8 @@
 
 (use-package magit
   :commands (magit-status magit-list-repositories)
-  :custom (magit-repository-directories '(("~/work" . 2)
-					  ("~/src" . 3))))
+  :config (setq magit-repository-directories '(("~/work" . 2)
+					       ("~/src" . 3))))
 
 (use-package neuron-mode
   :commands (neuron-edit-zettel neuron-new-zettel)
@@ -362,13 +368,13 @@
 
 (use-package ox-reveal
   :defer t
-  :custom (org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js@3.8.0"))
+  :config (setq org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js@3.8.0"))
 
 (use-package ox-latex
   :straight nil
   :defer t
-  :custom
-  (org-latex-create-formula-image-program 'dvipng)
+  :config
+  (setq org-latex-create-formula-image-program 'dvipng)
   :config
   (org-babel-do-load-languages 'org-babel-load-languages '((latex . t))))
 
@@ -402,14 +408,14 @@
 
 (use-package prettier
   :hook (rjsx-mode . (lambda () (prettier-mode t)))
-  :custom
-  (prettier-el-home
-   "/home/bbuccianti/.emacs.d/straight/repos/prettier.el/dist/"))
+  :config
+  (setq prettier-el-home
+	"/home/bbuccianti/.emacs.d/straight/repos/prettier.el/dist/"))
 
 (use-package pug-mode
   :mode (("\\.pug\\'" . pug-mode))
   :hook (pug-mode . (lambda () (setq indent-tabs-mode nil)))
-  :custom (pug-tab-width 2))
+  :config (setq pug-tab-width 2))
 
 (use-package personal-keybindings
   :straight nil
@@ -420,8 +426,8 @@
     (add-to-list 'vc-directory-exclusion-list folder))
   (fringe-mode 2)
   (define-prefix-command 'bb-map)
-  :custom
-  (search-whitespace-regexp ".*")
+  :config
+  (setq search-whitespace-regexp ".*")
   :hook
   (prog-mode . prettify-symbols-mode)
   (prog-mode . global-hl-line-mode)
