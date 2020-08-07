@@ -7,12 +7,16 @@
       package-enable-at-startup nil
       menu-bar-mode nil
       tool-bar-mode nil
-      scroll-bar-mode nil
-      horizontal-scroll-bar-mode nil
-      line-number-mode nil
-      column-number-mode nil
+      line-number-mode t
+      column-number-mode t
       frame-inhibit-implied-resize t
-      site-run-file nil)
+      site-run-file nil
+      initial-scratch-message nil
+      inhibit-startup-screen t
+      inhibit-default-init t
+      inhibit-startup-message t
+      bidi-display-reordering nil
+      create-lockfiles nil)
 
 (advice-add #'package--ensure-init-file :override #'ignore)
 (advice-add #'x-apply-session-resources :override #'ignore)

@@ -1,9 +1,11 @@
 ! emacs
-Emacs.horizontalScrollBars: false
-Emacs.verticalScrollBars: false
-Emacs.menuBar: false
-Emacs.scrollBar: false
-Emacs.toolBar: false
+Emacs.bitmapIcon:         off
+Emacs.verticalScrollBars: off
+Emacs.toolBar:            off
+Emacs.fontBackend:        xft
+Emacs.horizontalScrollBars: off
+Emacs.menuBar: off
+Emacs.scrollBar: off
 Emacs.font: Source Code Pro:size=13
 
 Xft.autohint: 0

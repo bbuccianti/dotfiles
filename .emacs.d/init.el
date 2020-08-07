@@ -3,7 +3,8 @@
 (setq straight-use-package-by-default t
       use-package-always-defer t
       straight-check-for-modifications nil
-      straight-cache-autoloads t)
+      straight-cache-autoloads t
+      file-name-handler-alist nil)
 
 (defvar bootstrap-version)
 (let ((bootstrap-file
@@ -36,16 +37,8 @@
       visible-cursor nil
       make-backup-files nil
       browse-url-browser-function 'browse-url-firefox
-      file-name-handler-alist nil
       auto-window-vscroll nil
       backup-directory-alist '(("." . "~/.emacs.d/backups"))
-      bidi-display-reordering nil
-      inhibit-startup-screen t
-      inhibit-default-init t
-      inhibit-startup-message t
-      initial-scratch-message nil
-      frame-inhibit-implied-resize t
-      create-lockfiles nil
       auto-save-default nil
       vc-follow-symlinks t
       epg-gpg-program "gpg2"
@@ -61,8 +54,8 @@
           (lambda ()
             (message "Emacs ready in %s with %d garbage collections."
                      (format "%.2f seconds"
-                             (float-time
-                              (time-subtract after-init-time before-init-time)))
+                             (float-time (time-subtract after-init-time
+							before-init-time)))
                      gcs-done)
             (setq file-name-handler-alist old--file-name-handler-alist
                   gc-cons-threshold 16777216 ; 16mb
@@ -93,14 +86,76 @@
 ;; (setq use-package-verbose t) ;; debug only
 (straight-use-package 'use-package)
 
+(use-package personal-keybindings
+  :straight nil
+  :init
+  (global-unset-key "\C-z")
+  (define-prefix-command 'ctl-z-map)
+  (set-fringe-mode 1)
+  :hook
+  (prog-mode . prettify-symbols-mode)
+  (prog-mode . global-hl-line-mode)
+  :bind
+  (:map global-map
+	("C-z" . ctl-z-map)
+	("M-SPC" . cycle-spacing)
+	("M-o" . other-window)
+	("M-x" . amx)
+	("M-/" . hippie-expand)
+	("C-w" . backward-kill-word)
+	("S-<left>" . windmove-left)
+	("S-<up>" . windmove-up)
+	("S-<down>" . windmove-down)
+	("S-<right>" . windmove-right))
+  (:map ctl-z-map
+	("r" . compile)
+	("C-r" . recompile)
+	("y" . yank-from-kill-ring))
+  (:map ctl-x-map
+	("C-k" . kill-region)
+	("C-b" . ibuffer)))
+
 (use-package esup
-  :commands esup)
+  :commands esup
+  :config (setq esup-depth 1))
+
+(use-package css-mode
+  :straight nil
+  :hook (css-mode . electric-pair-mode))
+
+(use-package isearch
+  :straight nil
+  :commands (isearch-forward isearch-backward)
+  :config
+  (setq isearch-allow-scroll t
+	search-whitespace-regexp ".*"))
+
+(use-package eshell
+  :straight nil
+  :bind (:map ctl-z-map
+	      ("t" . eshell)))
 
 (use-package exec-path-from-shell
-  :commands exec-path-from-shell-initialize)
+  :after eshell
+  :commands exec-path-from-shell-initialize
+  :config
+  (setq exec-path-from-shell-check-startup-files nil))
+
+(use-package project
+  :straight nil
+  :commands (project-find-file project-find-regexp)
+  :bind (:map ctl-z-map
+	      ("p" . project-find-file)
+	      ("/" . project-find-regexp))
+  :config
+  (dolist (folder '("node_modules" "target" "out"
+		    ".cljs_node_repl" ".shadow-cljs"))
+    (add-to-list 'vc-directory-exclusion-list folder)))
 
 (use-package vterm
-  :commands vterm)
+  :commands vterm
+  :bind (:map ctl-z-map
+	      ("C-t" . vterm-switch-buffer-or-run)))
 
 (use-package apropospriate-theme
   :init (load-theme 'apropospriate-dark t))
@@ -153,6 +208,8 @@
 
 (use-package notmuch
   :commands notmuch
+  :bind (:map ctl-z-map
+	      ("@" . notmuch))
   :config
   (setq fill-column 72
 	mail-user-agent 'message-user-agent
@@ -182,6 +239,8 @@
 (use-package whitespace
   :straight nil
   :hook (prog-mode . whitespace-mode)
+  :bind (:map ctl-z-map
+	      ("C-." . whitespace-cleanup))
   :config
   (setq whitespace-line-column 80
 	whitespace-style '(face lines-tail trailing space-before-tab)))
@@ -197,19 +256,28 @@
   :hook (prog-mode . rainbow-delimiters-mode))
 
 (use-package paredit
-  :bind
-  (:map paredit-mode-map
-	("C-w" . paredit-backward-kill-word))
+  :bind (:map paredit-mode-map
+	      ("C-w" . paredit-backward-kill-word))
   :hook
   (emacs-lisp-mode . enable-paredit-mode)
   (lisp-mode . enable-paredit-mode)
   (lisp-interaction-mode . enable-paredit-mode)
   (clojure-mode . enable-paredit-mode))
 
+(use-package imenu
+  :straight nil
+  :bind (:map ctl-z-map
+	      ("i" . imenu))
+  :config
+  (setq imenu-auto-rescan t))
+
 (use-package noccur
-  :commands noccur-project)
+  :commands noccur-project
+  :bind (:map ctl-z-map
+	      ("n" . noccur-project)))
 
 (use-package nov
+  :disabled
   :mode (("\\.epub\\'" . nov-mode)))
 
 (use-package web-mode
@@ -217,10 +285,14 @@
   :hook (web-mode . (lambda () (setq web-mode-markup-indent-offset 2))))
 
 (use-package expand-region
-  :commands er/expand-region)
+  :commands er/expand-region
+  :bind (:map ctl-z-map
+	      ("C-=" . er/expand-region)))
 
 (use-package elfeed
   :commands elfeed
+  :bind (:map ctl-z-map
+	      ("e" . elfeed))
   :config
   (setq elfeed-feeds '("http://planet.clojure.in/atom.xml"
 		       "https://planet.emacslife.com/atom.xml"
@@ -237,7 +309,9 @@
   :commands monroe
   :hook
   (clojure-mode . clojure-enable-monroe)
-  (monroe-mode . enable-paredit-mode))
+  (monroe-mode . enable-paredit-mode)
+  :bind (:map ctl-z-map
+	      ("m" . monroe)))
 
 (use-package go-mode
   :mode (("\\.go\\'" . go-mode))
@@ -264,11 +338,17 @@
 
 (use-package magit
   :commands (magit-status magit-list-repositories)
-  :config (setq magit-repository-directories '(("~/work" . 2)
-					       ("~/src" . 3))))
+  :bind
+  (:map ctl-z-map ("g" . magit-list-repositories))
+  (:map ctl-x-map ("g" . magit-status))
+  :config
+  (setq magit-repository-directories '(("~/work" . 2) ("~/src" . 3))))
 
 (use-package neuron-mode
   :commands (neuron-edit-zettel neuron-new-zettel)
+  :bind (:map ctl-z-map
+	      ("z e" . neuron-edit-zettel)
+	      ("z n" . neuron-new-zettel))
   :config
   (setq neuron-default-zettelkasten-directory (expand-file-name "~/notes")
 	neuron-executable "~/bin/neuron-linux-bundle"))
@@ -276,6 +356,9 @@
 (use-package org
   :straight nil
   :mode (("\\.org\\'" . org-mode))
+  :bind (:map ctl-z-map
+	      ("a" . org-agenda)
+	      ("c" . org-capture))
   :config
   (setq org-startup-indented t
 	org-startup-truncated nil
@@ -310,14 +393,12 @@
 	org-directory "/home/bbuccianti/notes/"))
 
 (use-package org-ql
+  :after org
   :commands org-ql-block)
-
-(use-package vc-git
-  :straight nil
-  :defer t)
 
 (use-package org-agenda
   :straight nil
+  :after org
   :config
   (setq org-agenda-files '("/home/bbuccianti/org/")
 	org-agenda-skip-deadline-if-done t
@@ -367,19 +448,18 @@
 			  ((org-ql-block-header "Stuck projects"))))))))
 
 (use-package ox-reveal
-  :defer t
-  :config (setq org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js@3.8.0"))
+  :config
+  (setq org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js@3.8.0"))
 
 (use-package ox-latex
   :straight nil
-  :defer t
   :config
-  (setq org-latex-create-formula-image-program 'dvipng)
-  :config
-  (org-babel-do-load-languages 'org-babel-load-languages '((latex . t))))
+  (progn
+    (setq org-latex-create-formula-image-program 'dvipng)
+    (org-babel-do-load-languages 'org-babel-load-languages '((latex . t)))))
 
 (use-package htmlize
-  :defer t)
+  :disabled)
 
 (use-package markdown-mode
   :mode (("\\.md\\'" . markdown-mode)))
@@ -401,10 +481,13 @@
 	("n" . sdcv-next-line)
 	("p" . sdcv-prev-line)
 	("N" . sdcv-next-dictionary)
-	("P" . sdcv-previous-dictionary)))
+	("P" . sdcv-previous-dictionary))
+  (:map ctl-z-map
+	("d" . sdcv-search-input)))
 
 (use-package rjsx-mode
-  :mode (("\\.js\\'" . rjsx-mode)))
+  :mode (("\\.js\\'" . rjsx-mode))
+  :hook (rjsx-mode . electric-pair-mode))
 
 (use-package prettier
   :hook (rjsx-mode . (lambda () (prettier-mode t)))
@@ -412,61 +495,4 @@
   (setq prettier-el-home
 	"/home/bbuccianti/.emacs.d/straight/repos/prettier.el/dist/"))
 
-(use-package pug-mode
-  :mode (("\\.pug\\'" . pug-mode))
-  :hook (pug-mode . (lambda () (setq indent-tabs-mode nil)))
-  :config (setq pug-tab-width 2))
 
-(use-package personal-keybindings
-  :straight nil
-  :init
-  (global-unset-key "\C-z")
-  (dolist (folder '("node_modules" "target" "out"
-		    ".cljs_node_repl" ".shadow-cljs"))
-    (add-to-list 'vc-directory-exclusion-list folder))
-  (fringe-mode 2)
-  (define-prefix-command 'bb-map)
-  (set-cursor-color "OrangeRed")
-  :config
-  (setq search-whitespace-regexp ".*")
-  :hook
-  (prog-mode . prettify-symbols-mode)
-  (prog-mode . global-hl-line-mode)
-  (css-mode . electric-pair-mode)
-  (rjsx-mode . electric-pair-mode)
-  :bind
-  (:map global-map
-	("C-z" . bb-map)
-	("M-SPC" . cycle-spacing)
-	("M-o" . other-window)
-	("M-x" . amx)
-	("M-/" . hippie-expand)
-	("C-w" . backward-kill-word)
-	("C-=" . er/expand-region)
-	("S-<left>" . windmove-left)
-	("S-<up>" . windmove-up)
-	("S-<down>" . windmove-down)
-	("S-<right>" . windmove-right))
-  (:map bb-map
-	("@" . notmuch)
-	("a" . org-agenda)
-	("c" . org-capture)
-	("d" . sdcv-search-input)
-	("e" . elfeed)
-	("g" . magit-list-repositories)
-	("i" . imenu)
-	("t" . eshell)
-	("C-t" . vterm-switch-buffer-or-run)
-	("n" . noccur-project)
-	("m" . monroe)
-	("p" . project-find-file)
-	("/" . project-find-regexp)
-	("r" . compile)
-	("C-r" . recompile)
-	("y" . yank-from-kill-ring)
-	("z e" . neuron-edit-zettel)
-	("z n" . neuron-new-zettel))
-  (:map ctl-x-map
-	("C-k" . kill-region)
-	("g" . magit-status)
-	("C-b" . ibuffer)))
