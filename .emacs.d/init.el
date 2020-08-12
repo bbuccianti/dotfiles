@@ -132,8 +132,7 @@
 
 (use-package eshell
   :straight nil
-  :bind (:map ctl-z-map
-	      ("t" . eshell)))
+  :bind (:map ctl-z-map ("t" . eshell)))
 
 (use-package exec-path-from-shell
   :after eshell
@@ -154,8 +153,7 @@
 
 (use-package vterm
   :commands vterm
-  :bind (:map ctl-z-map
-	      ("C-t" . vterm-switch-buffer-or-run)))
+  :bind (:map ctl-z-map ("C-t" . vterm-switch-buffer-or-run)))
 
 (use-package apropospriate-theme
   :init (load-theme 'apropospriate-dark t))
@@ -208,8 +206,7 @@
 
 (use-package notmuch
   :commands notmuch
-  :bind (:map ctl-z-map
-	      ("@" . notmuch))
+  :bind (:map ctl-z-map ("@" . notmuch))
   :config
   (setq fill-column 72
 	mail-user-agent 'message-user-agent
@@ -239,18 +236,10 @@
 (use-package whitespace
   :straight nil
   :hook (prog-mode . whitespace-mode)
-  :bind (:map ctl-z-map
-	      ("C-." . whitespace-cleanup))
+  :bind (:map ctl-z-map ("C-." . whitespace-cleanup))
   :config
   (setq whitespace-line-column 80
 	whitespace-style '(face lines-tail trailing space-before-tab)))
-
-(use-package dumb-jump
-  :commands dumb-jump-go
-  :hook (prog-mode . dumb-jump-mode)
-  :config
-  (setq dumb-jump-selector 'completing-read
-	dumb-jump-force-searcher 'rg))
 
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
@@ -266,15 +255,13 @@
 
 (use-package imenu
   :straight nil
-  :bind (:map ctl-z-map
-	      ("i" . imenu))
+  :bind (:map ctl-z-map ("i" . imenu))
   :config
   (setq imenu-auto-rescan t))
 
 (use-package noccur
   :commands noccur-project
-  :bind (:map ctl-z-map
-	      ("n" . noccur-project)))
+  :bind (:map ctl-z-map ("n" . noccur-project)))
 
 (use-package nov
   :disabled
@@ -286,13 +273,11 @@
 
 (use-package expand-region
   :commands er/expand-region
-  :bind (:map ctl-z-map
-	      ("C-=" . er/expand-region)))
+  :bind (:map global-map ("C-=" . er/expand-region)))
 
 (use-package elfeed
   :commands elfeed
-  :bind (:map ctl-z-map
-	      ("e" . elfeed))
+  :bind (:map ctl-z-map ("e" . elfeed))
   :config
   (setq elfeed-feeds '("http://planet.clojure.in/atom.xml"
 		       "https://planet.emacslife.com/atom.xml"
@@ -310,8 +295,15 @@
   :hook
   (clojure-mode . clojure-enable-monroe)
   (monroe-mode . enable-paredit-mode)
-  :bind (:map ctl-z-map
-	      ("m" . monroe)))
+  :bind (:map ctl-z-map ("m" . monroe)))
+
+(use-package rust-mode
+  :mode (("\\.rs\\'" . rust-mode))
+  :hook (rust-mode . electric-pair-mode)
+  :config (setq rust-format-on-save t
+		rust-format-show-buffer nil
+		rust-rustfmt-bin "/home/bbuccianti/.cargo/bin/rustfmt"
+		rust-cargo-bin "/home/bbuccianti/.cargo/bin/cargo"))
 
 (use-package go-mode
   :mode (("\\.go\\'" . go-mode))
@@ -464,9 +456,6 @@
 (use-package markdown-mode
   :mode (("\\.md\\'" . markdown-mode)))
 
-(use-package define-word
-  :commands define-word)
-
 (use-package flyspell
   :straight nil
   :commands flyspell-mode
@@ -482,8 +471,7 @@
 	("p" . sdcv-prev-line)
 	("N" . sdcv-next-dictionary)
 	("P" . sdcv-previous-dictionary))
-  (:map ctl-z-map
-	("d" . sdcv-search-input)))
+  (:map ctl-z-map ("d" . sdcv-search-input)))
 
 (use-package rjsx-mode
   :mode (("\\.js\\'" . rjsx-mode))
@@ -494,5 +482,3 @@
   :config
   (setq prettier-el-home
 	"/home/bbuccianti/.emacs.d/straight/repos/prettier.el/dist/"))
-
-
