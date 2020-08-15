@@ -22,14 +22,8 @@
      (.. follow.stylesheet
          "#luakit_select_overlay .hint_label { font-size: 15px !important;}"))
 
-(modes.add_binds :normal [;; ["<C-Home>" "Scroll to top" #($:scroll {:y 0})]
-                          ;; ["<C-End>" "Scroll to bottom" #($:scroll {:y -1})]
-                          ["<C-A-r>" "Reinite" #($:enter_cmd ":reinit ")]
-                          ["b" "Fancy tab switch" #($:enter_cmd ":switch ")]
-                          ;; aliases for my poor muscle memory
-                          ;; ["g" "Open URL" #($:enter_cmd ":open ")]
-                          ;; ["S" "Back" #($:back)]
-                          ])
+(modes.add_binds :normal [["<C-A-r>" "Reinite" #($:enter_cmd ":reinit ")]
+                          [",b" "Fancy tab switch" #($:enter_cmd ":switch ")]])
 
 (fn matching-tab [uris input n]
   (match (. uris n)
