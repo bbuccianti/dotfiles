@@ -1,21 +1,12 @@
-local downloads = require "downloads"
-local _select = require "select"
-local follow = require "follow"
+-- just enough to bootstrap fennel!
+local fennel = require("fennel")
+fennel.path = luakit.config_dir .. "/?.fnl"
+table.insert(package.loaders, fennel.searcher)
+require("browser")
 
--- Set downloads default dir
-downloads.default_dir = os.getenv("HOME") .. "/downloads"
+-- follow hint labels using letters
+local select = require "select"
 
--- Use letters for hint labels
-_select.label_maker = function ()
-   return trim(sort(reverse(charset("aeouidhtns"))))
+select.label_maker = function ()
+   return trim(sort(reverse(charset("aoeuidhtns"))))
 end
-
--- Match only hint label text
-follow.pattern_maker = follow.pattern_styles.match_label
-
--- Bigger follow hint label font size
-follow.stylesheet = follow.stylesheet .. [[
-#luakit_select_overlay .hint_label {
-  font-size: 15px !important;
-}
-]]
