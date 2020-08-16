@@ -5,12 +5,15 @@
 (local settings (require :settings))
 (local downloads (require :downloads))
 (local follow (require :follow))
+(local window (require :window))
+(local lousy (require :lousy))
 
 (global lume (require :lume))
 (global fennel (require :fennel))
 (local view (require :fennelview))
 
 (global pp (fn [x] (print (view x)))) ; convenience helper
+(global escape lousy.util.escape)
 
 (set settings.window.default_search_engine :google)
 (set settings.window.home_page "luakit://help/")
@@ -39,19 +42,23 @@
 
 ;; I had to patch completion.lua to expose this; need to submit a PR.
 (when completion.completers
-  ;; TODO: actually do completion
-  ;; TODO: trigger completion when in tab switcher
   (fn tab-completer [buf]
-    )
-  (set completion.completers.tabs {:header [:title :uri]
+    (let [ret []]
+      (each [_ w (pairs window.bywidget)]
+        (each [_ v (ipairs w.tabs.children)]
+          (table.insert ret {1 (escape v.title)
+                             2 (escape v.uri)
+                             :format v.uri})))
+      ret))
+  (set completion.completers.tabs {:header [:Title :URI]
                                    :func tab-completer}))
 
 (modes.add_cmds [[::reinit "Reload this file" (partial lume.hotswap :browser)]
                  [::fennel "Run Fennel code"
                   (fn [_ o]
                     (match o
-                      {: arg} (let [value (fennel.eval arg)]
-                                (print (view value)))))]
-                 [::switch "Switch tabs" switch]])
+                      {: arg} (pp (fennel.eval arg))))]
+                 [::switch "Switch tabs" {:func switch
+                                          :format "{tabs}"}]])
 
 (print :loaded-init)
