@@ -157,7 +157,15 @@
   :bind (:map ctl-z-map ("C-t" . vterm-switch-buffer-or-run)))
 
 (use-package apropospriate-theme
+  :disabled
   :init (load-theme 'apropospriate-dark t))
+
+(use-package monokai-theme
+  :disabled
+  :init (load-theme 'monokai t))
+
+(use-package material-theme
+  :init (load-theme 'material t))
 
 (use-package selectrum
   :straight (:host github :repo "raxod502/selectrum")
