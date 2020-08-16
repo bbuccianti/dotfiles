@@ -4,7 +4,6 @@
 (local completion (require :completion))
 (local settings (require :settings))
 (local downloads (require :downloads))
-(local gselect (require :select))
 (local follow (require :follow))
 
 (global lume (require :lume))
@@ -55,17 +54,4 @@
                                 (print (view value)))))]
                  [::switch "Switch tabs" switch]])
 
-(fn redirect [view status]
-  (when (and (= status :committed) (view.uri:match "https://twitter.com/(.*)"))
-    (set view.uri (view.uri:gsub "twitter.com" "nitter.net"))))
-
-(webview.add_signal :init (fn [view] (view:add_signal :load-status redirect)))
-
 (print :loaded-init)
-
-;; bindings cheat sheet:
-
-;; * Y - copy current URL
-;; * H - back
-;; * ;y - select target to copy URL
-;; * ,ts - toggle scripts for domain
