@@ -14,7 +14,7 @@
 (global pp (fn [x] (print (view x)))) ; convenience helper
 
 (set settings.window.default_search_engine :google)
-(set settings.window.home_page "https://google.com")
+(set settings.window.home_page "luakit://help/")
 (set noscript.enable_scripts false)
 (set downloads.default_dir (.. (os.getenv "HOME") "/downloads"))
 (set follow.pattern_maker follow.pattern_styles.match_label)
@@ -24,6 +24,8 @@
 
 (modes.add_binds :normal [["<C-A-r>" "Reinite" #($:enter_cmd ":reinit ")]
                           [",b" "Fancy tab switch" #($:enter_cmd ":switch ")]])
+
+(modes.add_binds :command [["<C-m>" "Another enter" #($:activate)]])
 
 (fn matching-tab [uris input n]
   (match (. uris n)
