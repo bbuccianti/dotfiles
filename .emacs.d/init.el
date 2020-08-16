@@ -36,7 +36,8 @@
       use-dialog-box nil
       visible-cursor nil
       make-backup-files nil
-      browse-url-browser-function 'browse-url-firefox
+      browse-url-generic-program "/usr/local/bin/luakit"
+      browse-url-browser-function 'browse-url-generic
       auto-window-vscroll nil
       backup-directory-alist '(("." . "~/.emacs.d/backups"))
       auto-save-default nil
@@ -295,7 +296,9 @@
   :hook
   (clojure-mode . clojure-enable-monroe)
   (monroe-mode . enable-paredit-mode)
-  :bind (:map ctl-z-map ("m" . monroe)))
+  :bind (:map ctl-z-map ("m" . monroe))
+  :config
+  (setq monroe-detail-stacktraces t))
 
 (use-package rust-mode
   :mode (("\\.rs\\'" . rust-mode))
