@@ -27,7 +27,7 @@
 (modes.add_binds :normal [["<C-A-r>" "Reinite" #($:enter_cmd ":reinit ")]
                           [",b" "Fancy tab switch" #($:enter_cmd ":switch ")]])
 
-(modes.add_binds :command [["<C-m>" "Another enter" #($:activate)]])
+(modes.add_binds :command [["<C-m>" "Emacs enter" #($:activate)]])
 
 (fn matching-tab [uris input n]
   (match (. uris n)
