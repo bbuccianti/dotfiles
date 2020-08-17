@@ -4,7 +4,6 @@ export CFLAGS="-O2 -mtune=native -march=native -pipe -falign-functions=64 -fomit
 ./configure --with-sound=no \
 	    --with-file-notification=inotify \
 	    --with-modules \
-	    --with-x-toolkit=gtk3 \
 	    --with-cairo \
 	    --with-tiff \
 	    --with-xft \
@@ -18,5 +17,6 @@ export CFLAGS="-O2 -mtune=native -march=native -pipe -falign-functions=64 -fomit
 	    --with-gnutls=ifavailable \
 	    --with-ns=no \
 	    --with-xwidgets=no \
-	    --without-compress-install
+	    --without-compress-install \
+	    --with-x-toolkit=lucid
 
