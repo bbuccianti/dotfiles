@@ -15,9 +15,22 @@ if [ "$(tty)" = "/dev/tty1" ]; then
     exec dbus-run-session sway
 fi
 
+# Editor
+VISUAL="emacs"
+EDITOR=$"VISUAL"
+set -o emacs
+
+# Wayland stuff
+GDK_BACKEND=wayland
 MOZ_ENABLE_WAYLAND=1
+
 # Useful
 PAGER=less
 _JAVA_AWT_WM_NONREPARENTING=1
 JAVA_HOME=/usr/lib/jvm/openjdk11/
-GTK_THEME=Blackbird
+
+# Aliases for package management
+alias xi='doas xbps-install -S'
+alias xu='doas xbps-install -Syuv'
+alias xr='doas xbps-remove -R'
+alias xq='xbps-query -Rs'

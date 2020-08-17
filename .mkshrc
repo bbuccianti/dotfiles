@@ -8,24 +8,7 @@ HISTSIZE=10000
 # PATH
 PATH="$HOME/.config/composer/vendor/bin:$HOME/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:$HOME/.cargo/bin:$HOME/go/bin:$HOME/bin/node-v14.6.0-linux-x64/bin:/opt/texlive/2020/bin/x86_64-linuxmusl:$HOME/.local/bin"
 
-# Editor
-VISUAL="emacs"
-EDITOR=$"VISUAL"
-set -o emacs
-
-# Useful
-PAGER=less
-_JAVA_AWT_WM_NONREPARENTING=1
-JAVA_HOME=/usr/lib/jvm/openjdk11/
-GTK_THEME=Blackbird
-
-# Aliases for package management
-alias xi='doas xbps-install -S'
-alias xu='doas xbps-install -Syuv'
-alias xr='doas xbps-remove -R'
-alias xq='xbps-query -Rs'
-
-# Function for mounting nfs folders
+# Function for mounting atom nfs folders
 function m {
     doas mount "/mnt/atom/$1"
 }
