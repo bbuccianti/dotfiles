@@ -101,7 +101,6 @@
 	("C-z" . ctl-z-map)
 	("M-SPC" . cycle-spacing)
 	("M-o" . other-window)
-	("M-x" . amx)
 	("M-/" . hippie-expand)
 	("C-w" . backward-kill-word)
 	("S-<left>" . windmove-left)
@@ -139,7 +138,9 @@
   :after eshell
   :commands exec-path-from-shell-initialize
   :config
-  (setq exec-path-from-shell-check-startup-files nil))
+  (progn
+    (setq exec-path-from-shell-check-startup-files nil)
+    (exec-path-from-shell-initialize)))
 
 (use-package project
   :straight nil
@@ -155,14 +156,6 @@
 (use-package vterm
   :commands vterm
   :bind (:map ctl-z-map ("C-t" . vterm-switch-buffer-or-run)))
-
-(use-package apropospriate-theme
-  :disabled
-  :init (load-theme 'apropospriate-dark t))
-
-(use-package monokai-theme
-  :disabled
-  :init (load-theme 'monokai t))
 
 (use-package material-theme
   :init (load-theme 'material t))
@@ -180,17 +173,18 @@
 (use-package selectrum-prescient
   :straight (:host github :repo "raxod502/prescient.el"
 		   :files ("selectrum-prescient.el"))
-  :demand t
   :after selectrum
   :config
   (selectrum-prescient-mode +1)
-  (setq selectrum-current-candidate '((t (:background "#222226" :weight bold
-						      :foreground "gainsboro")))
+  (setq selectrum-current-candidate '((t (:background "#222226"
+					  :weight bold
+					  :foreground "gainsboro")))
 	selectrum-primary-highlight '((t (:foreground "#c56ec3")))
 	selectrum-secondary-highlight '((t (:foreground "#2d9574")))))
 
 (use-package amx
   :commands amx
+  :bind (:map global-map ("M-x" . amx))
   :config
   (setq amx-show-key-bindings t))
 
@@ -205,13 +199,6 @@
 	dired-dwim-target t
 	dired-listing-switches "-lha1v --group-directories-first")
   (put 'dired-find-alternate-file 'disabled nil))
-
-(use-package gnus
-  :disabled
-  :straight nil
-  :commands gnus
-  :config
-  (setq gnus-select-method '(nntp "news.gmane.io")))
 
 (use-package notmuch
   :commands notmuch
@@ -254,8 +241,7 @@
   :hook (prog-mode . rainbow-delimiters-mode))
 
 (use-package paredit
-  :bind (:map paredit-mode-map
-	      ("C-w" . paredit-backward-kill-word))
+  :bind (:map paredit-mode-map ("C-w" . paredit-backward-kill-word))
   :hook
   (emacs-lisp-mode . enable-paredit-mode)
   (lisp-mode . enable-paredit-mode)
@@ -265,20 +251,7 @@
 (use-package imenu
   :straight nil
   :bind (:map ctl-z-map ("i" . imenu))
-  :config
-  (setq imenu-auto-rescan t))
-
-(use-package noccur
-  :commands noccur-project
-  :bind (:map ctl-z-map ("n" . noccur-project)))
-
-(use-package nov
-  :disabled
-  :mode (("\\.epub\\'" . nov-mode)))
-
-(use-package web-mode
-  :mode (("\\.php\\'" . web-mode))
-  :hook (web-mode . (lambda () (setq web-mode-markup-indent-offset 2))))
+  :config (setq imenu-auto-rescan t))
 
 (use-package expand-region
   :commands er/expand-region
@@ -316,14 +289,6 @@
 		rust-rustfmt-bin "/home/bbuccianti/.cargo/bin/rustfmt"
 		rust-cargo-bin "/home/bbuccianti/.cargo/bin/cargo"))
 
-(use-package go-mode
-  :mode (("\\.go\\'" . go-mode))
-  :hook
-  (go-mode . (lambda ()
-	       (setq indent-tabs-mode 1
-		     tab-width 2)))
-  :config (setq gofmt-command "/usr/bin/gofmt"))
-
 (use-package fennel-mode
   :mode (("\\.fnl\\'" . fennel-mode)))
 
@@ -353,8 +318,8 @@
 	      ("z e" . neuron-edit-zettel)
 	      ("z n" . neuron-new-zettel))
   :config
-  (setq neuron-default-zettelkasten-directory (expand-file-name "~/notes")
-	neuron-executable "~/bin/neuron-linux-bundle"))
+  (setq neuron-default-zettelkasten-directory "/home/bbuccianti/notes"
+	neuron-executable "/home/bbuccianti/bin/neuron-linux-bundle"))
 
 (use-package org
   :straight nil
@@ -450,29 +415,8 @@
 				(not (or (scheduled) (deadline))))
 			  ((org-ql-block-header "Stuck projects"))))))))
 
-(use-package ox-reveal
-  :config
-  (setq org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js@3.8.0"))
-
-(use-package ox-latex
-  :straight nil
-  :config
-  (progn
-    (setq org-latex-create-formula-image-program 'dvipng)
-    (org-babel-do-load-languages 'org-babel-load-languages '((latex . t)))))
-
-(use-package htmlize
-  :disabled)
-
 (use-package markdown-mode
   :mode (("\\.md\\'" . markdown-mode)))
-
-(use-package flyspell
-  :straight nil
-  :commands flyspell-mode
-  :config
-  (setq ispell-program-name "aspell"
-	ispell-extra-args '("--sug-mode=ultra" "--lang=en_US")))
 
 (use-package sdcv
   :commands sdcv-search-input
@@ -483,13 +427,3 @@
 	("N" . sdcv-next-dictionary)
 	("P" . sdcv-previous-dictionary))
   (:map ctl-z-map ("d" . sdcv-search-input)))
-
-(use-package rjsx-mode
-  :mode (("\\.js\\'" . rjsx-mode))
-  :hook (rjsx-mode . electric-pair-mode))
-
-(use-package prettier
-  :hook (rjsx-mode . (lambda () (prettier-mode t)))
-  :config
-  (setq prettier-el-home
-	"/home/bbuccianti/.emacs.d/straight/repos/prettier.el/dist/"))
