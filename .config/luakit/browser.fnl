@@ -15,8 +15,8 @@
 (global pp (fn [x] (print (view x)))) ; convenience helper
 (global escape lousy.util.escape)
 
-(set settings.window.default_search_engine :google)
-(set settings.window.home_page "luakit://help/")
+(set settings.window.default_search_engine :duckduckgo)
+(set settings.window.home_page "https://html.duckduckgo.com/html")
 (set noscript.enable_scripts false)
 (set downloads.default_dir (.. (os.getenv "HOME") "/downloads"))
 (set follow.pattern_maker follow.pattern_styles.match_label)
