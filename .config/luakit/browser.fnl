@@ -17,6 +17,7 @@
 
 (set settings.window.default_search_engine :duckduckgo)
 (set settings.window.home_page "https://html.duckduckgo.com/html")
+(tset settings.window.search_engines "duckduckgo" "https://html.duckduckgo.com/html?q=%s")
 (set noscript.enable_scripts false)
 (set downloads.default_dir (.. (os.getenv "HOME") "/downloads"))
 (set follow.pattern_maker follow.pattern_styles.match_label)
