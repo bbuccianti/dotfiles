@@ -1,0 +1,24 @@
+#!/bin/sh -eu
+. ~/.config/sr.ht
+PASTESRHT=${PASTESRHT:-https://paste.sr.ht}
+wl-copy < "$1"
+fname=$(basename "$1")
+result=$(wl-paste --no-newline | jq -sR '{
+	"files": [
+		{
+			"contents": .,
+			"filename": "'"$fname"'",
+		}
+	],
+	"visibility": "unlisted"
+}' | curl \
+	-H Authorization:"token $oauth_token" \
+	-H Content-Type:application/json \
+	-X POST \
+	-d @- $PASTESRHT/api/pastes)
+
+#printf '%s\n' "$result"
+sha=$(printf '%s' "$result" | jq -r .sha)
+user=$(printf '%s' "$result" | jq -r .user.canonical_name)
+wl-copy "$PASTESRHT/$user/$sha"
+printf "$PASTESRHT/$user/$sha\n"
