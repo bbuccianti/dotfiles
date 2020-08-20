@@ -1,6 +1,5 @@
 (local noscript (require :noscript))
 (local modes (require :modes))
-(local webview (require :webview))
 (local completion (require :completion))
 (local settings (require :settings))
 (local downloads (require :downloads))
@@ -25,10 +24,10 @@
      (.. follow.stylesheet
          "#luakit_select_overlay .hint_label { font-size: 15px !important;}"))
 
-(modes.add_binds :normal [["<C-A-r>" "Reinite" #($:enter_cmd ":reinit ")]
+(modes.add_binds :normal [["<C-A-r>" "Reinit" #($:enter_cmd ":reinit ")]
                           [",b" "Fancy tab switch" #($:enter_cmd ":switch ")]])
 
-(modes.add_binds :command [["<C-m>" "Emacs enter" #($:activate)]])
+(modes.add_binds :all [["<C-m>" "Emacs enter" #($:activate)]])
 
 (fn matching-tab [uris input n]
   (match (. uris n)
@@ -41,9 +40,7 @@
     {: arg} (match (matching-tab (lume.map w.tabs.children :uri) arg 1)
               tabnum (w:goto_tab tabnum))))
 
-;; I had to patch completion.lua to expose this; need to submit a PR.
-(when completion.completers
-  (fn tab-completer [buf]
+(fn tab-completer [buf]
     (let [ret []]
       (each [_ w (pairs window.bywidget)]
         (each [_ v (ipairs w.tabs.children)]
@@ -51,8 +48,9 @@
                              2 (escape v.uri)
                              :format v.uri})))
       ret))
-  (set completion.completers.tabs {:header [:Title :URI]
-                                   :func tab-completer}))
+
+(set completion.completers.tabs {:header [:Title :URI]
+                                 :func tab-completer})
 
 (modes.add_cmds [[::reinit "Reload this file" (partial lume.hotswap :browser)]
                  [::fennel "Run Fennel code"
