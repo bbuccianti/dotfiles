@@ -22,7 +22,7 @@
 (set follow.pattern_maker follow.pattern_styles.match_label)
 (set follow.stylesheet
      (.. follow.stylesheet
-         "#luakit_select_overlay .hint_label { font-size: 15px !important;}"))
+         "#luakit_select_overlay .hint_label { font-size: 15px !important; }"))
 
 (modes.add_binds :normal [["<C-A-r>" "Reinit" #($:enter_cmd ":reinit ")]
                           [",b" "Fancy tab switch" #($:enter_cmd ":switch ")]])
@@ -30,34 +30,32 @@
 (modes.add_binds :all [["<C-m>" "Emacs enter" #($:activate)]])
 
 (fn matching-tab [uris input n]
-  (match (. uris n)
-    uri (if (uri:find input)
-            n
-            (matching-tab uris input (+ n 1)))))
+  (let [uri (. uris n)]
+    (if (uri:find input)
+        n
+        (matching-tab uris input (+ n 1)))))
 
 (fn switch [w opts]
-  (match opts
-    {: arg} (match (matching-tab (lume.map w.tabs.children :uri) arg 1)
-              tabnum (w:goto_tab tabnum))))
+  (w:goto_tab (matching-tab (lume.map w.tabs.children :uri) opts.arg 1)))
 
 (fn tab-completer [buf]
-    (let [ret []]
-      (each [_ w (pairs window.bywidget)]
-        (each [_ v (ipairs w.tabs.children)]
-          (table.insert ret {1 (escape v.title)
-                             2 (escape v.uri)
-                             :format v.uri})))
-      ret))
+  (let [ret {}]
+    (each [_ w (pairs window.bywidget)]
+      (each [_ v (ipairs w.tabs.children)]
+        (table.insert ret {1 (escape v.title)
+                           2 (escape v.uri)
+                           :format v.uri})))
+    ret))
 
 (set completion.completers.tabs {:header [:Title :URI]
                                  :func tab-completer})
 
-(modes.add_cmds [[::reinit "Reload this file" (partial lume.hotswap :browser)]
-                 [::fennel "Run Fennel code"
-                  (fn [_ o]
-                    (match o
-                      {: arg} (pp (fennel.eval arg))))]
-                 [::switch "Switch tabs" {:func switch
-                                          :format "{tabs}"}]])
+(modes.add_binds :command
+                 [[::reinit "Reload this file"
+                   {:func (partial lume.hotswap :browser)}]
+                  [::fennel "Run Fennel code"
+                   {:func (fn [_ o] (pp (fennel.eval o.arg)))}]
+                  [::switch "Switch tabs"
+                   {:func switch :format "{tabs}"}]])
 
 (print :loaded-init)
