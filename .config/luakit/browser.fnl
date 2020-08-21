@@ -28,12 +28,20 @@
 
 (modes.add_binds :normal [["<C-A-r>" "Reinit" #($:enter_cmd ":reinit ")]])
 
-(modes.add_binds :all [["<C-m>" "Emacs enter" #($:activate)]])
+(modes.add_binds :all [["<C-m>" "Emacs like enter" #($:activate)]
+                       ["<C-g>" "Emacs like quit"
+                        #(if (not ($:is_mode "passthrough"))
+                             (do ($:set_prompt) ($:set_mode))
+                             (not ($:is_mode "passthrough")))]])
+
+;; White space in order to not fail on binds_chrome.lua
 
 (modes.add_binds :command
                  [[::reinit "Reload this file"
                    {:func (partial lume.hotswap :browser)}]
                   [::fennel "Run Fennel code"
                    {:func (fn [_ o] (pp (fennel.eval o.arg)))}]])
+
+;;
 
 (print :loaded-browser)
