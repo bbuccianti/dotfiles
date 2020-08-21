@@ -77,12 +77,9 @@
       (w:new_tab (get-input w.ibar.input.text))))
 
 (modes.add_binds :command
-                 [[::switch "Switch tabs"
-                   {:func switch}]
-                  [::gohistory "Search history"
-                   {:func go-history}]
-                  [::gothistory "Open history on another tab"
-                   {:func got-history}]])
+                 [[::switch "Switch tabs" switch]
+                  [::gohistory "Search history" go-history]
+                  [::gothistory "Open history on another tab" got-history]])
 
 ;; Groups
 
