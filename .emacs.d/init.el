@@ -43,7 +43,6 @@
       auto-save-default nil
       vc-follow-symlinks t
       epg-gpg-program "gpg2"
-      inferior-lisp-program "/bin/sbcl"
       explicit-shell-file-name "/bin/mksh")
 
 (fset 'yes-or-no-p 'y-or-n-p)
