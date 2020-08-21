@@ -312,6 +312,7 @@
   (setq magit-repository-directories '(("~/work" . 2) ("~/src" . 3))))
 
 (use-package neuron-mode
+  :straight (:host github :repo "bbuccianti/neuron-mode")
   :commands (neuron-edit-zettel neuron-new-zettel)
   :bind (:map ctl-z-map
 	      ("z e" . neuron-edit-zettel)
