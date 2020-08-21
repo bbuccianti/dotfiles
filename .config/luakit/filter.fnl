@@ -15,7 +15,8 @@
         input (or (string.match buf ":%a+ (%a+)") "")
         group (match cmd
                 :switch :tabs
-                :gohistory :history)
+                :gohistory :history
+                :gothistory :history)
         ret {}]
     (table.insert ret (. _M.groups group :header))
     ((. _M.groups group :func) ret w (or input ""))))
@@ -41,7 +42,9 @@
 (modes.add_binds :normal [[",b" "Fancy tab switch"
                            #($:set_mode "filter" :switch)]
                           [",gh" "Fancy history navigator"
-                           #($:set_mode "filter" :gohistory)]])
+                           #($:set_mode "filter" :gohistory)]
+                          [",gt" "Fancy history navigator on another tab"
+                           #($:set_mode "filter" :gothistory)]])
 
 (modes.add_binds :filter
                  [["<Tab>" "Move the menu row focus downwards."
@@ -55,21 +58,31 @@
 
 ;;; Without this space, binds_chrome.lua can't build :binds page
 
+(fn get-input [input]
+  (string.match input ":%a+ (.*)"))
+
 (fn switch [w]
   (if (w.menu:get)
       (w:goto_tab (. (w.menu:get) :format))
-      (w:new_tab (string.match w.ibar.input.text ":%a+ (.*)"))))
+      (w:new_tab (get-input w.ibar.input.text))))
 
 (fn go-history [w]
   (if (w.menu:get)
       (w:navigate (. (w.menu:get) :format))
-      (w:navigate (string.match w.ibar.input.text ":%a+ (.*)"))))
+      (w:navigate (get-input w.ibar.input.text))))
+
+(fn got-history [w]
+  (if (w.menu:get)
+      (w:new_tab (. (w.menu:get) :format))
+      (w:new_tab (get-input w.ibar.input.text))))
 
 (modes.add_binds :command
                  [[::switch "Switch tabs"
                    {:func switch}]
                   [::gohistory "Search history"
-                   {:func go-history}]])
+                   {:func go-history}]
+                  [::gothistory "Open history on another tab"
+                   {:func got-history}]])
 
 ;; Groups
 
