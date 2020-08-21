@@ -16,17 +16,26 @@
 (local pp (fn [x] (print (view x)))) ; convenience helper
 (local escape lousy.util.escape)
 
+;; Use html version of duckduckgo by default
 (set settings.window.default_search_engine :duckduckgo)
 (set settings.window.home_page "https://html.duckduckgo.com/html")
-(tset settings.window.search_engines "duckduckgo" "https://html.duckduckgo.com/html?q=%s")
+(tset settings.window.search_engines
+      "duckduckgo"
+      "https://html.duckduckgo.com/html?q=%s")
+
+;; Disable javascript by default
 (set noscript.enable_scripts false)
+
+;; Set downloads dir
 (set downloads.default_dir (.. (os.getenv "HOME") "/downloads"))
+
+;; Increase size of follow hints
 (set follow.pattern_maker follow.pattern_styles.match_label)
 (set follow.stylesheet
      (.. follow.stylesheet
          "#luakit_select_overlay .hint_label { font-size: 15px !important; }"))
 
-(modes.add_binds :normal [["<C-A-r>" "Reinit" #($:enter_cmd ":reinit ")]])
+;; Emacs like keybindings
 
 (modes.add_binds :all [["<C-m>" "Emacs like enter" #($:activate)]
                        ["<C-g>" "Emacs like quit"
@@ -42,6 +51,6 @@
                   [::fennel "Run Fennel code"
                    {:func (fn [_ o] (pp (fennel.eval o.arg)))}]])
 
-;;
+;; Same here!
 
 (print :loaded-browser)
