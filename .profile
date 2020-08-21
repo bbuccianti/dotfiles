@@ -16,18 +16,19 @@ if [ "$(tty)" = "/dev/tty1" ]; then
 fi
 
 # Editor
-VISUAL="emacs"
-EDITOR=$"VISUAL"
+export VISUAL="emacs"
+export EDITOR=$"VISUAL"
 set -o emacs
 
 # Wayland stuff
-GDK_BACKEND=wayland
-MOZ_ENABLE_WAYLAND=1
+export GDK_BACKEND=wayland
+export MOZ_ENABLE_WAYLAND=1
 
 # Useful
-PAGER=less
-_JAVA_AWT_WM_NONREPARENTING=1
-JAVA_HOME=/usr/lib/jvm/openjdk11/
+export PAGER=less
+export _JAVA_AWT_WM_NONREPARENTING=1
+export JAVA_HOME=/usr/lib/jvm/openjdk11/
+export LPASS_CLIPBOARD_COMMAND=/bin/wl-copy
 
 # Aliases for package management
 alias xi='doas xbps-install -S'
