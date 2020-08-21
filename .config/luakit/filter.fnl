@@ -10,31 +10,28 @@
 (local data (setmetatable {} { :__mode :k}))
 
 (fn make-candidates [w buf]
-  (let [ret {}
-        input (or (string.match buf ":%a+ (%a+)") "")]
-    (table.insert ret {1 :Title
-                       2 :URI
-                       :title true})
-    (each [index v (ipairs w.tabs.children)]
-      (let [uri v.uri
-            title (or v.title uri)]
-        (when (or (uri:find input) (title:find input))
-          (table.insert ret {1 title
-                             2 uri
-                             :format index}))))
-    ret))
+  (let [cmd (string.match buf ":(%a+) ")
+        input (or (string.match buf ":%a+ (%a+)") "")
+        group (match cmd
+                :switch :tabs
+                :gohistory :history)
+        ret {}]
+    (table.insert ret (. _M.groups group :header))
+    ((. _M.groups group :func) ret w buf)))
 
-(fn _M.update-menu [w input]
-  (w.menu:build (make-candidates w (or input "")))
+(fn _M.update-menu [w buf]
+  (w.menu:build (make-candidates w buf))
   (w.menu:show)
   (w.menu:move_down))
 
+
 (modes.new_mode "filter"
                 {:enter (fn [w cmd]
-                          (w:set_prompt)
-                          (w:set_input (.. ":" cmd " "))
-                          (w.menu:add_signal "changed" #(when $ $))
-                          (_M.update-menu w))
+                          (let [input (.. ":" cmd " ")]
+                            (w:set_prompt)
+                            (w:set_input input)
+                            (w.menu:add_signal "changed" #(when $ $))
+                            (_M.update-menu w input)))
                  :changed _M.update-menu
                  :leave #($.menu:hide)
                  :activate (fn [w text]
@@ -67,11 +64,29 @@
 
 (modes.add_binds :command
                  [[::switch "Switch tabs"
-                   {:func switch}]
+                   {:func switch :groups :tabs}]
                   [::gohistory "Search history"
                    {:func #(pp "Search history")}]])
 
 ;; Same space thing
+
+;; Groups
+
+(set _M.groups {})
+
+(set _M.groups.tabs
+     {:header {1 :Title 2 :URI :title true}
+      :func (fn [ret w buf]
+              (let [input (or (string.match buf ":%a+ (%a+)") "")]
+                (each [index v (ipairs w.tabs.children)]
+                  (let [uri v.uri
+                        title (or v.title uri)]
+                    (when (or (uri:find input) (title:find input))
+                      (table.insert ret {1 title
+                                         2 uri
+                                         :format index}))))
+                ret))})
+
 
 (print :loaded-filter)
 
