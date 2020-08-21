@@ -1,4 +1,5 @@
 (local history (require :history))
+(local bookmarks (require :bookmarks))
 (local lousy (require :lousy))
 (local modes (require :modes))
 
@@ -10,16 +11,19 @@
 (local _M {})
 (local data (setmetatable {} { :__mode :k}))
 
+(fn get-input [input]
+  (or (string.match input ":%a+ (.*)") ""))
+
 (fn make-candidates [w buf]
   (let [cmd (string.match buf ":(%a+) ")
-        input (or (string.match buf ":%a+ (%a+)") "")
+        input (get-input buf)
         group (match cmd
                 :switch :tabs
                 :gohistory :history
-                :gothistory :history)
+                :gobookmark :bookmarks)
         ret {}]
     (table.insert ret (. _M.groups group :header))
-    ((. _M.groups group :func) ret w (or input ""))))
+    ((. _M.groups group :func) ret w input)))
 
 (fn _M.update-menu [w buf]
   (w.menu:build (make-candidates w buf))
@@ -41,10 +45,10 @@
 
 (modes.add_binds :normal [[",b" "Fancy tab switch"
                            #($:set_mode "filter" :switch)]
-                          [",gh" "Fancy history navigator"
+                          [",gh" "Fancy open history on new tab"
                            #($:set_mode "filter" :gohistory)]
-                          [",gt" "Fancy history navigator on another tab"
-                           #($:set_mode "filter" :gothistory)]])
+                          [",gb" "Fancy open bookmark on new tab"
+                           #($:set_mode "filter" :gobookmark)]])
 
 (modes.add_binds :filter
                  [["<Tab>" "Move the menu row focus downwards."
@@ -58,28 +62,20 @@
 
 ;;; Without this space, binds_chrome.lua can't build :binds page
 
-(fn get-input [input]
-  (string.match input ":%a+ (.*)"))
-
 (fn switch [w]
   (if (w.menu:get)
       (w:goto_tab (. (w.menu:get) :format))
       (w:new_tab (get-input w.ibar.input.text))))
 
-(fn go-history [w]
-  (if (w.menu:get)
-      (w:navigate (. (w.menu:get) :format))
-      (w:navigate (get-input w.ibar.input.text))))
-
-(fn got-history [w]
+(fn go-newtab [w]
   (if (w.menu:get)
       (w:new_tab (. (w.menu:get) :format))
       (w:new_tab (get-input w.ibar.input.text))))
 
 (modes.add_binds :command
                  [[::switch "Switch tabs" switch]
-                  [::gohistory "Search history" go-history]
-                  [::gothistory "Open history on another tab" got-history]])
+                  [::gohistory "Search history" go-newtab]
+                  [::gobookmark "New tab on selected bookmark" go-newtab]])
 
 ;; Groups
 
@@ -102,6 +98,19 @@
       :func (fn [ret w input]
               (let [sql "SELECT uri, title, lower(uri||ifnull(title,'')) AS text FROM history WHERE text LIKE ? ESCAPE '\\' ORDER BY visits DESC LIMIT 10"
                     rows (history.db:exec sql [(.. "%" input "%")])]
+                (each [_ row (ipairs rows)]
+                  (let [title (escape row.title)
+                        uri (escape row.uri)]
+                    (table.insert ret {1 (or title uri)
+                                       2 uri
+                                       :format row.uri})))
+                ret))})
+
+(set _M.groups.bookmarks
+     {:header {1 :Bookmarks 2 :URI :title true}
+      :func (fn [ret w input]
+              (let [sql "SELECT uri, title, lower(uri||ifnull(title,'')||ifnull(tags,'')) AS text FROM bookmarks WHERE text LIKE ? ESCAPE '\\' ORDER BY title DESC LIMIT 10"
+                    rows (bookmarks.db:exec sql [(.. "%" input "%")])]
                 (each [_ row (ipairs rows)]
                   (let [title (escape row.title)
                         uri (escape row.uri)]
