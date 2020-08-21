@@ -300,7 +300,6 @@
 (use-package magit
   :commands (magit-status magit-list-repositories)
   :bind
-  (:map ctl-z-map ("g" . magit-list-repositories))
   (:map ctl-x-map ("g" . magit-status))
   :config
   (setq magit-repository-directories '(("~/work" . 2) ("~/src" . 3))))
