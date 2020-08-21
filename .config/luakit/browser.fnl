@@ -11,8 +11,10 @@
 (global fennel (require :fennel))
 (local view (require :fennelview))
 
-(global pp (fn [x] (print (view x)))) ; convenience helper
-(global escape lousy.util.escape)
+(local filter (require :filter))
+
+(local pp (fn [x] (print (view x)))) ; convenience helper
+(local escape lousy.util.escape)
 
 (set settings.window.default_search_engine :duckduckgo)
 (set settings.window.home_page "https://html.duckduckgo.com/html")
@@ -24,38 +26,14 @@
      (.. follow.stylesheet
          "#luakit_select_overlay .hint_label { font-size: 15px !important; }"))
 
-(modes.add_binds :normal [["<C-A-r>" "Reinit" #($:enter_cmd ":reinit ")]
-                          [",b" "Fancy tab switch" #($:enter_cmd ":switch ")]])
+(modes.add_binds :normal [["<C-A-r>" "Reinit" #($:enter_cmd ":reinit ")]])
 
 (modes.add_binds :all [["<C-m>" "Emacs enter" #($:activate)]])
-
-(fn matching-tab [uris input n]
-  (let [uri (. uris n)]
-    (if (uri:find input)
-        n
-        (matching-tab uris input (+ n 1)))))
-
-(fn switch [w opts]
-  (w:goto_tab (matching-tab (lume.map w.tabs.children :uri) opts.arg 1)))
-
-(fn tab-completer [buf]
-  (let [ret {}]
-    (each [_ w (pairs window.bywidget)]
-      (each [_ v (ipairs w.tabs.children)]
-        (table.insert ret {1 (escape v.title)
-                           2 (escape v.uri)
-                           :format v.uri})))
-    ret))
-
-(set completion.completers.tabs {:header [:Title :URI]
-                                 :func tab-completer})
 
 (modes.add_binds :command
                  [[::reinit "Reload this file"
                    {:func (partial lume.hotswap :browser)}]
                   [::fennel "Run Fennel code"
-                   {:func (fn [_ o] (pp (fennel.eval o.arg)))}]
-                  [::switch "Switch tabs"
-                   {:func switch :format "{tabs}"}]])
+                   {:func (fn [_ o] (pp (fennel.eval o.arg)))}]])
 
-(print :loaded-init)
+(print :loaded-browser)
