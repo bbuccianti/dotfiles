@@ -17,7 +17,7 @@ fi
 
 # Editor
 export VISUAL="emacs"
-export EDITOR=$"VISUAL"
+export EDITOR="$VISUAL"
 set -o emacs
 
 # Wayland stuff
