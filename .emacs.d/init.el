@@ -114,10 +114,6 @@
 	("C-k" . kill-region)
 	("C-b" . ibuffer)))
 
-(use-package esup
-  :commands esup
-  :config (setq esup-depth 1))
-
 (use-package css-mode
   :straight nil
   :hook (css-mode . electric-pair-mode))
@@ -134,9 +130,7 @@
   :bind (:map ctl-z-map ("t" . eshell)))
 
 (use-package exec-path-from-shell
-  :after eshell
-  :commands exec-path-from-shell-initialize
-  :config
+  :init
   (progn
     (setq exec-path-from-shell-check-startup-files nil)
     (exec-path-from-shell-initialize)))
