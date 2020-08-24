@@ -1,4 +1,7 @@
-;; -*- lexical-binding: t; -*-
+;;
+;; Personal Emacs configuration
+;; Benjamín Buccianti <benjamin@buccianti.dev>
+;;
 
 (setq straight-use-package-by-default t
       use-package-always-defer t
