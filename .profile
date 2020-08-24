@@ -29,9 +29,3 @@ export PAGER=less
 export _JAVA_AWT_WM_NONREPARENTING=1
 export JAVA_HOME=/usr/lib/jvm/openjdk11/
 export LPASS_CLIPBOARD_COMMAND=/bin/wl-copy
-
-# Aliases for package management
-alias xi='doas xbps-install -S'
-alias xu='doas xbps-install -Syuv'
-alias xr='doas xbps-remove -R'
-alias xq='xbps-query -Rs'

@@ -8,14 +8,11 @@ HISTSIZE=10000
 # PATH
 PATH="$HOME/.config/composer/vendor/bin:$HOME/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:$HOME/.cargo/bin:$HOME/go/bin:$HOME/bin/node-v14.6.0-linux-x64/bin:/opt/texlive/2020/bin/x86_64-linuxmusl:$HOME/.local/bin"
 
-# Function for mounting atom nfs folders
-function m {
-    doas mount "/mnt/atom/$1"
-}
-
-function u {
-    doas umount "/mnt/atom/$1"
-}
+# Aliases for package management
+alias xi='doas xbps-install -S'
+alias xu='doas xbps-install -Syuv'
+alias xr='doas xbps-remove -R'
+alias xq='xbps-query -Rs'
 
 # Bindings
 bind '^L'='clear-screen'
@@ -24,7 +21,19 @@ bind '^L'='clear-screen'
 source ~/src/fzf-mksh/key-bindings.mksh
 
 # Functions
+
 function help {
     # Get a cheat sheet of examples
     curl cht.sh/$1
 }
+
+# Function for mounting atom nfs folders
+
+function m {
+    doas mount "/mnt/atom/$1"
+}
+
+function u {
+    doas umount "/mnt/atom/$1"
+}
+
