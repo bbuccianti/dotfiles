@@ -1,5 +1,3 @@
-;; -*- lexical-binding: t; -*-
-
 (defvar old--file-name-handler-alist file-name-handler-alist)
 
 (setq gc-cons-threshold (* 100 1024 1024) ;; 100mb
