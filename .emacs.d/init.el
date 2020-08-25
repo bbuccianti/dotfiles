@@ -123,7 +123,6 @@
 
 (use-package isearch
   :straight nil
-  :commands (isearch-forward isearch-backward)
   :config
   (setq isearch-allow-scroll t
 	search-whitespace-regexp ".*"))
@@ -140,7 +139,6 @@
 
 (use-package project
   :straight nil
-  :commands (project-find-file project-find-regexp)
   :bind (:map ctl-z-map
 	      ("p" . project-find-file)
 	      ("/" . project-find-regexp))
@@ -150,7 +148,6 @@
     (add-to-list 'vc-directory-exclusion-list folder)))
 
 (use-package vterm
-  :commands vterm
   :bind (:map ctl-z-map ("C-t" . vterm-switch-buffer-or-run)))
 
 (use-package material-theme
@@ -167,10 +164,10 @@
 	prescient-filter-method '(literal regexp fuzzy)))
 
 (use-package selectrum-prescient
-  :straight (:host github :repo "raxod502/prescient.el"
-		   :files ("selectrum-prescient.el"))
-  :after selectrum
-  :config
+  :straight (:host github
+	     :repo "raxod502/prescient.el"
+             :files ("selectrum-prescient.el"))
+  :init
   (selectrum-prescient-mode +1)
   (setq selectrum-current-candidate '((t (:background "#222226"
 					  :weight bold
@@ -179,14 +176,12 @@
 	selectrum-secondary-highlight '((t (:foreground "#2d9574")))))
 
 (use-package amx
-  :commands amx
   :bind (:map global-map ("M-x" . amx))
   :config
   (setq amx-show-key-bindings t))
 
 (use-package dired
   :straight nil
-  :commands dired
   :hook (dired-mode . dired-hide-details-mode)
   :config
   (setq dired-recursive-copies 'always
@@ -197,7 +192,6 @@
   (put 'dired-find-alternate-file 'disabled nil))
 
 (use-package notmuch
-  :commands notmuch
   :bind (:map ctl-z-map ("@" . notmuch))
   :config
   (setq fill-column 72
@@ -250,11 +244,9 @@
   :config (setq imenu-auto-rescan t))
 
 (use-package expand-region
-  :commands er/expand-region
   :bind (:map global-map ("C-=" . er/expand-region)))
 
 (use-package elfeed
-  :commands elfeed
   :bind (:map ctl-z-map ("e" . elfeed))
   :config
   (setq elfeed-feeds '("http://planet.clojure.in/atom.xml"
@@ -269,7 +261,6 @@
   (put-clojure-indent 'fn-traced 1))
 
 (use-package monroe
-  :commands monroe
   :hook
   (clojure-mode . clojure-enable-monroe)
   (monroe-mode . enable-paredit-mode)
@@ -301,7 +292,6 @@
        (toggle-read-only))))
 
 (use-package magit
-  :commands (magit-status magit-list-repositories)
   :bind
   (:map ctl-x-map ("g" . magit-status))
   :config
@@ -309,7 +299,6 @@
 
 (use-package neuron-mode
   :straight (:host github :repo "bbuccianti/neuron-mode")
-  :commands (neuron-edit-zettel neuron-new-zettel)
   :bind (:map ctl-z-map
 	      ("z e" . neuron-edit-zettel)
 	      ("z n" . neuron-new-zettel))
@@ -357,8 +346,7 @@
 	org-directory "/home/bbuccianti/notes/"))
 
 (use-package org-ql
-  :after org
-  :commands org-ql-block)
+  :after org)
 
 (use-package org-agenda
   :straight nil
@@ -415,7 +403,6 @@
   :mode (("\\.md\\'" . markdown-mode)))
 
 (use-package sdcv
-  :commands sdcv-search-input
   :bind
   (:map sdcv-mode-map
 	("n" . sdcv-next-line)
