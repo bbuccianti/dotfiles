@@ -6,8 +6,7 @@
 (setq straight-use-package-by-default t
       use-package-always-defer t
       straight-check-for-modifications 'never
-      straight-cache-autoloads t
-      file-name-handler-alist nil)
+      straight-cache-autoloads t)
 
 (defvar bootstrap-version)
 (let ((bootstrap-file
@@ -91,10 +90,10 @@
 
 (use-package personal-keybindings
   :straight nil
-  :init
-  (global-unset-key "\C-z")
-  (define-prefix-command 'ctl-z-map)
-  (set-fringe-mode 1)
+  :init (progn
+	  (global-unset-key "\C-z")
+	  (define-prefix-command 'ctl-z-map)
+	  (set-fringe-mode 1))
   :hook
   (prog-mode . prettify-symbols-mode)
   (prog-mode . global-hl-line-mode)
@@ -177,8 +176,7 @@
 
 (use-package amx
   :bind (:map global-map ("M-x" . amx))
-  :config
-  (setq amx-show-key-bindings t))
+  :config (setq amx-show-key-bindings t))
 
 (use-package dired
   :straight nil
@@ -265,8 +263,7 @@
   (clojure-mode . clojure-enable-monroe)
   (monroe-mode . enable-paredit-mode)
   :bind (:map ctl-z-map ("m" . monroe))
-  :config
-  (setq monroe-detail-stacktraces t))
+  :config (setq monroe-detail-stacktraces t))
 
 (use-package rust-mode
   :mode (("\\.rs\\'" . rust-mode))
@@ -292,8 +289,7 @@
        (toggle-read-only))))
 
 (use-package magit
-  :bind
-  (:map ctl-x-map ("g" . magit-status))
+  :bind (:map ctl-x-map ("g" . magit-status))
   :config
   (setq magit-repository-directories '(("~/work" . 2) ("~/src" . 3))))
 
@@ -345,12 +341,10 @@
 
 	org-directory "/home/bbuccianti/notes/"))
 
-(use-package org-ql
-  :after org)
+(use-package org-ql)
 
 (use-package org-agenda
   :straight nil
-  :after org
   :config
   (setq org-agenda-files '("/home/bbuccianti/org/")
 	org-agenda-skip-deadline-if-done t

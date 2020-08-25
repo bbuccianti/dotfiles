@@ -14,7 +14,8 @@
       inhibit-default-init t
       inhibit-startup-message t
       bidi-display-reordering nil
-      create-lockfiles nil)
+      create-lockfiles nil
+      file-name-handler-alist nil)
 
 (advice-add #'package--ensure-init-file :override #'ignore)
 (advice-add #'x-apply-session-resources :override #'ignore)
