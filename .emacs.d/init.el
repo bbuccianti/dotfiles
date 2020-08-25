@@ -5,7 +5,7 @@
 
 (setq straight-use-package-by-default t
       use-package-always-defer t
-      straight-check-for-modifications nil
+      straight-check-for-modifications 'never
       straight-cache-autoloads t
       file-name-handler-alist nil)
 
