@@ -5,9 +5,6 @@ PS1=$'\1\e[34m\1$(echo $PWD | sed "s,^$HOME,~,")\1\e[32m\1 $ \e[0m'
 HISTFILE="$HOME/.mkshistory"
 HISTSIZE=10000
 
-# PATH
-PATH="$HOME/.config/composer/vendor/bin:$HOME/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:$HOME/.cargo/bin:$HOME/go/bin:$HOME/bin/node-v14.6.0-linux-x64/bin:/opt/texlive/2020/bin/x86_64-linuxmusl:$HOME/.local/bin"
-
 # Aliases for package management
 alias xi='doas xbps-install -S'
 alias xu='doas xbps-install -Syuv'
