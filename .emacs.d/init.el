@@ -4,7 +4,6 @@
 ;;
 
 (setq straight-use-package-by-default t
-      use-package-always-defer t
       straight-check-for-modifications 'never
       straight-cache-autoloads t)
 
@@ -85,8 +84,13 @@
       (vterm)))
 
 ;; packages
-;; (setq use-package-verbose t) ;; debug only
 (straight-use-package 'use-package)
+
+(use-package use-package
+  :config
+  (setq use-package-always-defer t
+	;; t for debug
+	use-package-verbose nil))
 
 (use-package personal-keybindings
   :straight nil
@@ -116,9 +120,8 @@
 	("C-k" . kill-region)
 	("C-b" . ibuffer)))
 
-(use-package css-mode
-  :straight nil
-  :hook (css-mode . electric-pair-mode))
+(use-package zerodark-theme
+  :init (load-theme 'zerodark t))
 
 (use-package isearch
   :straight nil
@@ -149,9 +152,6 @@
 (use-package vterm
   :bind (:map ctl-z-map ("C-t" . vterm-switch-buffer-or-run)))
 
-(use-package material-theme
-  :init (load-theme 'material t))
-
 (use-package selectrum
   :straight (:host github :repo "raxod502/selectrum")
   :init (selectrum-mode +1))
@@ -173,10 +173,6 @@
 					  :foreground "gainsboro")))
 	selectrum-primary-highlight '((t (:foreground "#c56ec3")))
 	selectrum-secondary-highlight '((t (:foreground "#2d9574")))))
-
-(use-package amx
-  :bind (:map global-map ("M-x" . amx))
-  :config (setq amx-show-key-bindings t))
 
 (use-package dired
   :straight nil
@@ -249,7 +245,6 @@
   :config
   (setq elfeed-feeds '("http://planet.clojure.in/atom.xml"
 		       "https://planet.emacslife.com/atom.xml"
-		       "http://planet.lisp.org/rss20.xml"
 		       "https://twobithistory.org/feed.xml")))
 
 (use-package clojure-mode
@@ -303,7 +298,7 @@
 	neuron-executable "/home/bbuccianti/bin/neuron-linux-bundle"))
 
 (use-package org
-  :straight nil
+  :straight (:type built-in)
   :mode (("\\.org\\'" . org-mode))
   :bind (:map ctl-z-map
 	      ("a" . org-agenda)
