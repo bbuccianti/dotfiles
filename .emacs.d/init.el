@@ -4,7 +4,7 @@
 ;;
 
 (setq straight-use-package-by-default t
-      straight-check-for-modifications 'never
+      straight-check-for-modifications 'live
       straight-cache-autoloads t)
 
 (defvar bootstrap-version)
