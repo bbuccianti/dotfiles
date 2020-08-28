@@ -22,7 +22,7 @@
   (load bootstrap-file nil 'nomessage))
 
 (setq custom-file "~/.emacs.d/custom.el")
-(load custom-file 'noerror)
+(load custom-file 'noerror 'nomessage)
 
 (setq user-full-name "Benjamín Buccianti"
       user-mail-address "benjamin@buccianti.dev"
@@ -185,6 +185,18 @@
 	dired-listing-switches "-lha1v --group-directories-first")
   (put 'dired-find-alternate-file 'disabled nil))
 
+(use-package gnus
+  :straight nil
+  :config
+  (progn
+    (setq gnus-select-method '(nntp "news.gmane.io"))
+    (gnus-add-configuration '(article
+			      (horizontal 1.0
+					  (vertical 0.5
+						    (group 0.1)
+						    (summary 1.0 point))
+					  (vertical 1.0 (article 1.0)))))))
+
 (use-package notmuch
   :bind (:map ctl-z-map ("@" . notmuch))
   :config
@@ -243,9 +255,8 @@
 (use-package elfeed
   :bind (:map ctl-z-map ("e" . elfeed))
   :config
-  (setq elfeed-feeds '("http://planet.clojure.in/atom.xml"
-		       "https://planet.emacslife.com/atom.xml"
-		       "https://twobithistory.org/feed.xml")))
+  (setq elfeed-feeds '("http://planet.clojure.in/atom.xml" "https://planet.emacslife.com/atom.xml"
+		       "https://twobithistory.org/feed.xml" "https://drewdevault.com/blog/index.xml")))
 
 (use-package clojure-mode
   :mode (("\\.clj\\[s\\*\\'" . clojure-mode))
