@@ -410,3 +410,8 @@
 	("N" . sdcv-next-dictionary)
 	("P" . sdcv-previous-dictionary))
   (:map ctl-z-map ("d" . sdcv-search-input)))
+
+(use-package simple-mpc
+  :bind (:map ctl-z-map ("s" . simple-mpc))
+  :config
+  (setq simple-mpc-arguments "--host localhost --port 6600"))
