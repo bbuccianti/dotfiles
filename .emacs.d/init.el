@@ -200,13 +200,15 @@
 (use-package notmuch
   :bind (:map ctl-z-map ("@" . notmuch))
   :config
-  (setq fill-column 72
+  (setq smtpmail-debug-info nil ;; TOGGLE FOR DEBUG ONLY!
 	mail-user-agent 'message-user-agent
 	smtpmail-default-smtp-server "mail.buccianti.dev"
 	smtpmail-smtp-server "mail.buccianti.dev"
 	smtpmail-local-domain "buccianti.dev"
-	message-send-mail-function 'message-smtpmail-send-it
-	smtpmail-debug-info nil
+	smtpmail-stream-type 'ssl
+        smtpmail-smtp-service 465
+	message-send-mail-function 'smtpmail-send-it
+	send-mail-function 'smtpmail-send-it
 	message-default-mail-headers "Cc: \nBcc: \n"
 	message-auto-save-directory "~/.mail/drafts"
 	message-kill-buffer-on-exit t
