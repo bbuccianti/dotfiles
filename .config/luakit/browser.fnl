@@ -6,15 +6,13 @@
 (local follow (require :follow))
 (local window (require :window))
 (local lousy (require :lousy))
+(local escape lousy.util.escape)
+
+(local filter (require :filter))
 
 (global lume (require :lume))
 (global fennel (require :fennel))
 (local view (require :fennelview))
-
-(local filter (require :filter))
-
-(local pp (fn [x] (print (view x)))) ; convenience helper
-(local escape lousy.util.escape)
 
 ;; Use html version of duckduckgo by default
 (set settings.window.default_search_engine :duckduckgo)
@@ -49,7 +47,7 @@
                  [[::reinit "Reload this file"
                    {:func (partial lume.hotswap :browser)}]
                   [::fennel "Run Fennel code"
-                   {:func (fn [_ o] (pp (fennel.eval o.arg)))}]])
+                   {:func (fn [w o] (w:notify (view (fennel.eval o.arg))))}]])
 
 ;; Same here!
 
