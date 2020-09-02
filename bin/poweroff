@@ -1,4 +1,5 @@
 #!/bin/sh
 
-mpd --kill && umount -flat nfs,nfs4 && /bin/poweroff \
-	|| notify-send "Can't umount nfs shares"
+mpd --kill && notify-send "Killed mpd"
+umount -flat nfs4 && notify-send "Unmounted nfs drives"
+/bin/poweroff || notify-send "Can't poweroff!"
