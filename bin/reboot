@@ -1,3 +1,5 @@
+
 #!/bin/sh
 
-umount -flat nfs,nfs4 && /bin/reboot
+mpd --kill && umount -flat nfs,nfs4 && /bin/reboot \
+	|| notify-send "Can't umount nfs drives"
