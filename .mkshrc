@@ -18,17 +18,7 @@ bind '^L'='clear-screen'
 source ~/src/fzf-mksh/key-bindings.mksh
 
 # Functions
-
-function help {
-    # Get a cheat sheet of examples
-    curl cht.sh/$1
-}
-
-function m {
-    doas mount "/mnt/atom/$1"
-}
-
-function u {
-    doas umount "/mnt/atom/$1"
-}
+function help { curl "cht.sh/$1"; }
+function m { doas mount "/mnt/atom/$1"; }
+function u { doas umount "/mnt/atom/$1"; }
 

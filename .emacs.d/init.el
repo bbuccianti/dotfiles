@@ -311,7 +311,7 @@
 	neuron-executable "/home/bbuccianti/bin/neuron-linux-bundle"))
 
 (use-package org
-  :straight (:type built-in)
+  :straight nil
   :mode (("\\.org\\'" . org-mode))
   :bind (:map ctl-z-map
 	      ("a" . org-agenda)
