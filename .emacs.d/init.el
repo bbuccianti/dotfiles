@@ -301,15 +301,6 @@
   :config
   (setq magit-repository-directories '(("~/work" . 2) ("~/src" . 3))))
 
-(use-package neuron-mode
-  :straight (:host github :repo "bbuccianti/neuron-mode")
-  :bind (:map ctl-z-map
-	      ("z e" . neuron-edit-zettel)
-	      ("z n" . neuron-new-zettel))
-  :config
-  (setq neuron-default-zettelkasten-directory "/home/bbuccianti/notes"
-	neuron-executable "/home/bbuccianti/bin/neuron-linux-bundle"))
-
 (use-package org
   :straight nil
   :mode (("\\.org\\'" . org-mode))
