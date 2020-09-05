@@ -45,9 +45,9 @@
 
 (modes.add_binds :normal [[",b" "Fancy tab switch"
                            #($:set_mode "filter" :switch)]
-                          [",gh" "Fancy open history on new tab"
+                          [",h" "Fancy open history on new tab"
                            #($:set_mode "filter" :gohistory)]
-                          [",gb" "Fancy open bookmark on new tab"
+                          [",B" "Fancy open bookmark on new tab"
                            #($:set_mode "filter" :gobookmark)]])
 
 (modes.add_binds :filter

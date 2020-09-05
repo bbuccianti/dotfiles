@@ -1,12 +1,8 @@
 (local noscript (require :noscript))
 (local modes (require :modes))
-(local completion (require :completion))
 (local settings (require :settings))
 (local downloads (require :downloads))
 (local follow (require :follow))
-(local window (require :window))
-(local lousy (require :lousy))
-(local escape lousy.util.escape)
 
 (local filter (require :filter))
 
