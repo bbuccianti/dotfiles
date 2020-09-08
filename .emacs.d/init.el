@@ -395,15 +395,6 @@
 (use-package markdown-mode
   :mode (("\\.md\\'" . markdown-mode)))
 
-(use-package sdcv
-  :bind
-  (:map sdcv-mode-map
-	("n" . sdcv-next-line)
-	("p" . sdcv-prev-line)
-	("N" . sdcv-next-dictionary)
-	("P" . sdcv-previous-dictionary))
-  (:map ctl-z-map ("d" . sdcv-search-input)))
-
 (use-package simple-mpc
   :bind (:map ctl-z-map ("s" . simple-mpc))
   :config
