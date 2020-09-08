@@ -334,13 +334,11 @@
 	org-todo-keywords '((sequence "PROJECT(p)" "TODO(t)" "NEXT(n)" "|"
 					"DONE(d)" "CANCELLED(c)"))
 	org-todo-keyword-faces '(("TODO" :foreground "gold" :weight bold)
-				   ("NEXT" :foreground "deep sky blue" :weight bold)
-				   ("DONE" :foreground "forest green" :weight bold)
-				   ("CANCELLED" :foreground "red" :weight bold))
+				 ("NEXT" :foreground "deep sky blue" :weight bold)
+				 ("DONE" :foreground "forest green" :weight bold)
+				 ("CANCELLED" :foreground "red" :weight bold))
 
 	org-directory "/home/bbuccianti/notes/"))
-
-(use-package org-ql)
 
 (use-package org-agenda
   :straight nil
@@ -356,41 +354,7 @@
 	org-agenda-prefix-format '((agenda . " %i %-12:c%?-12t% s")
 				   (todo . "%l" )
 				   (tags . "%l")
-				   (search . " %i %-12:c"))
-	org-agenda-custom-commands
-	'(("d" "Today tasks"
-	   ((agenda "" ((org-agenda-span 'day)))
-	    (org-ql-block '(and (todo "TODO")
-				(priority "A")
-				(scheduled :on today))
-			  ((org-ql-block-header "Today's priority A tasks")))
-	    (org-ql-block '(and (todo "TODO")
-				(priority "B")
-				(scheduled :on today))
-			  ((org-ql-block-header "Today's priority B tasks")))
-	    (org-ql-block '(and (todo "TODO")
-				(priority "C")
-				(scheduled :on today))
-			  ((org-ql-block-header "Today's priority C tasks")))
-	    (org-ql-block '(and (todo "PROJECT" "NEXT")
-				(or (descendants (todo "NEXT"))
-				    (todo "NEXT")))
-			  ((org-ql-block-header "Next tasks")))
-	    (org-ql-block '(and (todo "PROJECT" "TODO")
-				(tags "research" "reading"))
-			  ((org-ql-block-header "Study time!")))))
-	  ("w" "Week planning"
-	   ((agenda "" ((org-agenda-span 'week)))
-	    (org-ql-block '(and (todo)
-				(tags "inbox"))
-			  ((org-ql-block-header "Inbox")))
-	    (org-ql-block '(and (todo "PROJECT" "TODO")
-				(not (tags "notes"))
-				(not (tags "inbox"))
-				(not (ancestors (children (todo "NEXT"))))
-				(not (children (todo "NEXT")))
-				(not (or (scheduled) (deadline))))
-			  ((org-ql-block-header "Stuck projects"))))))))
+				   (search . " %i %-12:c"))))
 
 (use-package markdown-mode
   :mode (("\\.md\\'" . markdown-mode)))
