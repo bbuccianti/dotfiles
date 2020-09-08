@@ -1,7 +1,7 @@
 #!/bin/sh
 
 DATE=$(date +%e/%m\ %H:%M)
-MAILS=$(/bin/notmuch count tag:unread)
+MAILS=$(/usr/bin/notmuch count tag:unread)
 SONG=$(mpc status | head -1 | xargs -0 basename)
 
 if test "$MAILS" != "0"

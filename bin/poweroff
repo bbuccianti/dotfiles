@@ -2,4 +2,4 @@
 
 mpd --kill && notify-send "Killed mpd"
 umount -flat nfs4 && notify-send "Unmounted nfs drives"
-/bin/poweroff || notify-send "Can't poweroff!"
+/sbin/poweroff || notify-send "Can't poweroff!"

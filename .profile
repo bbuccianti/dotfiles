@@ -1,17 +1,5 @@
-## Set XDG_RUNTIME_DIR
-# if [["$(tty)" = "/dev/tty1"] && test -z "${XDG_RUNTIME_DIR}"]; then
-#   export XDG_RUNTIME_DIR=/tmp/${UID}-runtime-dir
-#   if ! test -d "{XDG_RUNTIME_DIR}"; then
-#     mkdir "${XDG_RUNTIME_DIR}"
-#     chmod 0700 "${XDG_RUNTIME_DIR}"
-#     exec sway
-#   fi
-# fi
-
-## If running from tty1 start sway
+# If running from tty1 start sway
 if [ "$(tty)" = "/dev/tty1" ]; then
-    #exec sway
-    #exec dbus-launch --exit-with-session sway
     exec dbus-run-session sway
 fi
 
@@ -31,4 +19,4 @@ export JAVA_HOME=/usr/lib/jvm/openjdk11/
 export LPASS_CLIPBOARD_COMMAND=/bin/wl-copy
 
 # PATH
-export PATH="$HOME/.config/composer/vendor/bin:$HOME/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:$HOME/.cargo/bin:$HOME/go/bin:$HOME/bin/node-v14.6.0-linux-x64/bin:/opt/texlive/2020/bin/x86_64-linuxmusl:$HOME/.local/bin"
+#export PATH="$HOME/.config/composer/vendor/bin:$HOME/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:$HOME/.cargo/bin:$HOME/go/bin:$HOME/bin/node-v14.6.0-linux-x64/bin:/opt/texlive/2020/bin/x86_64-linuxmusl:$HOME/.local/bin"
