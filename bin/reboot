@@ -1,5 +1,0 @@
-#!/bin/sh
-
-mpd --kill && notify-send "Killed mpd"
-umount -flat nfs4 && notify-send "Unmounted nfs drives"
-/sbin/reboot || notify-send "Can't reboot!"
