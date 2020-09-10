@@ -80,7 +80,8 @@
 (defun vterm-switch-buffer-or-run ()
   "If a vterm buffer is opened, switch to him. Otherwise, run vterm."
   (interactive)
-  (or (and (get-buffer "vterm") (switch-to-buffer "vterm"))
+  (or (and (get-buffer "vterm")
+	   (switch-to-buffer "vterm"))
       (vterm)))
 
 ;; packages
@@ -89,7 +90,6 @@
 (use-package use-package
   :config
   (setq use-package-always-defer t
-	;; t for debug
 	use-package-verbose nil))
 
 (use-package personal-keybindings
@@ -182,7 +182,7 @@
 	dired-recursive-deletes 'top
 	dired-use-ls-dired nil
 	dired-dwim-target t
-	dired-listing-switches "-lha1v --group-directories-first")
+	dired-listing-switches "-lha1v")
   (put 'dired-find-alternate-file 'disabled nil))
 
 (use-package gnus
@@ -297,7 +297,9 @@
        (toggle-read-only))))
 
 (use-package magit
-  :bind (:map ctl-x-map ("g" . magit-status))
+  :bind (:map ctl-x-map
+	      ("g" . magit-status)
+	      ("M-g" . magit-dispatch))
   :config
   (setq magit-repository-directories '(("~/work" . 2) ("~/src" . 3))))
 
