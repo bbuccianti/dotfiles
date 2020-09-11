@@ -119,9 +119,6 @@
 	("C-k" . kill-region)
 	("C-b" . ibuffer)))
 
-(use-package zerodark-theme
-  :init (load-theme 'zerodark t))
-
 (use-package isearch
   :straight nil
   :config
@@ -364,3 +361,10 @@
   :bind (:map ctl-z-map ("s" . simple-mpc))
   :config
   (setq simple-mpc-arguments "--host localhost --port 6600"))
+
+(use-package zerodark-theme
+  :init (load-theme 'zerodark t)
+  :config
+  (progn
+    (use-package flycheck)
+    (zerodark-setup-modeline-format)))
