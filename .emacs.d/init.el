@@ -40,7 +40,6 @@
       browse-url-generic-program "/usr/local/bin/luakit"
       browse-url-browser-function 'browse-url-generic
       auto-window-vscroll nil
-      backup-directory-alist '(("." . "~/.emacs.d/backups"))
       auto-save-default nil
       vc-follow-symlinks t
       epg-gpg-program "gpg2"
