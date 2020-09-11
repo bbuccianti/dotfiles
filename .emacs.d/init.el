@@ -145,6 +145,10 @@
 		    ".cljs_node_repl" ".shadow-cljs"))
     (add-to-list 'vc-directory-exclusion-list folder)))
 
+(use-package tramp
+  :straight nil
+  :config (setq tramp-default-method "ssh"))
+
 (use-package vterm
   :bind (:map ctl-z-map ("C-t" . vterm-switch-buffer-or-run)))
 
@@ -183,15 +187,7 @@
 
 (use-package gnus
   :straight nil
-  :config
-  (progn
-    (setq gnus-select-method '(nntp "news.gmane.io"))
-    (gnus-add-configuration '(article
-			      (horizontal 1.0
-					  (vertical 0.5
-						    (group 0.1)
-						    (summary 1.0 point))
-					  (vertical 1.0 (article 1.0)))))))
+  :config (setq gnus-select-method '(nntp "news.gmane.io")))
 
 (use-package notmuch
   :bind (:map ctl-z-map ("@" . notmuch))
@@ -358,13 +354,7 @@
   :mode (("\\.md\\'" . markdown-mode)))
 
 (use-package simple-mpc
-  :bind (:map ctl-z-map ("s" . simple-mpc))
-  :config
-  (setq simple-mpc-arguments "--host localhost --port 6600"))
+  :bind (:map ctl-z-map ("s" . simple-mpc)))
 
 (use-package zerodark-theme
-  :init (load-theme 'zerodark t)
-  :config
-  (progn
-    (use-package flycheck)
-    (zerodark-setup-modeline-format)))
+  :init (load-theme 'zerodark t))
