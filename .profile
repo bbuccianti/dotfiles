@@ -17,7 +17,7 @@ export LPASS_CLIPBOARD_COMMAND=/usr/bin/wl-copy
 export PATH="$PATH:$HOME/bin"
 
 # Source .kshrc
-. $HOME/.kshrc
+export ENV=$HOME/.kshrc
 
 # If running from tty1 start sway
 if [ "$(tty)" = "/dev/tty1" ]; then
