@@ -43,7 +43,7 @@
       auto-save-default nil
       vc-follow-symlinks t
       epg-gpg-program "gpg2"
-      explicit-shell-file-name "/bin/mksh")
+      explicit-shell-file-name "/bin/ksh")
 
 (fset 'yes-or-no-p 'y-or-n-p)
 (put 'upcase-region 'disabled nil)
@@ -75,13 +75,6 @@
     (when (and string (region-active-p))
       (delete-region (region-beginning) (region-end)))
     (insert string)))
-
-(defun vterm-switch-buffer-or-run ()
-  "If a vterm buffer is opened, switch to him. Otherwise, run vterm."
-  (interactive)
-  (or (and (get-buffer "vterm")
-	   (switch-to-buffer "vterm"))
-      (vterm)))
 
 ;; packages
 (straight-use-package 'use-package)
@@ -148,9 +141,6 @@
 (use-package tramp
   :straight nil
   :config (setq tramp-default-method "ssh"))
-
-(use-package vterm
-  :bind (:map ctl-z-map ("C-t" . vterm-switch-buffer-or-run)))
 
 (use-package selectrum
   :straight (:host github :repo "raxod502/selectrum")
