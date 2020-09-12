@@ -346,5 +346,18 @@
 (use-package simple-mpc
   :bind (:map ctl-z-map ("s" . simple-mpc)))
 
+(use-package rcirc
+  :straight nil
+  :config (setq rcirc-server-alist '(("192.168.0.10"
+				      :nick "bbuccianti"
+				      :port 12345
+				      :user-name "bbuccianti/freenode"
+				      :server-alias "freenode")
+				     ("192.168.0.10"
+				      :nick "bbuccianti"
+				      :port 12345
+				      :user-name "bbuccianti/oftc"
+				      :server-alias "oftc"))))
+
 (use-package zerodark-theme
   :init (load-theme 'zerodark t))
