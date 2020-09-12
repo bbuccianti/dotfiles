@@ -9,6 +9,9 @@ export HISTFILE="$HOME/.kshistory"
 export HISTSIZE=10000
 export HISTCONTROL="ignoredups:ignorespace"
 
+# Alias!
+alias -x apku='doas apk -U upgrade'
+
 # Functions
 help() { curl "cht.sh/$1"; }
 m() { doas mount "/mnt/atom/$1"; }
