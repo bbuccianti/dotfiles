@@ -178,9 +178,9 @@
 	message-send-mail-function 'smtpmail-send-it
 	send-mail-function 'smtpmail-send-it
 	message-default-mail-headers "Cc: \nBcc: \n"
-	message-auto-save-directory "~/.mail/drafts"
+	message-auto-save-directory "/home/bbuccianti/.mail/benjamin/Drafts"
 	message-kill-buffer-on-exit t
-	message-directory "~/.mail/sent"
+	message-directory "/home/bbuccianti/.mail/benjamin/Sent"
 	notmuch-search-oldest-first nil
 	notmuch-show-indent-content nil
 	notmuch-show-logo nil
