@@ -1,6 +1,4 @@
 #!/bin/sh
 
-MAILTO=""
-
 /usr/bin/mbsync -a && /usr/bin/notmuch new
 
