@@ -63,19 +63,6 @@
             (garbage-collect))
           t)
 
-;; functions
-(defun yank-from-kill-ring ()
-  "Uses selectrum-read to insert a string from the kill-ring."
-  (interactive)
-  (let* ((candidates (delete-dups kill-ring))
-	 (candidates (seq-remove (lambda (s)
-				   (string-empty-p (string-trim s)))
-				 candidates))
-	 (string (selectrum-read "Kill-ring: " candidates)))
-    (when (and string (region-active-p))
-      (delete-region (region-beginning) (region-end)))
-    (insert string)))
-
 ;; packages
 (straight-use-package 'use-package)
 
@@ -106,8 +93,7 @@
 	("S-<right>" . windmove-right))
   (:map ctl-z-map
 	("r" . compile)
-	("C-r" . recompile)
-	("y" . yank-from-kill-ring))
+	("C-r" . recompile))
   (:map ctl-x-map
 	("C-k" . kill-region)
 	("C-b" . ibuffer)))
@@ -345,19 +331,6 @@
 
 (use-package simple-mpc
   :bind (:map ctl-z-map ("s" . simple-mpc)))
-
-(use-package rcirc
-  :straight nil
-  :config (setq rcirc-server-alist '(("192.168.0.10"
-				      :nick "bbuccianti"
-				      :port 12345
-				      :user-name "bbuccianti/freenode"
-				      :server-alias "freenode")
-				     ("192.168.0.10"
-				      :nick "bbuccianti"
-				      :port 12345
-				      :user-name "bbuccianti/oftc"
-				      :server-alias "oftc"))))
 
 (use-package zerodark-theme
   :init (load-theme 'zerodark t))
