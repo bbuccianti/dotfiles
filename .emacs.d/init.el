@@ -1,3 +1,4 @@
+
 ;;
 ;; Personal Emacs configuration
 ;; Benjamín Buccianti <benjamin@buccianti.dev>
@@ -161,12 +162,8 @@
 	dired-listing-switches "-lha1v")
   (put 'dired-find-alternate-file 'disabled nil))
 
-(use-package gnus
+(use-package message
   :straight nil
-  :config (setq gnus-select-method '(nntp "news.gmane.io")))
-
-(use-package notmuch
-  :bind (:map ctl-z-map ("@" . notmuch))
   :config
   (setq smtpmail-debug-info nil ;; TOGGLE FOR DEBUG ONLY!
 	mail-user-agent 'message-user-agent
@@ -180,8 +177,12 @@
 	message-default-mail-headers "Cc: \nBcc: \n"
 	message-auto-save-directory "/home/bbuccianti/.mail/benjamin/Drafts"
 	message-kill-buffer-on-exit t
-	message-directory "/home/bbuccianti/.mail/benjamin/Sent"
-	notmuch-search-oldest-first nil
+	message-directory "/home/bbuccianti/.mail/benjamin/Sent"))
+
+(use-package notmuch
+  :bind (:map ctl-z-map ("@" . notmuch))
+  :config
+  (setq	notmuch-search-oldest-first nil
 	notmuch-show-indent-content nil
 	notmuch-show-logo nil
 	notmuch-show-all-tags-lst t
