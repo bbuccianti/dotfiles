@@ -162,36 +162,6 @@
 	dired-listing-switches "-lha1v")
   (put 'dired-find-alternate-file 'disabled nil))
 
-(use-package message
-  :straight nil
-  :config
-  (setq smtpmail-debug-info nil ;; TOGGLE FOR DEBUG ONLY!
-	mail-user-agent 'message-user-agent
-	smtpmail-default-smtp-server "mail.buccianti.dev"
-	smtpmail-smtp-server "mail.buccianti.dev"
-	smtpmail-local-domain "buccianti.dev"
-	smtpmail-stream-type 'ssl
-        smtpmail-smtp-service 465
-	message-send-mail-function 'smtpmail-send-it
-	send-mail-function 'smtpmail-send-it
-	message-default-mail-headers "Cc: \nBcc: \n"
-	message-auto-save-directory "/home/bbuccianti/.mail/benjamin/Drafts"
-	message-kill-buffer-on-exit t
-	message-directory "/home/bbuccianti/.mail/benjamin/Sent"))
-
-(use-package notmuch
-  :bind (:map ctl-z-map ("@" . notmuch))
-  :config
-  (setq	notmuch-search-oldest-first nil
-	notmuch-show-indent-content nil
-	notmuch-show-logo nil
-	notmuch-show-all-tags-lst t
-	notmuch-hello-sections '(notmuch-hello-insert-header
-				 notmuch-hello-insert-inbox
-				 notmuch-hello-insert-footer)
-	notmuch-fcc-dirs
-	'(("benjamin@buccianti.dev" . "benjamin/Sent -inbox -unread +sent"))))
-
 (use-package text-mode
   :straight nil
   :hook (text-mode . turn-off-auto-fill))
@@ -222,12 +192,6 @@
 
 (use-package expand-region
   :bind (:map global-map ("C-=" . er/expand-region)))
-
-(use-package elfeed
-  :bind (:map ctl-z-map ("e" . elfeed))
-  :config
-  (setq elfeed-feeds '("http://planet.clojure.in/atom.xml" "https://planet.emacslife.com/atom.xml"
-		       "https://twobithistory.org/feed.xml" "https://drewdevault.com/blog/index.xml")))
 
 (use-package clojure-mode
   :mode (("\\.clj\\[s\\*\\'" . clojure-mode))

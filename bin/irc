@@ -1,0 +1,4 @@
+#!/bin/sh
+
+emacs -l ~/.emacs.d/irc-and-gnus.el
+
