@@ -251,13 +251,7 @@
 				  ("n" "Note"
 				   entry (file "~/org/notes.org")
 				   "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:"))
-	org-todo-keywords '((sequence "PROJECT(p)" "TODO(t)" "NEXT(n)" "|"
-					"DONE(d)" "CANCELLED(c)"))
-	org-todo-keyword-faces '(("TODO" :foreground "gold" :weight bold)
-				 ("NEXT" :foreground "deep sky blue" :weight bold)
-				 ("DONE" :foreground "forest green" :weight bold)
-				 ("CANCELLED" :foreground "red" :weight bold))
-
+	org-todo-keywords '((sequence "PROJECT(p)" "TODO(t)" "|" "DONE(d)" "CANCELLED(c)"))
 	org-directory "/home/bbuccianti/notes/"))
 
 (use-package org-agenda
