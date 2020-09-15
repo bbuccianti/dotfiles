@@ -1,4 +1,3 @@
-
 ;;
 ;; Personal Emacs configuration
 ;; Benjamín Buccianti <benjamin@buccianti.dev>
@@ -77,7 +76,8 @@
   :init (progn
 	  (global-unset-key "\C-z")
 	  (define-prefix-command 'ctl-z-map)
-	  (set-fringe-mode 1))
+	  (set-fringe-mode 1)
+	  (load-theme 'modus-operandi nil nil))
   :hook
   (prog-mode . prettify-symbols-mode)
   (prog-mode . global-hl-line-mode)
@@ -143,13 +143,7 @@
   :straight (:host github
 	     :repo "raxod502/prescient.el"
              :files ("selectrum-prescient.el"))
-  :init
-  (selectrum-prescient-mode +1)
-  (setq selectrum-current-candidate '((t (:background "#222226"
-					  :weight bold
-					  :foreground "gainsboro")))
-	selectrum-primary-highlight '((t (:foreground "#c56ec3")))
-	selectrum-secondary-highlight '((t (:foreground "#2d9574")))))
+  :init (selectrum-prescient-mode +1))
 
 (use-package dired
   :straight nil
@@ -297,5 +291,3 @@
 (use-package simple-mpc
   :bind (:map ctl-z-map ("s" . simple-mpc)))
 
-(use-package zerodark-theme
-  :init (load-theme 'zerodark t))

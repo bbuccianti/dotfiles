@@ -1,3 +1,8 @@
+;;
+;; Personal Emacs configuration
+;; Benjamín Buccianti <benjamin@buccianti.dev>
+;;
+
 (use-package message
   :straight nil
   :config
@@ -33,7 +38,6 @@
   :config (setq gnus-select-method '(nntp "news.gmane.io")))
 
 (use-package rcirc
-  :hook (rcirc-mode . (lambda () (set (make-local-variable 'scroll-conservatively) 8192)))
   :config
   (setq rcirc-fill-column 'window-text-width
 	rcirc-server-alist
@@ -52,7 +56,5 @@
 
 (use-package init-irc
   :straight nil
-  :init
-  (progn
-    (rcirc nil)
-    (rcirc-track-minor-mode 1)))
+  :init (progn (rcirc nil)
+	       (rcirc-track-minor-mode 1)))

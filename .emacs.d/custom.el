@@ -19,7 +19,4 @@
  '(rainbow-delimiters-depth-6-face ((t (:foreground "#BE5046" :weight bold))))
  '(rainbow-delimiters-depth-7-face ((t (:foreground "#56B6C2" :weight bold))))
  '(rainbow-delimiters-depth-8-face ((t (:foreground "#E5C07B" :weight bold))))
- '(rainbow-delimiters-depth-9-face ((t (:foreground "#61AFEF" :weight bold))))
- '(selectrum-current-candidate ((t (:background "#48384c" :foreground "#c678dd" :weight bold))))
- '(selectrum-primary-highlight ((t (:foreground "#da8548"))))
- '(selectrum-secondary-highlight ((t (:foreground "#98be65")))))
+ '(rainbow-delimiters-depth-9-face ((t (:foreground "#61AFEF" :weight bold)))))
