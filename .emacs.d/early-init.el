@@ -5,7 +5,6 @@
       package-enable-at-startup nil
       menu-bar-mode nil
       tool-bar-mode nil
-      line-number-mode t
       column-number-mode t
       frame-inhibit-implied-resize t
       site-run-file nil

@@ -38,8 +38,12 @@
   :config (setq gnus-select-method '(nntp "news.gmane.io")))
 
 (use-package rcirc
+  :hook (rcirc-mode . (lambda ()
+			(rcirc-track-minor-mode 1)
+			(rcirc-omit-mode 1)))
   :config
   (setq rcirc-fill-column 'window-text-width
+	rcirc-omit-responses '("JOIN" "PART" "QUIT" "NICK" "AWAY")
 	rcirc-server-alist
         '(("192.168.0.10"
            :nick "bbuccianti"
@@ -54,7 +58,4 @@
 	   :password "weakpass" ;; Local network only!
 	   :server-alias "oftc"))))
 
-(use-package init-irc
-  :straight nil
-  :init (progn (rcirc nil)
-	       (rcirc-track-minor-mode 1)))
+(rcirc nil)

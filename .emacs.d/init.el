@@ -43,7 +43,7 @@
       auto-save-default nil
       vc-follow-symlinks t
       epg-gpg-program "gpg2"
-      explicit-shell-file-name "/bin/ksh")
+      explicit-shell-file-name "/bin/mksh")
 
 (fset 'yes-or-no-p 'y-or-n-p)
 (put 'upcase-region 'disabled nil)
@@ -78,42 +78,38 @@
 	  (define-prefix-command 'ctl-z-map)
 	  (set-fringe-mode 1)
 	  (load-theme 'modus-operandi nil nil))
-  :hook
-  (prog-mode . prettify-symbols-mode)
-  (prog-mode . global-hl-line-mode)
-  :bind
-  (:map global-map
-	("C-z" . ctl-z-map)
-	("M-SPC" . cycle-spacing)
-	("M-o" . other-window)
-	("M-/" . hippie-expand)
-	("C-w" . backward-kill-word)
-	("S-<left>" . windmove-left)
-	("S-<up>" . windmove-up)
-	("S-<down>" . windmove-down)
-	("S-<right>" . windmove-right))
-  (:map ctl-z-map
-	("r" . compile)
-	("C-r" . recompile))
-  (:map ctl-x-map
-	("C-k" . kill-region)
-	("C-b" . ibuffer)))
+  :hook (prog-mode . prettify-symbols-mode)
+  :hook (prog-mode . global-hl-line-mode)
+  :bind (:map global-map
+	      ("C-z" . ctl-z-map)
+	      ("M-SPC" . cycle-spacing)
+	      ("M-o" . other-window)
+	      ("M-/" . hippie-expand)
+	      ("C-w" . backward-kill-word)
+	      ("S-<left>" . windmove-left)
+	      ("S-<up>" . windmove-up)
+	      ("S-<down>" . windmove-down)
+	      ("S-<right>" . windmove-right))
+  :bind (:map ctl-z-map
+	      ("r" . compile)
+	      ("C-r" . recompile))
+  :bind (:map ctl-x-map
+	      ("C-k" . kill-region)
+	      ("C-b" . ibuffer)))
 
 (use-package isearch
   :straight nil
-  :config
-  (setq isearch-allow-scroll t
-	search-whitespace-regexp ".*"))
+  :config (setq isearch-allow-scroll t
+		search-whitespace-regexp ".*"))
 
 (use-package eshell
   :straight nil
+  :hook (eshell-mode . (lambda () (exec-path-from-shell-initialize)))
   :bind (:map ctl-z-map ("t" . eshell)))
 
 (use-package exec-path-from-shell
-  :init
-  (progn
-    (setq exec-path-from-shell-check-startup-files nil)
-    (exec-path-from-shell-initialize)))
+  :commands exec-path-from-shell-initialize
+  :config (setq exec-path-from-shell-check-startup-files nil))
 
 (use-package project
   :straight nil
@@ -148,13 +144,11 @@
 (use-package dired
   :straight nil
   :hook (dired-mode . dired-hide-details-mode)
-  :config
-  (setq dired-recursive-copies 'always
-	dired-recursive-deletes 'top
-	dired-use-ls-dired nil
-	dired-dwim-target t
-	dired-listing-switches "-lha1v")
-  (put 'dired-find-alternate-file 'disabled nil))
+  :config (setq dired-recursive-copies 'always
+		dired-recursive-deletes 'top
+		dired-use-ls-dired nil
+		dired-dwim-target t
+		dired-listing-switches "-lha1v"))
 
 (use-package text-mode
   :straight nil
@@ -164,20 +158,19 @@
   :straight nil
   :hook (prog-mode . whitespace-mode)
   :bind (:map ctl-z-map ("C-." . whitespace-cleanup))
-  :config
-  (setq whitespace-line-column 80
-	whitespace-style '(face lines-tail trailing space-before-tab)))
+  :config (setq whitespace-line-column 80
+		whitespace-style '(face lines-tail trailing space-before-tab)))
 
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
 
 (use-package paredit
-  :bind (:map paredit-mode-map ("C-w" . paredit-backward-kill-word))
-  :hook
-  (emacs-lisp-mode . enable-paredit-mode)
-  (lisp-mode . enable-paredit-mode)
-  (lisp-interaction-mode . enable-paredit-mode)
-  (clojure-mode . enable-paredit-mode))
+  :bind (:map paredit-mode-map
+	      ("C-w" . paredit-backward-kill-word))
+  :hook (emacs-lisp-mode . enable-paredit-mode)
+  :hook (lisp-mode . enable-paredit-mode)
+  :hook (lisp-interaction-mode . enable-paredit-mode)
+  :hook (clojure-mode . enable-paredit-mode))
 
 (use-package imenu
   :straight nil
@@ -189,14 +182,13 @@
 
 (use-package clojure-mode
   :mode (("\\.clj\\[s\\*\\'" . clojure-mode))
-  :config
-  (put-clojure-indent 'match 1)
-  (put-clojure-indent 'fn-traced 1))
+  :config (progn
+	    (put-clojure-indent 'match 1)
+	    (put-clojure-indent 'fn-traced 1)))
 
 (use-package monroe
-  :hook
-  (clojure-mode . clojure-enable-monroe)
-  (monroe-mode . enable-paredit-mode)
+  :hook (clojure-mode . clojure-enable-monroe)
+  :hook (monroe-mode . enable-paredit-mode)
   :bind (:map ctl-z-map ("m" . monroe))
   :config (setq monroe-detail-stacktraces t))
 
@@ -216,12 +208,11 @@
 
 (use-package ansi-color
   :straight nil
-  :hook
-  (compilation-filter
-   . (lambda ()
-       (toggle-read-only)
-       (ansi-color-apply-on-region compilation-filter-start (point))
-       (toggle-read-only))))
+  :hook (compilation-filter
+	 . (lambda ()
+	     (toggle-read-only)
+	     (ansi-color-apply-on-region compilation-filter-start (point))
+	     (toggle-read-only))))
 
 (use-package magit
   :bind (:map ctl-x-map
