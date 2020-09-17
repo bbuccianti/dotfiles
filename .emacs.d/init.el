@@ -243,13 +243,13 @@
 	org-fast-tag-selection-single-key 'expert
 	org-blank-before-new-entry '((heading . auto) (plain-list-item . auto))
 	org-refile-targets '((nil :maxlevel . 9)
-			       (org-agenda-files :maxlevel . 9))
+			     (org-agenda-files :maxlevel . 9))
 	org-capture-templates '(("t" "Todo"
-				   entry (file+headline "~/org/projects.org" "Inbox")
-				   "* TODO %?\n:PROPERTIES:\n:CREATED: %U\n:END:")
-				  ("n" "Note"
-				   entry (file "~/org/notes.org")
-				   "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:"))
+				 entry (file+headline "~/org/projects.org" "Inbox")
+				 "* TODO %?\n:PROPERTIES:\n:CREATED: %U\n:END:")
+				("n" "Note"
+				 entry (file "~/org/notes.org")
+				 "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:"))
 	org-todo-keywords '((sequence "PROJECT(p)" "TODO(t)" "|" "DONE(d)" "CANCELLED(c)"))
 	org-directory "/home/bbuccianti/notes/"))
 

@@ -40,7 +40,14 @@
 
 (use-package gnus-sum
   :straight nil
-  :hook (gnus-summary-prepared . gnus-summary-hide-all-threads))
+  :hook (gnus-summary-prepared . gnus-summary-hide-all-threads)
+  :bind (:map gnus-summary-mode-map
+	      ("F" . gnus-summary-wide-reply-with-original)))
+
+(use-package gnus-art
+  :straight nil
+  :bind (:map gnus-article-mode-map
+	      ("F" . gnus-summary-wide-reply-with-original)))
 
 (use-package rcirc
   :hook (rcirc-mode . (lambda ()
