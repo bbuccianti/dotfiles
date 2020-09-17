@@ -69,7 +69,8 @@
 (use-package use-package
   :config
   (setq use-package-always-defer t
-	use-package-verbose nil))
+	use-package-verbose nil
+	use-package-expand-minimally t))
 
 (use-package personal-keybindings
   :straight nil

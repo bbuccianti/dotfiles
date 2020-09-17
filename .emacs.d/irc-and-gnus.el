@@ -35,7 +35,12 @@
 
 (use-package gnus
   :straight nil
-  :config (setq gnus-select-method '(nntp "news.gmane.io")))
+  :config (setq gnus-select-method '(nntp "news.gmane.io")
+		gnus-novice-user nil))
+
+(use-package gnus-sum
+  :straight nil
+  :hook (gnus-summary-prepared . gnus-summary-hide-all-threads))
 
 (use-package rcirc
   :hook (rcirc-mode . (lambda ()
