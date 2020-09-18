@@ -17,26 +17,29 @@
 	send-mail-function 'smtpmail-send-it
 	message-default-mail-headers "Cc: \nBcc: \n"
 	message-auto-save-directory "/home/bbuccianti/.mail/benjamin/Drafts"
-	message-kill-buffer-on-exit t
-	message-directory "/home/bbuccianti/.mail/benjamin/Sent"))
-
-(use-package notmuch
-  :bind (:map ctl-z-map ("@" . notmuch))
-  :config
-  (setq	notmuch-search-oldest-first nil
-	notmuch-show-indent-content nil
-	notmuch-show-logo nil
-	notmuch-show-all-tags-lst t
-	notmuch-hello-sections '(notmuch-hello-insert-header
-				 notmuch-hello-insert-inbox
-				 notmuch-hello-insert-footer)
-	notmuch-fcc-dirs
-	'(("benjamin@buccianti.dev" . "benjamin/Sent -inbox -unread +sent"))))
+	message-kill-buffer-on-exit t))
 
 (use-package gnus
   :straight nil
+  :hook (gnus-group-mode . gnus-topic-mode)
   :config (setq gnus-select-method '(nntp "news.gmane.io")
-		gnus-novice-user nil))
+		gnus-novice-user nil
+		gnus-secondary-select-methods
+		'((nnimap "todo"
+			  (nnimap-stream network)
+			  (nnimap-address "localhost")
+			  (nnimap-authenticator login)
+			  (nnimap-user "todo"))
+		  (nnimap "benjamin"
+			  (nnimap-stream network)
+			  (nnimap-address "localhost")
+			  (nnimap-authenticator login)
+			  (nnimap-user "benjamin"))
+		  (nnimap "gmail"
+			  (nnimap-stream network)
+			  (nnimap-address "localhost")
+			  (nnimap-authenticator login)
+			  (nnimap-user "gmail")))))
 
 (use-package gnus-sum
   :straight nil

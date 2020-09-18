@@ -1,23 +1,55 @@
-IMAPAccount benja
+IMAPAccount benjamin
 Host mail.buccianti.dev
 User benjamin@buccianti.dev
 PassCmd "gpg2 -q --for-your-eyes-only --no-tty -d ~/.secrets/.buccianti.gpg"
 SSLType IMAPS
 CertificateFile ~/.cert/mail.buccianti.dev.pem
 
-IMAPStore benja-remote
-Account benja
+IMAPStore benjamin-remote
+Account benjamin
 
-MaildirStore benja-local
-Path ~/.mail/benjamin/
-Inbox ~/.mail/benjamin/Inbox
+IMAPAccount benjamin-dovecot
+Host localhost
+User benjamin
+Pass weakpass  # local password!
+SSLType none
 
-Channel benja
-Master :benja-remote:
-Slave :benja-local:
+IMAPStore benjamin-local
+Account benjamin-dovecot
+
+Channel benjamin
+Master :benjamin-remote:
+Slave :benjamin-local:
 Patterns *
 Create Both
-SyncState *
+
+####################################################################
+####################################################################
+
+IMAPAccount todo
+Host mail.buccianti.dev
+User todo@buccianti.dev
+PassCmd "gpg2 -q --for-your-eyes-only --no-tty -d ~/.secrets/.todo.gpg"
+SSLType IMAPS
+CertificateFile ~/.cert/mail.buccianti.dev.pem
+
+IMAPStore todo-remote
+Account todo
+
+IMAPAccount todo-dovecot
+Host localhost
+User todo
+Pass weakpass  # local password!
+SSLType none
+
+IMAPStore todo-local
+Account todo-dovecot
+
+Channel todo
+Master :todo-remote:
+Slave :todo-local:
+Patterns *
+Create Both
 
 ####################################################################
 ####################################################################
@@ -33,20 +65,17 @@ CertificateFile ~/.cert/imap.gmail.com.pem
 IMAPStore gmail-remote
 Account gmail
 
-MaildirStore gmail-local
-Subfolders Verbatim
-# The trailing "/" is important
-Path ~/.mail/gmail/
-Inbox ~/.mail/gmail/Inbox
+IMAPAccount gmail-dovecot
+Host localhost
+User gmail
+Pass weakpass  # local password!
+SSLType none
+
+IMAPStore gmail-local
+Account gmail-dovecot
 
 Channel gmail
 Master :gmail-remote:
 Slave :gmail-local:
-# Exclude everything under the internal [Gmail] folder, except the interesting folders
-Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail"
-# Or include everything
-#Patterns *
-# Automatically create missing mailboxes, both locally and on the server
+Patterns * !"[Gmail]/All Mail"
 Create Both
-# Save the synchronization state files in the relevant directory
-SyncState *
