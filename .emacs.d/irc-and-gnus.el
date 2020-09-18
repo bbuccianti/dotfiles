@@ -21,25 +21,27 @@
 
 (use-package gnus
   :straight nil
-  :hook (gnus-group-mode . gnus-topic-mode)
-  :config (setq gnus-select-method '(nntp "news.gmane.io")
-		gnus-novice-user nil
-		gnus-secondary-select-methods
-		'((nnimap "todo"
-			  (nnimap-stream network)
-			  (nnimap-address "localhost")
-			  (nnimap-authenticator login)
-			  (nnimap-user "todo"))
-		  (nnimap "benjamin"
-			  (nnimap-stream network)
-			  (nnimap-address "localhost")
-			  (nnimap-authenticator login)
-			  (nnimap-user "benjamin"))
-		  (nnimap "gmail"
-			  (nnimap-stream network)
-			  (nnimap-address "localhost")
-			  (nnimap-authenticator login)
-			  (nnimap-user "gmail")))))
+  :init (setq gnus-select-method '(nntp "news.gmane.io")
+	      gnus-novice-user nil
+	      gnus-secondary-select-methods
+	      '((nnimap "todo"
+			(nnimap-stream network)
+			(nnimap-address "localhost")
+			(nnimap-authenticator login)
+			(nnimap-user "todo")
+			(nnir-search-engine imap))
+		(nnimap "benjamin"
+			(nnimap-stream network)
+			(nnimap-address "localhost")
+			(nnimap-authenticator login)
+			(nnimap-user "benjamin")
+			(nnir-search-engine imap))
+		(nnimap "gmail"
+			(nnimap-stream network)
+			(nnimap-address "localhost")
+			(nnimap-authenticator login)
+			(nnimap-user "gmail")
+			(nnir-search-engine imap)))))
 
 (use-package gnus-sum
   :straight nil
