@@ -21,6 +21,7 @@
 
 (use-package gnus
   :straight nil
+  :demand
   :init (setq gnus-select-method '(nntp "news.gmane.io")
 	      gnus-novice-user nil
 	      gnus-secondary-select-methods
@@ -45,14 +46,31 @@
 
 (use-package gnus-sum
   :straight nil
+  :after gnus
   :hook (gnus-summary-prepared . gnus-summary-hide-all-threads)
   :bind (:map gnus-summary-mode-map
 	      ("F" . gnus-summary-wide-reply-with-original)))
 
 (use-package gnus-art
   :straight nil
+  :after gnus
   :bind (:map gnus-article-mode-map
 	      ("F" . gnus-summary-wide-reply-with-original)))
+
+(use-package gnus-async
+  :straight nil
+  :after gnus
+  :config (setq gnus-asynchronous t
+		gnus-use-article-prefetch 15))
+
+(use-package gnus-group
+  :straight nil
+  :after gnus)
+
+(use-package gnus-topic
+  :straight nil
+  :after gnus
+  :hook (gnus-group-mode . gnus-topic-mode))
 
 (use-package rcirc
   :hook (rcirc-mode . (lambda ()
