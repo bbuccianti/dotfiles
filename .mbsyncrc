@@ -12,7 +12,8 @@ IMAPAccount benjamin-dovecot
 Host localhost
 User benjamin
 Pass weakpass  # local password!
-SSLType none
+AuthMechs PLAIN
+SSLType None
 
 IMAPStore benjamin-local
 Account benjamin-dovecot
@@ -40,7 +41,8 @@ IMAPAccount todo-dovecot
 Host localhost
 User todo
 Pass weakpass  # local password!
-SSLType none
+AuthMechs Plain
+SSLType None
 
 IMAPStore todo-local
 Account todo-dovecot
@@ -69,7 +71,8 @@ IMAPAccount gmail-dovecot
 Host localhost
 User gmail
 Pass weakpass  # local password!
-SSLType none
+AuthMechs PLAIN
+SSLType None
 
 IMAPStore gmail-local
 Account gmail-dovecot
