@@ -26,19 +26,19 @@
 	      gnus-secondary-select-methods
 	      '((nnimap "todo"
 			(nnimap-stream network)
-			(nnimap-address "localhost")
+			(nnimap-address "atom")
 			(nnimap-authenticator login)
 			(nnimap-user "todo")
 			(nnir-search-engine imap))
 		(nnimap "benjamin"
 			(nnimap-stream network)
-			(nnimap-address "localhost")
+			(nnimap-address "atom")
 			(nnimap-authenticator login)
 			(nnimap-user "benjamin")
 			(nnir-search-engine imap))
 		(nnimap "gmail"
 			(nnimap-stream network)
-			(nnimap-address "localhost")
+			(nnimap-address "atom")
 			(nnimap-authenticator login)
 			(nnimap-user "gmail")
 			(nnir-search-engine imap)))))
