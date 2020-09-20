@@ -49,7 +49,10 @@
   :after gnus
   :hook (gnus-summary-prepared . gnus-summary-hide-all-threads)
   :bind (:map gnus-summary-mode-map
-	      ("F" . gnus-summary-wide-reply-with-original)))
+	      ("F" . gnus-summary-wide-reply-with-original))
+  :config (setq gnus-summary-line-format
+		"%U%R%z %3t %I%(%[%4L: %-23,23f%]%) %s
+"))
 
 (use-package gnus-art
   :straight nil
