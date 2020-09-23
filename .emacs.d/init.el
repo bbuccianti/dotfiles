@@ -76,6 +76,7 @@
   :straight nil
   :init (progn (global-unset-key "\C-z")
 	       (define-prefix-command 'ctl-z-map)
+	       (setq modus-operandi-theme-completions 'moderate)
 	       (load-theme 'modus-operandi nil nil))
   :hook (prog-mode . prettify-symbols-mode)
   :hook (prog-mode . global-hl-line-mode)

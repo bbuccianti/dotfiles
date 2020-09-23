@@ -30,19 +30,25 @@
 			(nnimap-address "atom")
 			(nnimap-authenticator login)
 			(nnimap-user "todo")
-			(nnir-search-engine imap))
+			(nnir-search-engine imap)
+			(nnmail-expiry-target "nnimap+todo:Trash")
+			(nnmail-expiry-wait 'immediate))
 		(nnimap "benjamin"
 			(nnimap-stream network)
 			(nnimap-address "atom")
 			(nnimap-authenticator login)
 			(nnimap-user "benjamin")
-			(nnir-search-engine imap))
+			(nnir-search-engine imap)
+			(nnmail-expiry-target "nnimap+benjamin:Trash")
+			(nnmail-expiry-wait 'immediate))
 		(nnimap "gmail"
 			(nnimap-stream network)
 			(nnimap-address "atom")
 			(nnimap-authenticator login)
 			(nnimap-user "gmail")
-			(nnir-search-engine imap)))))
+			(nnir-search-engine imap)
+			(nnmail-expiry-target "nnimap+gmail:[Gmail]/Trash")
+			(nnmail-expiry-wait 'immediate)))))
 
 (use-package gnus-sum
   :straight nil
