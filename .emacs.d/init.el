@@ -75,9 +75,7 @@
 (use-package personal-keybindings
   :straight nil
   :init (progn (global-unset-key "\C-z")
-	       (define-prefix-command 'ctl-z-map)
-	       (setq modus-operandi-theme-completions 'moderate)
-	       (load-theme 'modus-operandi nil nil))
+	       (define-prefix-command 'ctl-z-map))
   :hook (prog-mode . prettify-symbols-mode)
   :hook (prog-mode . global-hl-line-mode)
   :bind (:map global-map
@@ -275,3 +273,7 @@
 
 (use-package simple-mpc
   :bind (:map ctl-z-map ("s" . simple-mpc)))
+
+(use-package modus-operandi-theme
+  :init (load-theme 'modus-operandi nil nil)
+  :config (setq modus-operandi-theme-completions 'moderate))
