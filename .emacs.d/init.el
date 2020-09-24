@@ -37,7 +37,7 @@
       use-dialog-box nil
       visible-cursor nil
       make-backup-files nil
-      browse-url-generic-program "/usr/local/bin/luakit"
+      browse-url-generic-program "/usr/bin/qutebrowser"
       browse-url-browser-function 'browse-url-generic
       auto-window-vscroll nil
       auto-save-default nil
