@@ -4,3 +4,4 @@ node_modules/
 cljs-runtime/
 release/
 .git/
+vendor/

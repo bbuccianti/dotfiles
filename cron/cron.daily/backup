@@ -1,7 +1,7 @@
 #!/bin/sh
 
-rsync -av \
+rsync -avr \
       --files-from=/home/bbuccianti/.backup-dirs \
       --exclude-from=/home/bbuccianti/.exclude-dirs \
       /home/bbuccianti \
-      backup@atom:backup/
+      backup@atom:bbuccianti/
