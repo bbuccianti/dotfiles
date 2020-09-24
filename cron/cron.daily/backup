@@ -1,9 +1,7 @@
 #!/bin/sh
 
-MAILTO=""
-
-rsync -var \
+rsync -av \
       --files-from=/home/bbuccianti/.backup-dirs \
       --exclude-from=/home/bbuccianti/.exclude-dirs \
       /home/bbuccianti \
-      atom:backup/
+      backup@atom:backup/
