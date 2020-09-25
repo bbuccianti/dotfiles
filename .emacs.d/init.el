@@ -131,7 +131,7 @@
   :config
   (prescient-persist-mode +1)
   (setq prescient-history-length 1000
-	prescient-filter-method '(literal regexp fuzzy)))
+	prescient-filter-method '(literal initialism regexp fuzzy)))
 
 (use-package selectrum-prescient
   :straight (:host github
@@ -275,5 +275,4 @@
   :bind (:map ctl-z-map ("s" . simple-mpc)))
 
 (use-package modus-operandi-theme
-  :init (load-theme 'modus-operandi nil nil)
-  :config (setq modus-operandi-theme-completions 'moderate))
+  :init (load-theme 'modus-operandi nil nil))
