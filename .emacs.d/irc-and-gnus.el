@@ -84,7 +84,10 @@
 (use-package rcirc
   :hook (rcirc-mode . (lambda ()
 			(rcirc-track-minor-mode 1)
-			(rcirc-omit-mode 1)))
+			(rcirc-omit-mode 1)
+			(lambda ()
+			  (set (make-local-variable 'scroll-conservatively)
+			       8192))))
   :config
   (setq rcirc-fill-column 'window-text-width
 	rcirc-omit-responses '("JOIN" "PART" "QUIT" "NICK" "AWAY")

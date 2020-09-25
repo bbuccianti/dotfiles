@@ -74,8 +74,6 @@
 (use-package personal-keybindings
   :init (progn (global-unset-key "\C-z")
 	       (define-prefix-command 'ctl-z-map))
-  :hook (prog-mode . prettify-symbols-mode)
-  :hook (prog-mode . global-hl-line-mode)
   :bind (:map global-map
 	      ("C-z" . ctl-z-map)
 	      ("M-SPC" . cycle-spacing)
@@ -92,6 +90,11 @@
   :bind (:map ctl-x-map
 	      ("C-k" . kill-region)
 	      ("C-b" . ibuffer)))
+
+(use-package prog-mode
+  :hook ((prog-mode . global-hl-line-mode)
+	 (prog-mode . prettify-symbols-mode)
+	 (prog-mode . whitespace-mode)))
 
 (use-package hi-lock
   :bind (:map ctl-z-map
@@ -151,7 +154,6 @@
   :hook (text-mode . turn-off-auto-fill))
 
 (use-package whitespace
-  :hook (prog-mode . whitespace-mode)
   :bind (:map ctl-z-map ("C-." . whitespace-cleanup))
   :config (setq whitespace-line-column 80
 		whitespace-style '(face lines-tail trailing space-before-tab)))
@@ -162,12 +164,11 @@
 
 (use-package paredit
   :straight t
-  :bind (:map paredit-mode-map
-	      ("C-w" . paredit-backward-kill-word))
-  :hook (emacs-lisp-mode . enable-paredit-mode)
-  :hook (lisp-mode . enable-paredit-mode)
-  :hook (lisp-interaction-mode . enable-paredit-mode)
-  :hook (clojure-mode . enable-paredit-mode))
+  :bind (:map paredit-mode-map ("C-w" . paredit-backward-kill-word))
+  :hook ((clojure-mode
+	  lisp-interaction-mode
+	  emacs-lisp-mode
+	  lisp-mode) . enable-paredit-mode))
 
 (use-package imenu
   :bind (:map ctl-z-map ("i" . imenu))
