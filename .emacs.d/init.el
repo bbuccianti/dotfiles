@@ -112,9 +112,8 @@
   :config (setq exec-path-from-shell-check-startup-files nil))
 
 (use-package project
-  :bind (:map ctl-z-map
-	      ("p" . project-find-file)
-	      ("/" . project-find-regexp))
+  :bind (:map ctl-z-map ("/" . project-find-regexp))
+  :bind (:map ctl-x-map ("f" . project-find-file))
   :config
   (dolist (folder '("node_modules" "target" "out"
 		    ".cljs_node_repl" ".shadow-cljs"))
