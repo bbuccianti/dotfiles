@@ -3,8 +3,7 @@
 ;; Benjamín Buccianti <benjamin@buccianti.dev>
 ;;
 
-(setq straight-use-package-by-default t
-      straight-check-for-modifications 'live
+(setq straight-check-for-modifications 'live
       straight-cache-autoloads t)
 
 (defvar bootstrap-version)
@@ -73,7 +72,6 @@
 	use-package-expand-minimally t))
 
 (use-package personal-keybindings
-  :straight nil
   :init (progn (global-unset-key "\C-z")
 	       (define-prefix-command 'ctl-z-map))
   :hook (prog-mode . prettify-symbols-mode)
@@ -95,22 +93,25 @@
 	      ("C-k" . kill-region)
 	      ("C-b" . ibuffer)))
 
+(use-package hi-lock
+  :bind (:map ctl-z-map
+	      ("h" . hi-lock-face-symbol-at-point)
+	      ("u" . hi-lock-unface-buffer)))
+
 (use-package isearch
-  :straight nil
   :config (setq isearch-allow-scroll t
 		search-whitespace-regexp ".*"))
 
 (use-package eshell
-  :straight nil
   :hook (eshell-mode . (lambda () (exec-path-from-shell-initialize)))
   :bind (:map ctl-z-map ("t" . eshell)))
 
 (use-package exec-path-from-shell
+  :straight t
   :commands exec-path-from-shell-initialize
   :config (setq exec-path-from-shell-check-startup-files nil))
 
 (use-package project
-  :straight nil
   :bind (:map ctl-z-map
 	      ("p" . project-find-file)
 	      ("/" . project-find-regexp))
@@ -120,7 +121,6 @@
     (add-to-list 'vc-directory-exclusion-list folder)))
 
 (use-package tramp
-  :straight nil
   :config (setq tramp-default-method "ssh"))
 
 (use-package selectrum
@@ -128,6 +128,7 @@
   :init (selectrum-mode +1))
 
 (use-package prescient
+  :straight t
   :config
   (prescient-persist-mode +1)
   (setq prescient-history-length 1000
@@ -140,7 +141,6 @@
   :init (selectrum-prescient-mode +1))
 
 (use-package dired
-  :straight nil
   :hook (dired-mode . dired-hide-details-mode)
   :config (setq dired-recursive-copies 'always
 		dired-recursive-deletes 'top
@@ -149,20 +149,20 @@
 		dired-listing-switches "-lha1v"))
 
 (use-package text-mode
-  :straight nil
   :hook (text-mode . turn-off-auto-fill))
 
 (use-package whitespace
-  :straight nil
   :hook (prog-mode . whitespace-mode)
   :bind (:map ctl-z-map ("C-." . whitespace-cleanup))
   :config (setq whitespace-line-column 80
 		whitespace-style '(face lines-tail trailing space-before-tab)))
 
 (use-package rainbow-delimiters
+  :straight t
   :hook (prog-mode . rainbow-delimiters-mode))
 
 (use-package paredit
+  :straight t
   :bind (:map paredit-mode-map
 	      ("C-w" . paredit-backward-kill-word))
   :hook (emacs-lisp-mode . enable-paredit-mode)
@@ -171,26 +171,29 @@
   :hook (clojure-mode . enable-paredit-mode))
 
 (use-package imenu
-  :straight nil
   :bind (:map ctl-z-map ("i" . imenu))
   :config (setq imenu-auto-rescan t))
 
 (use-package expand-region
+  :straight t
   :bind (:map global-map ("C-=" . er/expand-region)))
 
 (use-package clojure-mode
+  :straight t
   :mode (("\\.clj\\[s\\*\\'" . clojure-mode))
   :config (progn
 	    (put-clojure-indent 'match 1)
 	    (put-clojure-indent 'fn-traced 1)))
 
 (use-package monroe
+  :straight t
   :hook (clojure-mode . clojure-enable-monroe)
   :hook (monroe-mode . enable-paredit-mode)
   :bind (:map ctl-z-map ("m" . monroe))
   :config (setq monroe-detail-stacktraces t))
 
 (use-package rust-mode
+  :straight t
   :mode (("\\.rs\\'" . rust-mode))
   :hook (rust-mode . electric-pair-mode)
   :config (setq rust-format-on-save t
@@ -199,13 +202,14 @@
 		rust-cargo-bin "/home/bbuccianti/.cargo/bin/cargo"))
 
 (use-package fennel-mode
+  :straight t
   :mode (("\\.fnl\\'" . fennel-mode)))
 
 (use-package lua-mode
+  :straight t
   :mode (("\\.lua\\'" . lua-mode)))
 
 (use-package ansi-color
-  :straight nil
   :hook (compilation-filter
 	 . (lambda ()
 	     (toggle-read-only)
@@ -213,6 +217,7 @@
 	     (toggle-read-only))))
 
 (use-package magit
+  :straight t
   :bind (:map ctl-x-map
 	      ("g" . magit-status)
 	      ("M-g" . magit-dispatch))
@@ -220,7 +225,6 @@
   (setq magit-repository-directories '(("~/work" . 2) ("~/src" . 3))))
 
 (use-package org
-  :straight nil
   :mode (("\\.org\\'" . org-mode))
   :bind (:map ctl-z-map
 	      ("a" . org-agenda)
@@ -253,7 +257,6 @@
 	org-directory "/home/bbuccianti/notes/"))
 
 (use-package org-agenda
-  :straight nil
   :config
   (setq org-agenda-files '("/home/bbuccianti/org/")
 	org-agenda-skip-deadline-if-done t
@@ -269,10 +272,13 @@
 				   (search . " %i %-12:c"))))
 
 (use-package markdown-mode
+  :straight t
   :mode (("\\.md\\'" . markdown-mode)))
 
 (use-package simple-mpc
+  :straight t
   :bind (:map ctl-z-map ("s" . simple-mpc)))
 
 (use-package modus-operandi-theme
+  :straight t
   :init (load-theme 'modus-operandi nil nil))
