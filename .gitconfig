@@ -8,4 +8,12 @@
 	program = gpg2
 [commit]
 	gpgsign = true
-
+[sendemail]
+	confirm = auto
+	annotate = yes
+	smtpserver = mail.buccianti.dev
+	smtpuser = benjamin@buccianti.dev
+	smtpencryption = ssl
+	smtpauth = PLAIN LOGIN
+[credential]
+	helper = store
