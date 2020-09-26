@@ -109,6 +109,13 @@
   :hook (eshell-mode . (lambda () (exec-path-from-shell-initialize)))
   :bind (:map ctl-z-map ("t" . eshell)))
 
+(use-package em-smart
+  :after eshell
+  :hook (eshell-mdoe . (lambda () (eshell-smart-initialize)))
+  :config (setq eshell-where-to-jump 'begin
+		eshell-review-quick-commands nil
+		eshell-smart-space-goes-to-end t))
+
 (use-package exec-path-from-shell
   :straight t
   :commands exec-path-from-shell-initialize
