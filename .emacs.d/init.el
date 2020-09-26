@@ -115,8 +115,6 @@
   :config (setq exec-path-from-shell-check-startup-files nil))
 
 (use-package project
-  :bind (:map ctl-z-map ("/" . project-find-regexp))
-  :bind (:map ctl-x-map ("f" . project-find-file))
   :config
   (dolist (folder '("node_modules" "target" "out"
 		    ".cljs_node_repl" ".shadow-cljs"))
@@ -156,7 +154,8 @@
 (use-package whitespace
   :bind (:map ctl-z-map ("C-." . whitespace-cleanup))
   :config (setq whitespace-line-column 80
-		whitespace-style '(face lines-tail trailing space-before-tab)))
+		whitespace-style '(face lines trailing indentation
+				   space-before-tab space-after-tab)))
 
 (use-package rainbow-delimiters
   :straight t
