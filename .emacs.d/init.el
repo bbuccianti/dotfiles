@@ -96,25 +96,22 @@
 	 (prog-mode . prettify-symbols-mode)
 	 (prog-mode . whitespace-mode)))
 
-(use-package hi-lock
-  :bind (:map ctl-z-map
-	      ("h" . hi-lock-face-symbol-at-point)
-	      ("u" . hi-lock-unface-buffer)))
-
 (use-package isearch
   :config (setq isearch-allow-scroll t
 		search-whitespace-regexp ".*"))
 
 (use-package eshell
-  :hook (eshell-mode . (lambda () (exec-path-from-shell-initialize)))
-  :bind (:map ctl-z-map ("t" . eshell)))
-
-(use-package em-smart
-  :after eshell
-  :hook (eshell-mdoe . (lambda () (eshell-smart-initialize)))
-  :config (setq eshell-where-to-jump 'begin
-		eshell-review-quick-commands nil
-		eshell-smart-space-goes-to-end t))
+  :hook (eshell-mode . (lambda ()
+			 (exec-path-from-shell-initialize)
+			 (eshell-smart-initialize)))
+  :bind (:map ctl-z-map ("t" . eshell))
+  :config
+  (progn
+    (setq eshell-where-to-jump 'begin
+	  eshell-review-quick-commands nil
+	  eshell-smart-space-goes-to-end t)
+    (dolist (mode '(eshell-smart eshell-tramp))
+      (add-to-list 'eshell-modules-list mode))))
 
 (use-package exec-path-from-shell
   :straight t
@@ -134,18 +131,17 @@
   :straight (:host github :repo "raxod502/selectrum")
   :init (selectrum-mode +1))
 
-(use-package prescient
-  :straight t
-  :config
-  (prescient-persist-mode +1)
-  (setq prescient-history-length 1000
-	prescient-filter-method '(literal initialism regexp fuzzy)))
-
 (use-package selectrum-prescient
   :straight (:host github
 	     :repo "raxod502/prescient.el"
              :files ("selectrum-prescient.el"))
   :init (selectrum-prescient-mode +1))
+
+(use-package prescient
+  :straight t
+  :init (prescient-persist-mode +1)
+  :config (setq prescient-history-length 1000
+		prescient-filter-method '(literal initialism regexp fuzzy)))
 
 (use-package dired
   :hook (dired-mode . dired-hide-details-mode)
