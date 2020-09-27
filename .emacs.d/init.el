@@ -50,17 +50,17 @@
 (remove-hook 'find-file-hooks 'vc-find-file-hook)
 
 (add-hook 'emacs-startup-hook
-          (lambda ()
-            (message "Emacs ready in %s with %d garbage collections."
-                     (format "%.2f seconds"
-                             (float-time (time-subtract after-init-time
+	  (lambda ()
+	    (message "Emacs ready in %s with %d garbage collections."
+		     (format "%.2f seconds"
+			     (float-time (time-subtract after-init-time
 							before-init-time)))
-                     gcs-done)
-            (setq file-name-handler-alist old--file-name-handler-alist
-                  gc-cons-threshold 16777216 ; 16mb
-                  gc-cons-percentage 0.1)
-            (garbage-collect))
-          t)
+		     gcs-done)
+	    (setq file-name-handler-alist old--file-name-handler-alist
+		  gc-cons-threshold 16777216 ; 16mb
+		  gc-cons-percentage 0.1)
+	    (garbage-collect))
+	  t)
 
 ;; packages
 (straight-use-package 'use-package)
@@ -134,7 +134,7 @@
 (use-package selectrum-prescient
   :straight (:host github
 	     :repo "raxod502/prescient.el"
-             :files ("selectrum-prescient.el"))
+	     :files ("selectrum-prescient.el"))
   :init (selectrum-prescient-mode +1))
 
 (use-package prescient
