@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t; -*-
 ;;
 ;; Personal Emacs configuration
 ;; Benjamín Buccianti <benjamin@buccianti.dev>

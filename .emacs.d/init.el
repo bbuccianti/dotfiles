@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t; -*-
 ;;
 ;; Personal Emacs configuration
 ;; Benjamín Buccianti <benjamin@buccianti.dev>
@@ -250,12 +251,14 @@
 	org-refile-targets '((nil :maxlevel . 9)
 			     (org-agenda-files :maxlevel . 9))
 	org-capture-templates '(("t" "Todo"
-				 entry (file+headline "~/org/projects.org" "Inbox")
+				 entry (file+headline "~/org/projects.org"
+						      "Inbox")
 				 "* TODO %?\n:PROPERTIES:\n:CREATED: %U\n:END:")
 				("n" "Note"
 				 entry (file "~/org/notes.org")
 				 "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:"))
-	org-todo-keywords '((sequence "PROJECT(p)" "TODO(t)" "|" "DONE(d)" "CANCELLED(c)"))
+	org-todo-keywords '((sequence "PROJECT(p)" "TODO(t)" "|"
+				      "DONE(d)" "CANCELLED(c)"))
 	org-directory "/home/bbuccianti/notes/"))
 
 (use-package org-agenda
@@ -272,6 +275,16 @@
 				   (todo . "%l" )
 				   (tags . "%l")
 				   (search . " %i %-12:c"))))
+
+(use-package deft
+  :straight t
+  :config
+  (setq deft-directory "~/notes"
+	deft-default-extension "org"
+	deft-extensions '("org")))
+
+(use-package zetteldeft
+  :straight t)
 
 (use-package markdown-mode
   :straight t
