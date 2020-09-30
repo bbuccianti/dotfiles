@@ -74,7 +74,8 @@
 
 (use-package personal-keybindings
   :init (progn (global-unset-key "\C-z")
-	       (define-prefix-command 'ctl-z-map))
+	       (define-prefix-command 'ctl-z-map)
+	       (global-hl-line-mode))
   :bind (:map global-map
 	      ("C-z" . ctl-z-map)
 	      ("M-SPC" . cycle-spacing)
@@ -93,8 +94,7 @@
 	      ("C-b" . ibuffer)))
 
 (use-package prog-mode
-  :hook ((prog-mode . global-hl-line-mode)
-	 (prog-mode . prettify-symbols-mode)
+  :hook ((prog-mode . prettify-symbols-mode)
 	 (prog-mode . whitespace-mode)))
 
 (use-package isearch
@@ -278,10 +278,9 @@
 
 (use-package deft
   :straight t
-  :config
-  (setq deft-directory "~/notes"
-	deft-default-extension "org"
-	deft-extensions '("org")))
+  :config (setq deft-directory "~/notes"
+		deft-default-extension "org"
+		deft-extensions '("org")))
 
 (use-package zetteldeft
   :straight t)

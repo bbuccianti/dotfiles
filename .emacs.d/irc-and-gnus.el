@@ -25,6 +25,7 @@
   :demand
   :init (setq gnus-select-method '(nntp "news.gmane.io")
 	      gnus-novice-user nil
+	      gnus-suppress-duplicates t
 	      gnus-secondary-select-methods
 	      '((nnimap "todo"
 			(nnimap-stream network)
