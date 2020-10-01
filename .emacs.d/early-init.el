@@ -13,6 +13,7 @@
 	      inhibit-default-init t
 	      inhibit-startup-message t
 	      bidi-display-reordering nil
+	      bidi-inhibit-bpa t
 	      bidi-paragraph-direction 'left-to-right
 	      create-lockfiles nil
 	      file-name-handler-alist nil)

@@ -4,8 +4,11 @@
 ;; Benjamín Buccianti <benjamin@buccianti.dev>
 ;;
 
-(setq straight-check-for-modifications 'live
-      straight-cache-autoloads t)
+(setq-default straight-check-for-modifications 'live
+	      straight-cache-autoloads t
+	      use-package-always-defer t
+	      use-package-verbose t
+	      use-package-expand-minimally t)
 
 (defvar bootstrap-version)
 (let ((bootstrap-file
@@ -65,12 +68,6 @@
 
 ;; packages
 (straight-use-package 'use-package)
-
-(use-package use-package
-  :config
-  (setq use-package-always-defer t
-	use-package-verbose nil
-	use-package-expand-minimally t))
 
 (use-package personal-keybindings
   :init (progn (global-unset-key "\C-z")
@@ -158,7 +155,7 @@
 (use-package whitespace
   :bind (:map ctl-z-map ("C-." . whitespace-cleanup))
   :config (setq whitespace-line-column 80
-		whitespace-style '(face lines trailing indentation
+		whitespace-style '(face lines-tail trailing indentation
 				   space-before-tab space-after-tab)))
 
 (use-package rainbow-delimiters
@@ -203,6 +200,10 @@
 		rust-format-show-buffer nil
 		rust-rustfmt-bin "/home/bbuccianti/.cargo/bin/rustfmt"
 		rust-cargo-bin "/home/bbuccianti/.cargo/bin/cargo"))
+
+(use-package php-mode
+  :straight t
+  :mode (("\\.php\\'" . php-mode)))
 
 (use-package fennel-mode
   :straight t
