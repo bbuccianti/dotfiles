@@ -46,7 +46,8 @@
       auto-save-default nil
       vc-follow-symlinks t
       epg-gpg-program "gpg2"
-      explicit-shell-file-name "/bin/mksh")
+      explicit-shell-file-name "/bin/mksh"
+      uniquify-buffer-name-style 'forward)
 
 (fset 'yes-or-no-p 'y-or-n-p)
 (put 'upcase-region 'disabled nil)
