@@ -45,9 +45,11 @@
       auto-window-vscroll nil
       auto-save-default nil
       vc-follow-symlinks t
+      vc-handled-backends nil
       epg-gpg-program "gpg2"
       explicit-shell-file-name "/bin/mksh"
-      uniquify-buffer-name-style 'forward)
+      uniquify-buffer-name-style 'forward
+      echo-keystrokes 0.5)
 
 (fset 'yes-or-no-p 'y-or-n-p)
 (put 'upcase-region 'disabled nil)
@@ -152,6 +154,11 @@
 
 (use-package text-mode
   :hook (text-mode . turn-off-auto-fill))
+
+(use-package eldoc-mode
+  :hook (emacs-lisp-mode . turn-on-eldoc-mode)
+  :config (setq eldoc-idle-delay 0.1
+		eldoc-echo-area-use-multiline-p nil))
 
 (use-package whitespace
   :bind (:map ctl-z-map ("C-." . whitespace-cleanup))
@@ -294,6 +301,13 @@
 (use-package simple-mpc
   :straight t
   :bind (:map ctl-z-map ("s" . simple-mpc)))
+
+(use-package smart-mode-line
+  :straight t
+  :init (progn
+	  (setq sml/theme 'respectful
+		sml/mode-width 'full)
+	  (sml/setup)))
 
 (use-package modus-operandi-theme
   :straight t

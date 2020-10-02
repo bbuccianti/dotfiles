@@ -13,7 +13,7 @@
 	smtpmail-smtp-server "mail.buccianti.dev"
 	smtpmail-local-domain "buccianti.dev"
 	smtpmail-stream-type 'ssl
-        smtpmail-smtp-service 465
+	smtpmail-smtp-service 465
 	message-send-mail-function 'smtpmail-send-it
 	send-mail-function 'smtpmail-send-it
 	message-default-mail-headers "Cc: \nBcc: \n"
@@ -22,7 +22,6 @@
 
 (use-package gnus
   :straight nil
-  :demand
   :init (setq gnus-select-method '(nntp "news.gmane.io")
 	      gnus-novice-user nil
 	      gnus-suppress-duplicates t
@@ -94,17 +93,17 @@
   (setq rcirc-fill-column 'window-text-width
 	rcirc-omit-responses '("JOIN" "PART" "QUIT" "NICK" "AWAY")
 	rcirc-server-alist
-        '(("192.168.0.10"
-           :nick "bbuccianti"
-           :port 12345
+	`(("192.168.0.10"
+	   :nick "bbuccianti"
+	   :port 12345
 	   :user-name "bbuccianti/freenode"
-	   :password "weakpass" ;; Local network only!
+	   :password ,(car (process-lines "pass" "irc/znc"))
 	   :server-alias "freenode")
 	  ("192.168.0.10"
 	   :nick "bbuccianti"
 	   :port 12345
 	   :user-name "bbuccianti/oftc"
-	   :password "weakpass" ;; Local network only!
+	   :password ,(car (process-lines "pass" "irc/znc"))
 	   :server-alias "oftc"))))
 
 (rcirc nil)
