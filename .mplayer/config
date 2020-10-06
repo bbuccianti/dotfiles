@@ -1,3 +1,6 @@
 # Write your default config options here!
 ao=pulse
 font=/usr/share/fonts/TTF/OpenSans-Regular.ttf
+subfont-autoscale=3
+subfont-osd-scale=3
+subfont-text-scale=2
