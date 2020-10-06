@@ -181,6 +181,11 @@
   :straight t
   :bind (:map global-map ("C-=" . er/expand-region)))
 
+(use-package dumb-jump
+  :straight t
+  :hook (xref-backend-functions . dumb-jump-xref-activate)
+  :config (setq dumb-jump-force-searcher 'rg))
+
 (use-package clojure-mode
   :straight t
   :mode (("\\.clj\\[s\\*\\'" . clojure-mode))
