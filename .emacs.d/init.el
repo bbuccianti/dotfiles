@@ -8,7 +8,8 @@
 	      straight-cache-autoloads t
 	      use-package-always-defer t
 	      use-package-verbose t
-	      use-package-expand-minimally t)
+	      use-package-expand-minimally t
+	      use-package-hook-name-suffix "")
 
 (defvar bootstrap-version)
 (let ((bootstrap-file
@@ -75,6 +76,8 @@
   :init (progn (global-unset-key "\C-z")
 	       (define-prefix-command 'ctl-z-map)
 	       (global-hl-line-mode))
+  :hook ((prog-mode-hook . prettify-symbols-mode)
+	 (prog-mode-hook . whitespace-mode))
   :bind (:map global-map
 	      ("C-z" . ctl-z-map)
 	      ("M-SPC" . cycle-spacing)
@@ -92,18 +95,13 @@
 	      ("C-k" . kill-region)
 	      ("C-b" . ibuffer)))
 
-(use-package prog-mode
-  :hook ((prog-mode . prettify-symbols-mode)
-	 (prog-mode . whitespace-mode)))
-
 (use-package isearch
   :config (setq isearch-allow-scroll t
 		search-whitespace-regexp ".*"))
 
 (use-package eshell
-  :hook (eshell-mode . (lambda ()
-			 (exec-path-from-shell-initialize)
-			 (eshell-smart-initialize)))
+  :hook ((eshell-mode-hook . exec-path-from-shell-initialize)
+	 (eshell-mode-hook . eshell-smart-initialize))
   :bind (:map ctl-z-map ("t" . eshell))
   :config
   (progn
@@ -115,7 +113,6 @@
 
 (use-package exec-path-from-shell
   :straight t
-  :commands exec-path-from-shell-initialize
   :config (setq exec-path-from-shell-check-startup-files nil))
 
 (use-package project
@@ -151,10 +148,10 @@
 		dired-listing-switches "-lha1v"))
 
 (use-package text-mode
-  :hook (text-mode . turn-off-auto-fill))
+  :hook (text-mode-hook . turn-off-auto-fill))
 
 (use-package eldoc-mode
-  :hook (emacs-lisp-mode . turn-on-eldoc-mode)
+  :hook (emacs-lisp-mode-hook . turn-on-eldoc-mode)
   :config (setq eldoc-idle-delay 0.1
 		eldoc-echo-area-use-multiline-p nil))
 
@@ -166,15 +163,15 @@
 
 (use-package rainbow-delimiters
   :straight t
-  :hook (prog-mode . rainbow-delimiters-mode))
+  :hook (prog-mode-hook . rainbow-delimiters-mode))
 
 (use-package paredit
   :straight t
   :bind (:map paredit-mode-map ("C-w" . paredit-backward-kill-word))
-  :hook ((clojure-mode
-	  lisp-interaction-mode
-	  emacs-lisp-mode
-	  lisp-mode) . enable-paredit-mode))
+  :hook ((clojure-mode-hook
+	  lisp-interaction-mode-hook
+	  emacs-lisp-mode-hook
+	  lisp-mode-hook) . enable-paredit-mode))
 
 (use-package imenu
   :bind (:map ctl-z-map ("i" . imenu))
@@ -193,15 +190,15 @@
 
 (use-package monroe
   :straight t
-  :hook (clojure-mode . clojure-enable-monroe)
-  :hook (monroe-mode . enable-paredit-mode)
+  :hook (clojure-mode-hook . clojure-enable-monroe)
+  :hook (monroe-mode-hook . enable-paredit-mode)
   :bind (:map ctl-z-map ("m" . monroe))
   :config (setq monroe-detail-stacktraces t))
 
 (use-package rust-mode
   :straight t
   :mode (("\\.rs\\'" . rust-mode))
-  :hook (rust-mode . electric-pair-mode)
+  :hook (rust-mode-hook . electric-pair-mode)
   :config (setq rust-format-on-save t
 		rust-format-show-buffer nil
 		rust-rustfmt-bin "/home/bbuccianti/.cargo/bin/rustfmt"
@@ -220,11 +217,12 @@
   :mode (("\\.lua\\'" . lua-mode)))
 
 (use-package ansi-color
-  :hook (compilation-filter
-	 . (lambda ()
-	     (toggle-read-only)
-	     (ansi-color-apply-on-region compilation-filter-start (point))
-	     (toggle-read-only))))
+  :hook
+  (compilation-filter-hook
+   . (lambda ()
+       (toggle-read-only)
+       (ansi-color-apply-on-region compilation-filter-start (point))
+       (toggle-read-only))))
 
 (use-package magit
   :straight t
