@@ -144,7 +144,6 @@
 		prescient-filter-method '(literal initialism regexp fuzzy)))
 
 (use-package dired
-  :hook (dired-mode . dired-hide-details-mode)
   :config (setq dired-recursive-copies 'always
 		dired-recursive-deletes 'top
 		dired-use-ls-dired nil
@@ -300,13 +299,6 @@
 (use-package simple-mpc
   :straight t
   :bind (:map ctl-z-map ("s" . simple-mpc)))
-
-(use-package smart-mode-line
-  :straight t
-  :init (progn
-	  (setq sml/theme 'respectful
-		sml/mode-width 'full)
-	  (sml/setup)))
 
 (use-package modus-operandi-theme
   :straight t
