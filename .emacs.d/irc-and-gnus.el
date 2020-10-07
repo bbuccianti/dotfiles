@@ -54,7 +54,7 @@
 (use-package gnus-sum
   :straight nil
   :after gnus
-  :hook (gnus-summary-prepared . gnus-summary-hide-all-threads)
+  :hook (gnus-summary-prepared-hook . gnus-summary-hide-all-threads)
   :bind (:map gnus-summary-mode-map
 	      ("F" . gnus-summary-wide-reply-with-original))
   :config (setq gnus-summary-line-format
@@ -80,15 +80,14 @@
 (use-package gnus-topic
   :straight nil
   :after gnus
-  :hook (gnus-group-mode . gnus-topic-mode))
+  :hook (gnus-group-mode-hook . gnus-topic-mode))
 
 (use-package rcirc
-  :hook (rcirc-mode . (lambda ()
-			(rcirc-track-minor-mode 1)
-			(rcirc-omit-mode 1)
-			(lambda ()
-			  (set (make-local-variable 'scroll-conservatively)
-			       8192))))
+  :hook ((rcirc-mode-hook . rcirc-track-minor-mode)
+	 (rcirc-mode-hook . rcirc-omit-mode)
+	 (rcirc-mode-hook . (lambda ()
+			      (set (make-local-variable 'scroll-conservatively)
+				   8192))))
   :config
   (setq rcirc-fill-column 'window-text-width
 	rcirc-omit-responses '("JOIN" "PART" "QUIT" "NICK" "AWAY")
