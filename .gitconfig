@@ -1,19 +1,11 @@
 [user]
 	name = Benjamin Buccianti
-	email = benjamin@buccianti.dev
-	signingkey = 5A2C1CEEA1F500020454BD0CBF431C87F615B0E7
+	email = bbuccianti@sugit.com.ar
 [pull]
 	rebase = true
 [gpg]
-	program = gpg2
+	program = gpg
 [commit]
-	gpgsign = true
-[sendemail]
-	confirm = auto
-	annotate = yes
-	smtpserver = mail.buccianti.dev
-	smtpuser = benjamin@buccianti.dev
-	smtpencryption = ssl
-	smtpauth = PLAIN LOGIN
+	gpgsign = false
 [credential]
 	helper = store
