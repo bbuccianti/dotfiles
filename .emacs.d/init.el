@@ -165,6 +165,12 @@
   :straight t
   :hook (prog-mode-hook . rainbow-delimiters-mode))
 
+(use-package js-mode
+  :config (setq js-indent-level 2))
+
+(use-package prettier
+  :straight (:host github :repo "jscheid/prettier.el" :files ("dist/*")))
+
 (use-package paredit
   :straight t
   :bind (:map paredit-mode-map ("C-w" . paredit-backward-kill-word))
