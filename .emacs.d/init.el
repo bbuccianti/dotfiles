@@ -95,6 +95,10 @@
 	      ("C-k" . kill-region)
 	      ("C-b" . ibuffer)))
 
+(use-package gcmh
+  :straight t
+  :init (gcmh-mode +1))
+
 (use-package isearch
   :config (setq isearch-allow-scroll t
 		search-whitespace-regexp ".*"))
@@ -292,14 +296,10 @@
 				   (tags . "%l")
 				   (search . " %i %-12:c"))))
 
-(use-package deft
-  :straight t
-  :config (setq deft-directory "~/notes"
-		deft-default-extension "org"
-		deft-extensions '("org")))
-
-(use-package zetteldeft
-  :straight t)
+(use-package notdeft
+  :straight (:host github :repo "hasu/notdeft" :files ("*.el" "xapian"))
+  :config (setq notdeft-directories '("~/notes")
+		notdeft-extension "org"))
 
 (use-package markdown-mode
   :straight t
