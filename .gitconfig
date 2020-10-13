@@ -1,7 +1,7 @@
 [user]
 	name = Benjamin Buccianti
 	email = bbuccianti@sugit.com.ar
-	signingkey = 5A2C1CEEA1F500020454BD0CBF431C87F615B0E7
+	signingkey = EBB08AC92CDF324485691803387897CFCAAA5A9B
 [pull]
 	rebase = true
 [gpg]
