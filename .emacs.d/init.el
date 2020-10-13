@@ -170,7 +170,8 @@
   :hook (prog-mode-hook . rainbow-delimiters-mode))
 
 (use-package js-mode
-  :config (setq js-indent-level 2))
+  :hook ((js-mode-hook . electric-pair-mode)
+	 (js-mode-hook . (lambda () (setq js-indent-level 2)))))
 
 (use-package prettier
   :straight (:host github :repo "jscheid/prettier.el" :files ("dist/*")))
