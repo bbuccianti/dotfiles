@@ -224,6 +224,9 @@
   :straight t
   :mode (("\\.php\\'" . php-mode)))
 
+(use-package restclient
+  :straight t)
+
 (use-package fennel-mode
   :straight t
   :mode (("\\.fnl\\'" . fennel-mode)))
