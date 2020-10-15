@@ -39,6 +39,5 @@ export PAGER=less
 export DISPLAY=$(awk '/nameserver/ {print $2; exit;}' /etc/resolv.conf):0
 
 # PROXY
-export HTTP_PROXY=http://192.168.0.99:8080/
-export HTTPS_PROXY=http://192.168.0.99:8080/
-
+#export HTTP_PROXY=http://192.168.0.99:8080/
+#export HTTPS_PROXY=http://192.168.0.99:8080/
