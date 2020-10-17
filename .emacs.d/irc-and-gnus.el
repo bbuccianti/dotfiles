@@ -26,7 +26,8 @@
 	      gnus-novice-user nil
 	      gnus-suppress-duplicates t
 	      gnus-secondary-select-methods
-	      '((nnimap "todo"
+	      '((nntp "news.gwene.org")
+		(nnimap "todo"
 			(nnimap-stream network)
 			(nnimap-address "atom")
 			(nnimap-authenticator login)
@@ -92,17 +93,11 @@
   (setq rcirc-fill-column 'window-text-width
 	rcirc-omit-responses '("JOIN" "PART" "QUIT" "NICK" "AWAY")
 	rcirc-server-alist
-	`(("192.168.0.10"
+	`(("atom"
 	   :nick "bbuccianti"
 	   :port 12345
 	   :user-name "bbuccianti/freenode"
 	   :password ,(car (process-lines "pass" "irc/znc"))
-	   :server-alias "freenode")
-	  ("192.168.0.10"
-	   :nick "bbuccianti"
-	   :port 12345
-	   :user-name "bbuccianti/oftc"
-	   :password ,(car (process-lines "pass" "irc/znc"))
-	   :server-alias "oftc"))))
+	   :server-alias "freenode"))))
 
 (rcirc nil)
