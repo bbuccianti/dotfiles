@@ -46,7 +46,7 @@
       auto-window-vscroll nil
       auto-save-default nil
       vc-follow-symlinks t
-      epg-gpg-program "gpg2"
+      epg-gpg-program "gpg"
       explicit-shell-file-name "/bin/mksh"
       uniquify-buffer-name-style 'forward
       echo-keystrokes 0.5)
