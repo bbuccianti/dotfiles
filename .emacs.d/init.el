@@ -174,7 +174,8 @@
   :config (setq js-indent-level 2))
 
 (use-package prettier
-  :straight (:host github :repo "jscheid/prettier.el" :files ("dist/*")))
+  :straight (:host github :repo "jscheid/prettier.el" :files ("dist/*"))
+  :commands prettier-mode)
 
 (use-package paredit
   :straight t
