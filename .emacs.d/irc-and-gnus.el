@@ -26,8 +26,7 @@
 	      gnus-novice-user nil
 	      gnus-suppress-duplicates t
 	      gnus-secondary-select-methods
-	      '((nntp "news.gwene.org")
-		(nnimap "todo"
+	      '((nnimap "todo"
 			(nnimap-stream network)
 			(nnimap-address "atom")
 			(nnimap-authenticator login)
