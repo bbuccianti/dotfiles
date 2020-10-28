@@ -174,6 +174,7 @@
 	 (js-mode-hook . (lambda () (setq js-indent-level 2)))))
 
 (use-package prettier
+  :commands prettier-mode
   :straight (:host github :repo "jscheid/prettier.el" :files ("dist/*")))
 
 (use-package paredit
@@ -222,7 +223,22 @@
 
 (use-package php-mode
   :straight t
-  :mode (("\\.php\\'" . php-mode)))
+  :mode (("\\.php\\'" . php-mode))
+  :hook (php-mode-hook . yas-minor-mode))
+
+(use-package phpunit
+  :straight t
+  :hook (php-mode-hook . phpunit-mode)
+  :bind (:map php-mode-map
+	      ("C-c C-t C-t" . phpunit-current-test)
+	      ("C-c C-t C-c" . phpunit-current-class)
+	      ("C-c C-t C-p" . phpunit-current-project)))
+
+(use-package yasnippet
+  :straight t)
+
+(use-package yasnippet-snippets
+  :straight t)
 
 (use-package restclient
   :straight t)
