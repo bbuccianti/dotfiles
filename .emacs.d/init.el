@@ -101,7 +101,7 @@
 
 (use-package isearch
   :config (setq isearch-allow-scroll t
-		search-whitespace-regexp ".*"))
+		search-whitespace-regexp "."))
 
 (use-package eshell
   :hook ((eshell-mode-hook . exec-path-from-shell-initialize)
