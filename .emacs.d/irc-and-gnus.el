@@ -17,7 +17,7 @@
 	message-send-mail-function 'smtpmail-send-it
 	send-mail-function 'smtpmail-send-it
 	message-default-mail-headers "Cc: \nBcc: \n"
-	message-auto-save-directory "/home/bbuccianti/.mail/benjamin/Drafts"
+	message-auto-save-directory "~/.mail/benjamin/Drafts"
 	message-kill-buffer-on-exit t))
 
 (use-package gnus
