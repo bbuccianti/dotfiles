@@ -4,7 +4,7 @@ export EDITOR="$VISUAL"
 set -o emacs
 
 # Wayland stuff
-export GDK_BACKEND=wayland
+#export GDK_BACKEND=wayland
 export MOZ_ENABLE_WAYLAND=1
 
 # Useful
@@ -15,9 +15,6 @@ export LPASS_CLIPBOARD_COMMAND=/usr/bin/wl-copy
 
 # PATH
 export PATH="$PATH:$HOME/bin"
-
-# Source .kshrc
-export ENV=$HOME/.kshrc
 
 # If running from tty1 start sway
 if [ "$(tty)" = "/dev/tty1" ]; then
