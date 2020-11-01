@@ -47,7 +47,7 @@
       auto-save-default nil
       vc-follow-symlinks t
       epg-gpg-program "gpg"
-      explicit-shell-file-name "/bin/mksh"
+      explicit-shell-file-name "/usr/bin/bash"
       uniquify-buffer-name-style 'forward
       echo-keystrokes 0.5)
 
