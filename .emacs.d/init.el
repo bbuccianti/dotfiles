@@ -148,7 +148,7 @@
   :straight t
   :init (prescient-persist-mode +1)
   :config (setq prescient-history-length 1000
-		prescient-filter-method '(literal initialism regexp fuzzy)))
+		prescient-filter-method '(literal fuzzy)))
 
 (use-package dired
   :config (setq dired-recursive-copies 'always
