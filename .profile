@@ -14,7 +14,7 @@ export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
 export LPASS_CLIPBOARD_COMMAND=/usr/bin/wl-copy
 
 # PATH
-export PATH="$PATH:/sbin:$HOME/bin"
+export PATH="$PATH:/sbin:$HOME/bin:$HOME/.npm/bin"
 
 # If running from tty1 start sway
 if [ "$(tty)" = "/dev/tty1" ]; then
