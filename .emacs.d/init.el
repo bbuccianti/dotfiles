@@ -327,6 +327,11 @@
   :config (setq notdeft-directories '("~/notes")
 		notdeft-extension "org"))
 
+(use-package ediff
+  :config
+  (setq ediff-window-setup-function 'ediff-setup-windows-plain
+	ediff-split-window-function 'split-window-horizontally))
+
 (use-package markdown-mode
   :straight t
   :mode (("\\.md\\'" . markdown-mode)))
