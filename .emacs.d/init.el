@@ -107,6 +107,12 @@
   :hook ((eshell-mode-hook . exec-path-from-shell-initialize)
 	 (eshell-mode-hook . eshell-smart-initialize))
   :bind (:map ctl-z-map ("t" . eshell))
+  :init
+  (defun eshell/rg (&rest args)
+    "Show rg results in grep-mode."
+    (eshell-grep "rg"
+		 (append '("--no-heading" "-n" "-H" "-e")
+			 args)))
   :config
   (progn
     (setq eshell-where-to-jump 'begin
