@@ -4,7 +4,7 @@ set $left h
 set $down j
 set $up k
 set $right l
-set $term alacritty
+set $term kitty
 set $menu dmenu_path | mauncher | xargs swaymsg exec
 
 ### Output configuration

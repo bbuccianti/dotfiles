@@ -26,7 +26,7 @@ if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
-export PATH="$PATH:/usr/sbin"
+export PATH="$PATH:/usr/sbin:/sbin:"
 
 # Editor
 export VISUAL="emacs"
@@ -36,7 +36,7 @@ set -o emacs
 # Useful
 export PAGER=less
 
-export DISPLAY=$(awk '/nameserver/ {print $2; exit;}' /etc/resolv.conf):0
+#export DISPLAY=$(awk '/nameserver/ {print $2; exit;}' /etc/resolv.conf):0
 
 # PROXY
 #export HTTP_PROXY=http://192.168.0.99:8080/

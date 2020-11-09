@@ -181,7 +181,7 @@
 
 (use-package prettier
   :commands prettier-mode
-  :straight (:host github :repo "jscheid/prettier.el" :files ("dist/*")))
+  :straight (:host github :repo "jscheid/prettier.el"))
 
 (use-package paredit
   :straight t
@@ -326,6 +326,11 @@
   :straight (:host github :repo "hasu/notdeft" :files ("*.el" "xapian"))
   :config (setq notdeft-directories '("~/notes")
 		notdeft-extension "org"))
+
+(use-package ediff
+  :config
+  (setq ediff-window-setup-function 'ediff-setup-windows-plain
+	ediff-split-window-function 'split-window-horizontally))
 
 (use-package markdown-mode
   :straight t
