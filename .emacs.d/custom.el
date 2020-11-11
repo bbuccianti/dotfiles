@@ -59,6 +59,8 @@
      (340 . "#0000bb")
      (360 . "#5317ac")))
  '(vc-annotate-very-old-color nil)
+ '(warning-suppress-log-types '((comp)))
+ '(warning-suppress-types '((comp)))
  '(xterm-color-names
    ["#000000" "#a60000" "#005e00" "#813e00" "#0030a6" "#721045" "#00538b" "#f0f0f0"])
  '(xterm-color-names-bright

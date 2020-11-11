@@ -336,10 +336,6 @@
   :straight t
   :mode (("\\.md\\'" . markdown-mode)))
 
-(use-package simple-mpc
-  :straight t
-  :bind (:map ctl-z-map ("s" . simple-mpc)))
-
 (use-package modus-operandi-theme
   :straight t
   :init (load-theme 'modus-operandi))
