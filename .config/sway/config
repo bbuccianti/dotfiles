@@ -198,9 +198,4 @@ smart_borders on
 focus_follows_mouse no
 default_border pixel
 
-# Toggle music player
-bindsym $mod+p exec mpc toggle
-
 include /etc/sway/config.d/*
-
-exec dunst
