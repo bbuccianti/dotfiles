@@ -17,7 +17,7 @@ export LPASS_CLIPBOARD_COMMAND=/usr/bin/wl-copy
 export PATH="$PATH:/usr/sbin:/sbin:$HOME/bin:$HOME/.npm/bin"
 
 # If running from tty1 start sway
-if [ "$(tty)" = "/dev/tty1" ]; then
-    #exec dbus-run-session sway
-    exec sway
-fi
+# if [ "$(tty)" = "/dev/tty1" ]; then
+#     #exec dbus-run-session sway
+#     #exec sway
+# fi
