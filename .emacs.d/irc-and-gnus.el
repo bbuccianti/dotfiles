@@ -5,7 +5,6 @@
 ;;
 
 (use-package message
-  :straight nil
   :config
   (setq smtpmail-debug-info nil ;; TOGGLE FOR DEBUG ONLY!
 	mail-user-agent 'message-user-agent
@@ -21,7 +20,6 @@
 	message-kill-buffer-on-exit t))
 
 (use-package gnus
-  :straight nil
   :init (setq gnus-select-method '(nntp "news.gmane.io")
 	      gnus-novice-user nil
 	      gnus-suppress-duplicates t
@@ -31,7 +29,6 @@
 			(nnimap-address "atom")
 			(nnimap-authenticator login)
 			(nnimap-user "todo")
-			(nnir-search-engine imap)
 			(nnmail-expiry-target "nnimap+todo:Trash")
 			(nnmail-expiry-wait 'immediate))
 		(nnimap "benjamin"
@@ -39,7 +36,6 @@
 			(nnimap-address "atom")
 			(nnimap-authenticator login)
 			(nnimap-user "benjamin")
-			(nnir-search-engine imap)
 			(nnmail-expiry-target "nnimap+benjamin:Trash")
 			(nnmail-expiry-wait 'immediate))
 		(nnimap "gmail"
@@ -47,12 +43,14 @@
 			(nnimap-address "atom")
 			(nnimap-authenticator login)
 			(nnimap-user "gmail")
-			(nnir-search-engine imap)
 			(nnmail-expiry-target "nnimap+gmail:[Gmail]/Trash")
 			(nnmail-expiry-wait 'immediate)))))
 
+(use-package gnus-search
+  :after gnus
+  :init (setq gnus-search-use-parsed-queries t))
+
 (use-package gnus-sum
-  :straight nil
   :after gnus
   :hook (gnus-summary-prepared-hook . gnus-summary-hide-all-threads)
   :bind (:map gnus-summary-mode-map
@@ -62,23 +60,19 @@
 "))
 
 (use-package gnus-art
-  :straight nil
   :after gnus
   :bind (:map gnus-article-mode-map
 	      ("F" . gnus-summary-wide-reply-with-original)))
 
 (use-package gnus-async
-  :straight nil
   :after gnus
   :config (setq gnus-asynchronous t
 		gnus-use-article-prefetch 15))
 
 (use-package gnus-group
-  :straight nil
   :after gnus)
 
 (use-package gnus-topic
-  :straight nil
   :after gnus
   :hook (gnus-group-mode-hook . gnus-topic-mode))
 
