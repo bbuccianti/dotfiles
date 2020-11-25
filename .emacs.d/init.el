@@ -47,7 +47,7 @@
       auto-save-default nil
       vc-follow-symlinks t
       epg-gpg-program "gpg"
-      explicit-shell-file-name "/usr/bin/bash"
+      explicit-shell-file-name "/bin/bash"
       uniquify-buffer-name-style 'forward
       echo-keystrokes 0.5)
 
@@ -267,9 +267,6 @@
 
 (use-package magit
   :straight t
-  :bind (:map ctl-x-map
-	      ("g" . magit-status)
-	      ("M-g" . magit-dispatch))
   :config
   (setq magit-repository-directories '(("~/work" . 2) ("~/src" . 3))))
 
@@ -335,6 +332,9 @@
 (use-package markdown-mode
   :straight t
   :mode (("\\.md\\'" . markdown-mode)))
+
+(use-package mpc
+  :commands mpc)
 
 (use-package modus-operandi-theme
   :straight t
