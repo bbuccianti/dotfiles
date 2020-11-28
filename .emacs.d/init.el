@@ -46,8 +46,8 @@
       auto-window-vscroll nil
       auto-save-default nil
       vc-follow-symlinks t
-      epg-gpg-program "gpg2"
-      explicit-shell-file-name "/bin/mksh"
+      epg-gpg-program "gpg"
+      explicit-shell-file-name "/bin/bash"
       uniquify-buffer-name-style 'forward
       echo-keystrokes 0.5)
 
@@ -271,9 +271,6 @@
 
 (use-package magit
   :straight t
-  :bind (:map ctl-x-map
-	      ("g" . magit-status)
-	      ("M-g" . magit-dispatch))
   :config
   (setq magit-repository-directories '(("~/work" . 2) ("~/src" . 3))))
 
@@ -340,9 +337,8 @@
   :straight t
   :mode (("\\.md\\'" . markdown-mode)))
 
-(use-package simple-mpc
-  :straight t
-  :bind (:map ctl-z-map ("s" . simple-mpc)))
+(use-package mpc
+  :commands mpc)
 
 (use-package modus-operandi-theme
   :straight t
