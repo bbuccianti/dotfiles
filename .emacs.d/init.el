@@ -240,6 +240,10 @@
 	      ("C-c C-t C-c" . phpunit-current-class)
 	      ("C-c C-t C-p" . phpunit-current-project)))
 
+(use-package flycheck-phpstan
+  :straight t
+  :hook (php-mode-hook . flycheck-mode))
+
 (use-package yasnippet
   :straight t)
 
