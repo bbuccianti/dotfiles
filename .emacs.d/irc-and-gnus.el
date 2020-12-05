@@ -20,6 +20,7 @@
 	message-kill-buffer-on-exit t))
 
 (use-package gnus
+  :bind (:map ctl-z-map ("g" . gnus))
   :init (setq gnus-select-method '(nntp "news.gmane.io")
 	      gnus-novice-user nil
 	      gnus-suppress-duplicates t

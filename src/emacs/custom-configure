@@ -2,24 +2,24 @@
 export CFLAGS="-O2 -mtune=native -march=native -pipe -falign-functions=64 -fomit-frame-pointer -ftracer -funit-at-a-time -fweb -fforce-addr -fpeel-loops -funswitch-loops -frename-registers -mfpmath=sse -ffast-math -fno-finite-math-only -fstack-check"
 
 ../configure --with-sound=no \
-	    --with-file-notification=inotify \
-	    --with-modules \
-	    --with-cairo \
-	    --with-tiff \
-	    --with-xft \
-	    --with-harfbuzz \
-	    --with-libotf \
-	    --with-m17n-flt \
-	    --without-imagemagick \
-	    --without-lcms2 \
-	    --with-xml2 \
-	    --without-toolkit-scroll-bars \
-	    --with-gnutls=ifavailable \
-	    --with-ns=no \
-	    --with-xwidgets=no \
-	    --without-compress-install \
-	    --with-x-toolkit=gtk3 \
-	    --with-mailutils \
-	    --without-pop \
-	    --with-nativecomp
-
+  --with-file-notification=inotify \
+  --with-modules \
+  --with-cairo \
+  --with-tiff \
+  --with-xft \
+  --with-harfbuzz \
+  --with-libotf \
+  --with-m17n-flt \
+  --without-imagemagick \
+  --without-lcms2 \
+  --with-xml2 \
+  --without-toolkit-scroll-bars \
+  --with-gnutls=ifavailable \
+  --with-ns=no \
+  --with-xwidgets=no \
+  --without-compress-install \
+  --with-x-toolkit=gtk3 \
+  --with-mailutils \
+  --without-pop \
+  --with-pgtk \
+  --with-nativecomp
