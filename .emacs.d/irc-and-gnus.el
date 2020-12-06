@@ -21,31 +21,32 @@
 
 (use-package gnus
   :bind (:map ctl-z-map ("g" . gnus))
-  :init (setq gnus-select-method '(nntp "news.gmane.io")
-	      gnus-novice-user nil
-	      gnus-suppress-duplicates t
-	      gnus-secondary-select-methods
-	      '((nnimap "todo"
-			(nnimap-stream network)
-			(nnimap-address "atom")
-			(nnimap-authenticator login)
-			(nnimap-user "todo")
-			(nnmail-expiry-target "nnimap+todo:Trash")
+  :config
+  (setq gnus-select-method '(nntp "news.gmane.io")
+	gnus-novice-user nil
+	gnus-suppress-duplicates t
+	gnus-secondary-select-methods
+	'((nnimap "todo"
+		  (nnimap-stream network)
+		  (nnimap-address "atom")
+		  (nnimap-authenticator login)
+		  (nnimap-user "todo")
+		  (nnmail-expiry-target "nnimap+todo:Trash")
+		  (nnmail-expiry-wait 'immediate))
+	  (nnimap "benjamin"
+		  (nnimap-stream network)
+		  (nnimap-address "atom")
+		  (nnimap-authenticator login)
+		  (nnimap-user "benjamin")
+		  (nnmail-expiry-target "nnimap+benjamin:Trash")
 			(nnmail-expiry-wait 'immediate))
-		(nnimap "benjamin"
-			(nnimap-stream network)
-			(nnimap-address "atom")
-			(nnimap-authenticator login)
-			(nnimap-user "benjamin")
-			(nnmail-expiry-target "nnimap+benjamin:Trash")
-			(nnmail-expiry-wait 'immediate))
-		(nnimap "gmail"
-			(nnimap-stream network)
-			(nnimap-address "atom")
-			(nnimap-authenticator login)
-			(nnimap-user "gmail")
-			(nnmail-expiry-target "nnimap+gmail:[Gmail]/Trash")
-			(nnmail-expiry-wait 'immediate)))))
+	  (nnimap "gmail"
+		  (nnimap-stream network)
+		  (nnimap-address "atom")
+		  (nnimap-authenticator login)
+		  (nnimap-user "gmail")
+		  (nnmail-expiry-target "nnimap+gmail:[Gmail]/Trash")
+		  (nnmail-expiry-wait 'immediate)))))
 
 (use-package gnus-search
   :after gnus
