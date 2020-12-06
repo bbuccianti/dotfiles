@@ -56,7 +56,7 @@
 (put 'downcase-region 'disabled nil)
 (remove-hook 'find-file-hooks 'vc-find-file-hook)
 
-(set-face-attribute 'default nil :font "Source Code Pro" :height 100)
+(set-face-attribute 'default nil :font "Hack" :height 100)
 
 (add-hook 'emacs-startup-hook
 	  (lambda ()
