@@ -56,6 +56,8 @@
 (put 'downcase-region 'disabled nil)
 (remove-hook 'find-file-hooks 'vc-find-file-hook)
 
+(set-face-attribute 'default nil :font "Hack" :height 100)
+
 (add-hook 'emacs-startup-hook
 	  (lambda ()
 	    (message "Emacs ready in %s with %d garbage collections."
