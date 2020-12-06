@@ -41,3 +41,6 @@ export PAGER=less
 # PROXY
 #export HTTP_PROXY=http://192.168.0.99:8080/
 #export HTTPS_PROXY=http://192.168.0.99:8080/
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm

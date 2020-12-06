@@ -125,3 +125,7 @@ export GIT_PS1_SHOWCOLORHINTS=1
 export GIT_PS1_HIDE_IF_PWD_IGNORED=1
 export GIT_PS1_SHOWUNTRACKEDFILES=1
 PS1='\[\033[01;32m\]\u@\h\[\033[00m\] \W$(__git_ps1 " [%s]")\$ '
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
