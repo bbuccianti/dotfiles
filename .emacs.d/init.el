@@ -109,12 +109,6 @@
   :hook ((eshell-mode-hook . exec-path-from-shell-initialize)
 	 (eshell-mode-hook . eshell-smart-initialize))
   :bind (:map ctl-z-map ("t" . eshell))
-  :init
-  (defun eshell/rg (&rest args)
-    "Show rg results in grep-mode."
-    (eshell-grep "rg"
-		 (append '("--no-heading" "-n" "-H" "-e")
-			 args)))
   :config
   (progn
     (setq eshell-where-to-jump 'begin
@@ -132,9 +126,6 @@
   (dolist (folder '("node_modules" "target" "out"
 		    ".cljs_node_repl" ".shadow-cljs"))
     (add-to-list 'vc-directory-exclusion-list folder)))
-
-(use-package tramp
-  :config (setq tramp-default-method "ssh"))
 
 (use-package selectrum
   :straight (:host github :repo "raxod502/selectrum")
@@ -182,8 +173,8 @@
   :config (setq js-indent-level 2))
 
 (use-package prettier
-  :commands prettier-mode
-  :straight (:host github :repo "jscheid/prettier.el" :files ("dist/*")))
+  :straight t
+  :commands prettier-mode)
 
 (use-package paredit
   :straight t
@@ -192,10 +183,6 @@
 	  lisp-interaction-mode-hook
 	  emacs-lisp-mode-hook
 	  lisp-mode-hook) . enable-paredit-mode))
-
-(use-package imenu
-  :bind (:map ctl-z-map ("i" . imenu))
-  :config (setq imenu-auto-rescan t))
 
 (use-package expand-region
   :straight t
@@ -220,15 +207,6 @@
   :bind (:map ctl-z-map ("m" . monroe))
   :config (setq monroe-detail-stacktraces t))
 
-(use-package rust-mode
-  :straight t
-  :mode (("\\.rs\\'" . rust-mode))
-  :hook (rust-mode-hook . electric-pair-mode)
-  :config (setq rust-format-on-save t
-		rust-format-show-buffer nil
-		rust-rustfmt-bin "/home/bbuccianti/.cargo/bin/rustfmt"
-		rust-cargo-bin "/home/bbuccianti/.cargo/bin/cargo"))
-
 (use-package php-mode
   :straight t
   :mode (("\\.php\\'" . php-mode))
@@ -245,16 +223,6 @@
 (use-package flycheck
   :straight t)
 
-(use-package flycheck-phpstan
-  :straight t
-  :hook (php-mode-hook . flycheck-mode))
-
-(use-package yasnippet
-  :straight t)
-
-(use-package yasnippet-snippets
-  :straight t)
-
 (use-package fennel-mode
   :straight t
   :mode (("\\.fnl\\'" . fennel-mode)))
@@ -262,14 +230,6 @@
 (use-package lua-mode
   :straight t
   :mode (("\\.lua\\'" . lua-mode)))
-
-(use-package ansi-color
-  :hook
-  (compilation-filter-hook
-   . (lambda ()
-       (toggle-read-only)
-       (ansi-color-apply-on-region compilation-filter-start (point))
-       (toggle-read-only))))
 
 (use-package magit
   :straight t
