@@ -144,25 +144,28 @@
 		prescient-filter-method '(literal fuzzy)))
 
 (use-package dired
-  :config (setq dired-recursive-copies 'always
-		dired-recursive-deletes 'top
-		dired-use-ls-dired nil
-		dired-dwim-target t
-		dired-listing-switches "-lha1v"))
+  :config
+  (setq dired-recursive-copies 'always
+	dired-recursive-deletes 'top
+	dired-use-ls-dired nil
+	dired-dwim-target t
+	dired-listing-switches "-lha1v"))
 
 (use-package text-mode
   :hook (text-mode-hook . turn-off-auto-fill))
 
 (use-package eldoc-mode
   :hook (emacs-lisp-mode-hook . turn-on-eldoc-mode)
-  :config (setq eldoc-idle-delay 0.1
-		eldoc-echo-area-use-multiline-p nil))
+  :config
+  (setq eldoc-idle-delay 0.3
+	eldoc-echo-area-use-multiline-p nil))
 
 (use-package whitespace
   :bind (:map ctl-z-map ("C-." . whitespace-cleanup))
-  :config (setq whitespace-line-column 80
-		whitespace-style '(face lines-tail trailing indentation
-				   space-before-tab space-after-tab)))
+  :config
+  (setq whitespace-line-column 80
+	whitespace-style '(face lines-tail trailing indentation
+			   space-before-tab space-after-tab)))
 
 (use-package rainbow-delimiters
   :straight t
@@ -196,9 +199,9 @@
 (use-package clojure-mode
   :straight t
   :mode (("\\.clj\\[s\\*\\'" . clojure-mode))
-  :config (progn
-	    (put-clojure-indent 'match 1)
-	    (put-clojure-indent 'fn-traced 1)))
+  :config
+  (put-clojure-indent 'match 1)
+  (put-clojure-indent 'fn-traced 1))
 
 (use-package monroe
   :straight t
