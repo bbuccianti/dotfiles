@@ -217,7 +217,7 @@
 (use-package php-mode
   :straight t
   :mode (("\\.php\\'" . php-mode))
-  :hook (php-mode-hook . yas-minor-mode))
+  :hook (php-mode-hook . flycheck-mode))
 
 (use-package phpunit
   :straight t
