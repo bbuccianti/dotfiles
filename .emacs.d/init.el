@@ -210,9 +210,8 @@
   :straight t
   :mode (("\\.clj\\[s\\*\\'" . clojure-mode))
   :config
-  (progn
-    (put-clojure-indent 'match 1)
-    (put-clojure-indent 'fn-traced 1)))
+  (put-clojure-indent 'match 1)
+  (put-clojure-indent 'fn-traced 1))
 
 (use-package monroe
   :straight t
@@ -235,6 +234,10 @@
 
 (use-package flycheck
   :straight t)
+
+(use-package flycheck-phpstan
+  :straight t
+  :hook (php-mode-hook . flycheck-mode))
 
 (use-package fennel-mode
   :straight t
