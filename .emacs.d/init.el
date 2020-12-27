@@ -311,4 +311,9 @@
 
 (use-package modus-operandi-theme
   :straight t
-  :init (load-theme 'modus-operandi))
+  :hook (after-init-hook . (lambda () (load-theme 'modus-operandi t)))
+  :init (setq modus-operandi-theme-parent-match 'subtle-bold
+	      modus-operandi-theme-intense-paren-match t
+	      modus-operandi-theme-mode-line '3d
+	      modus-operandi-theme-completions 'opinionated))
+

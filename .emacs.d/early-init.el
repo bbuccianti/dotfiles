@@ -3,6 +3,7 @@
 (setq-default gc-cons-threshold (* 100 1024 1024) ;; 100mb
 	      gc-cons-percentage 0.6
 	      package-enable-at-startup nil
+	      package-quickstart nil
 	      column-number-mode t
 	      frame-inhibit-implied-resize t
 	      site-run-file nil
