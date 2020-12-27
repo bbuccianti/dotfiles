@@ -28,6 +28,14 @@ input 4617:41445:Technomancy_Atreus {
       repeat_rate 60
 }
 
+input 5824:1148:Technomancy_Atreus {
+      xkb_layout us,us
+      xkb_variant dvorak,dvorak-intl
+      xkb_options grp:win_space_toggle,ctrl:nocaps
+      repeat_delay 300
+      repeat_rate 60
+}
+
 input 1133:16448:Logitech_M280/320/275 {
       accel_profile adaptive
       pointer_accel 1
