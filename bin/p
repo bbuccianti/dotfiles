@@ -1,6 +1,6 @@
 #!/bin/bash
 
-scp $1 turing:images/ && ssh turing '~/p'
+rsync $1 turing:images/ && ssh turing '~/p'
 
 wl-copy -n "https://p.buccianti.dev/$1"
 
