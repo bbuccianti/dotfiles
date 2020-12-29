@@ -18,7 +18,7 @@ export CFLAGS="-O2 -mtune=native -march=native -pipe -falign-functions=64 -fomit
 	    --with-ns=no \
 	    --with-xwidgets=no \
 	    --without-compress-install \
-	    --with-x-toolkit=lucid \
+	    --with-x-toolkit=gtk \
 	    --with-mailutils \
 	    --without-pop \
 	    --with-nativecomp
