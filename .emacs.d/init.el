@@ -236,8 +236,7 @@
   :straight t)
 
 (use-package flycheck-phpstan
-  :straight t
-  :hook (php-mode-hook . flycheck-mode))
+  :straight t)
 
 (use-package fennel-mode
   :straight t
@@ -301,11 +300,6 @@
 				   (tags . "%l")
 				   (search . " %i %-12:c"))))
 
-(use-package notdeft
-  :straight (:host github :repo "hasu/notdeft" :files ("*.el" "xapian"))
-  :config (setq notdeft-directories '("~/notes")
-		notdeft-extension "org"))
-
 (use-package ediff
   :config
   (setq ediff-window-setup-function 'ediff-setup-windows-plain
@@ -315,7 +309,8 @@
   :straight t
   :mode (("\\.md\\'" . markdown-mode)))
 
-(use-package mpc
-  :commands mpc)
+(use-package modus-operandi-theme
+  :straight t
+  :hook (after-init-hook . (lambda () (load-theme 'modus-operandi t))))
 
 (load-file "./.sql.el.gpg")
