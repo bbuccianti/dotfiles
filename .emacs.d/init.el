@@ -74,12 +74,20 @@
 ;; packages
 (straight-use-package 'use-package)
 
+(use-package modus-operandi-theme
+  :straight t
+  :hook (after-init-hook . (lambda () (load-theme 'modus-operandi t)))
+  :init (setq modus-operandi-theme-parent-match 'subtle-bold
+	      modus-operandi-theme-intense-paren-match t
+	      modus-operandi-theme-mode-line '3d
+	      modus-operandi-theme-completions 'opinionated))
+
 (use-package personal-keybindings
   :init (progn (global-unset-key "\C-z")
 	       (define-prefix-command 'ctl-z-map)
 	       (global-hl-line-mode))
-  :hook ((prog-mode-hook . prettify-symbols-mode)
-	 (prog-mode-hook . whitespace-mode))
+  :hook (prog-mode-hook . prettify-symbols-mode)
+  :hook (prog-mode-hook . whitespace-mode)
   :bind (:map global-map
 	      ("C-z" . ctl-z-map)
 	      ("M-SPC" . cycle-spacing)
@@ -106,8 +114,8 @@
 		search-whitespace-regexp "."))
 
 (use-package eshell
-  :hook ((eshell-mode-hook . exec-path-from-shell-initialize)
-	 (eshell-mode-hook . eshell-smart-initialize))
+  :hook (eshell-mode-hook . exec-path-from-shell-initialize)
+  :hook (eshell-mode-hook . eshell-smart-initialize)
   :bind (:map ctl-z-map ("t" . eshell))
   :config
   (progn
@@ -182,10 +190,8 @@
 (use-package paredit
   :straight t
   :bind (:map paredit-mode-map ("C-w" . paredit-backward-kill-word))
-  :hook ((clojure-mode-hook
-	  lisp-interaction-mode-hook
-	  emacs-lisp-mode-hook
-	  lisp-mode-hook) . enable-paredit-mode))
+  :hook ((clojure-mode-hook lisp-interaction-mode-hook
+	  emacs-lisp-mode-hook lisp-mode-hook) . enable-paredit-mode))
 
 (use-package expand-region
   :straight t
@@ -204,8 +210,9 @@
   :straight t
   :mode (("\\.clj\\[s\\*\\'" . clojure-mode))
   :config
-  (put-clojure-indent 'match 1)
-  (put-clojure-indent 'fn-traced 1))
+  (progn
+    (put-clojure-indent 'match 1)
+    (put-clojure-indent 'fn-traced 1)))
 
 (use-package monroe
   :straight t
@@ -221,7 +228,6 @@
 
 (use-package phpunit
   :straight t
-  :hook (php-mode-hook . phpunit-mode)
   :bind (:map php-mode-map
 	      ("C-c C-t C-t" . phpunit-current-test)
 	      ("C-c C-t C-c" . phpunit-current-class)
@@ -308,7 +314,3 @@
 
 (use-package mpc
   :commands mpc)
-
-(use-package modus-operandi-theme
-  :straight t
-  :init (load-theme 'modus-operandi nil nil))
