@@ -109,12 +109,6 @@
   :hook ((eshell-mode-hook . exec-path-from-shell-initialize)
 	 (eshell-mode-hook . eshell-smart-initialize))
   :bind (:map ctl-z-map ("t" . eshell))
-  :init
-  (defun eshell/rg (&rest args)
-    "Show rg results in grep-mode."
-    (eshell-grep "rg"
-		 (append '("--no-heading" "-n" "-H" "-e")
-			 args)))
   :config
   (progn
     (setq eshell-where-to-jump 'begin
@@ -133,9 +127,6 @@
 		    ".cljs_node_repl" ".shadow-cljs"))
     (add-to-list 'vc-directory-exclusion-list folder)))
 
-(use-package tramp
-  :config (setq tramp-default-method "ssh"))
-
 (use-package selectrum
   :straight (:host github :repo "raxod502/selectrum")
   :init (selectrum-mode +1))
@@ -153,25 +144,28 @@
 		prescient-filter-method '(literal fuzzy)))
 
 (use-package dired
-  :config (setq dired-recursive-copies 'always
-		dired-recursive-deletes 'top
-		dired-use-ls-dired nil
-		dired-dwim-target t
-		dired-listing-switches "-lha1v"))
+  :config
+  (setq dired-recursive-copies 'always
+	dired-recursive-deletes 'top
+	dired-use-ls-dired nil
+	dired-dwim-target t
+	dired-listing-switches "-lha1v"))
 
 (use-package text-mode
   :hook (text-mode-hook . turn-off-auto-fill))
 
 (use-package eldoc-mode
   :hook (emacs-lisp-mode-hook . turn-on-eldoc-mode)
-  :config (setq eldoc-idle-delay 0.1
-		eldoc-echo-area-use-multiline-p nil))
+  :config
+  (setq eldoc-idle-delay 0.3
+	eldoc-echo-area-use-multiline-p nil))
 
 (use-package whitespace
   :bind (:map ctl-z-map ("C-." . whitespace-cleanup))
-  :config (setq whitespace-line-column 80
-		whitespace-style '(face lines-tail trailing indentation
-				   space-before-tab space-after-tab)))
+  :config
+  (setq whitespace-line-column 80
+	whitespace-style '(face lines-tail trailing indentation
+			   space-before-tab space-after-tab)))
 
 (use-package rainbow-delimiters
   :straight t
@@ -182,8 +176,8 @@
 	 (js-mode-hook . (lambda () (setq js-indent-level 2)))))
 
 (use-package prettier
-  :commands prettier-mode
-  :straight (:host github :repo "jscheid/prettier.el"))
+  :straight t
+  :commands prettier-mode)
 
 (use-package paredit
   :straight t
@@ -192,10 +186,6 @@
 	  lisp-interaction-mode-hook
 	  emacs-lisp-mode-hook
 	  lisp-mode-hook) . enable-paredit-mode))
-
-(use-package imenu
-  :bind (:map ctl-z-map ("i" . imenu))
-  :config (setq imenu-auto-rescan t))
 
 (use-package expand-region
   :straight t
@@ -206,12 +196,16 @@
   :hook (xref-backend-functions . dumb-jump-xref-activate)
   :config (setq dumb-jump-force-searcher 'rg))
 
+(use-package xref
+  :config
+  (setq xref-search-program 'ripgrep))
+
 (use-package clojure-mode
   :straight t
   :mode (("\\.clj\\[s\\*\\'" . clojure-mode))
-  :config (progn
-	    (put-clojure-indent 'match 1)
-	    (put-clojure-indent 'fn-traced 1)))
+  :config
+  (put-clojure-indent 'match 1)
+  (put-clojure-indent 'fn-traced 1))
 
 (use-package monroe
   :straight t
@@ -220,19 +214,10 @@
   :bind (:map ctl-z-map ("m" . monroe))
   :config (setq monroe-detail-stacktraces t))
 
-(use-package rust-mode
-  :straight t
-  :mode (("\\.rs\\'" . rust-mode))
-  :hook (rust-mode-hook . electric-pair-mode)
-  :config (setq rust-format-on-save t
-		rust-format-show-buffer nil
-		rust-rustfmt-bin "/home/bbuccianti/.cargo/bin/rustfmt"
-		rust-cargo-bin "/home/bbuccianti/.cargo/bin/cargo"))
-
 (use-package php-mode
   :straight t
   :mode (("\\.php\\'" . php-mode))
-  :hook (php-mode-hook . yas-minor-mode))
+  :hook (php-mode-hook . flycheck-mode))
 
 (use-package phpunit
   :straight t
@@ -245,16 +230,6 @@
 (use-package flycheck
   :straight t)
 
-(use-package flycheck-phpstan
-  :straight t
-  :hook (php-mode-hook . flycheck-mode))
-
-(use-package yasnippet
-  :straight t)
-
-(use-package yasnippet-snippets
-  :straight t)
-
 (use-package fennel-mode
   :straight t
   :mode (("\\.fnl\\'" . fennel-mode)))
@@ -262,14 +237,6 @@
 (use-package lua-mode
   :straight t
   :mode (("\\.lua\\'" . lua-mode)))
-
-(use-package ansi-color
-  :hook
-  (compilation-filter-hook
-   . (lambda ()
-       (toggle-read-only)
-       (ansi-color-apply-on-region compilation-filter-start (point))
-       (toggle-read-only))))
 
 (use-package magit
   :straight t
