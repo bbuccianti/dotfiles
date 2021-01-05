@@ -19,6 +19,7 @@ pcm.!default {
   playback.pcm {
     type plug
     slave.pcm "dac"
+    rate_converter "speexrate_best"
   }
   
   capture.pcm {
