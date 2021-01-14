@@ -184,8 +184,8 @@
 	 (js-mode-hook . (lambda () (setq js-indent-level 2)))))
 
 (use-package prettier
-  :straight t
-  :commands prettier-mode)
+  :commands prettier-mode
+  :straight (:host github :repo "jscheid/prettier.el"))
 
 (use-package paredit
   :straight t
@@ -311,6 +311,7 @@
 
 (use-package modus-operandi-theme
   :straight t
-  :hook (after-init-hook . (lambda () (load-theme 'modus-operandi t))))
+  :hook (after-init-hook . (lambda () (load-theme 'modus-operandi t)))
+  :config (setq modus-operandi-theme-completions 'moderate))
 
 (load-file "./.sql.el.gpg")
