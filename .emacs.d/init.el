@@ -55,6 +55,7 @@
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
 (remove-hook 'find-file-hooks 'vc-find-file-hook)
+(remove-hook 'file-name-at-point-functions 'ffap-guess-file-name-at-point)
 
 (set-face-attribute 'default nil :font "Hack" :height 100)
 
