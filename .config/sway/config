@@ -5,7 +5,8 @@ set $down j
 set $up k
 set $right l
 set $term kitty
-set $menu dmenu_path | mauncher | xargs swaymsg exec
+set $menu exec st -c 'fzf-menu' -g 50x12 -f 'Hack:size=14' -e /home/bex/bin/menu
+
 
 ### Output configuration
 output HDMI-A-1 mode 1920x1080@60Hz
@@ -201,6 +202,9 @@ for_window [class="Toplevel"] floating enable
 
 # Every window has border pixel 2
 for_window [class="^.*"] border pixel 2
+
+# Float menu
+for_window [class="^fzf.menu$"] floating enable
 
 smart_borders on
 focus_follows_mouse no
