@@ -314,3 +314,5 @@
 
 (use-package mpc
   :commands mpc)
+
+(load-file "./.sql.el.gpg")
