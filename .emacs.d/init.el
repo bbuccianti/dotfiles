@@ -315,4 +315,6 @@
   :hook (after-init-hook . (lambda () (load-theme 'modus-operandi t)))
   :config (setq modus-operandi-theme-completions 'moderate))
 
-(load-file "./.sql.el.gpg")
+(let ((sql-file (expand-file-name ".sql.el.gpg" user-emacs-directory)))
+  (when (and nil (file-exists-p sql-file))
+    (load sql-file nil 'nomessage)))
