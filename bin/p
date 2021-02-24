@@ -1,6 +1,6 @@
 #!/bin/bash
 
-rsync $1 turing:images/ && ssh turing '~/p'
+rsync --progress $1 turing:images/ && ssh turing '~/p'
 
 wl-copy -n "https://p.buccianti.dev/$1"
 
