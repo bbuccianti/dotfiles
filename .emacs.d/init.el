@@ -126,6 +126,10 @@
     (dolist (mode '(eshell-smart eshell-tramp))
       (add-to-list 'eshell-modules-list mode))))
 
+(use-package tramp
+  :config
+  (setq tramp-default-method "ssh"))
+
 (use-package exec-path-from-shell
   :straight t
   :config (setq exec-path-from-shell-check-startup-files nil))
@@ -239,6 +243,20 @@
 (use-package flycheck-phpstan
   :straight t)
 
+(use-package phpactor
+  :straight (phpactor
+	     :host github
+	     :repo "emacs-php/phpactor.el"
+	     :branch "master"
+	     :files ("*.el" "composer.json" "composer.lock"
+		     (:exclude "*test.el")))
+  :hook (php-mode-hook . (lambda ()
+			   (make-local-variable 'eldoc-documentation-function)
+			   (setq eldoc-documentation-function 'phpactor-hover)))
+  :config
+  (define-key php-mode-map (kbd "M-.") #'phpactor-goto-definition)
+  (define-key php-mode-map (kbd "M-,") #'phpactor-find-references))
+
 (use-package fennel-mode
   :straight t
   :mode (("\\.fnl\\'" . fennel-mode)))
@@ -314,7 +332,3 @@
   :straight t
   :hook (after-init-hook . (lambda () (load-theme 'modus-operandi t)))
   :config (setq modus-operandi-theme-completions 'moderate))
-
-(let ((sql-file (expand-file-name ".sql.el.gpg" user-emacs-directory)))
-  (when (and nil (file-exists-p sql-file))
-    (load sql-file nil 'nomessage)))
