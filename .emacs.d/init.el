@@ -7,7 +7,7 @@
 (setq-default straight-check-for-modifications 'live
 	      straight-cache-autoloads t
 	      use-package-always-defer t
-	      use-package-verbose t
+	      use-package-verbose nil
 	      use-package-expand-minimally t
 	      use-package-hook-name-suffix "")
 
@@ -54,7 +54,7 @@
       x-underline-at-descent-line t
       widget-image-enable nil)
 
-(fringe-mode '(0 . 0))
+(fringe-mode '(5 . 5))
 (defface fallback '((t :family "Fira Code Light"
 		       :inherit 'face-faded)) "Fallback")
 (set-display-table-slot standard-display-table 'truncation
