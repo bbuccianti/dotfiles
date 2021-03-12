@@ -49,14 +49,34 @@
       epg-gpg-program "gpg"
       explicit-shell-file-name "/bin/bash"
       uniquify-buffer-name-style 'forward
-      echo-keystrokes 0.5)
+      echo-keystrokes 0.5
+      line-spacing 0
+      x-underline-at-descent-line t
+      widget-image-enable nil)
+
+(fringe-mode '(0 . 0))
+(defface fallback '((t :family "Fira Code Light"
+		       :inherit 'face-faded)) "Fallback")
+(set-display-table-slot standard-display-table 'truncation
+			(make-glyph-code ?… 'fallback))
+(set-display-table-slot standard-display-table 'wrap
+			(make-glyph-code ?↩ 'fallback))
+(set-display-table-slot standard-display-table 'selective-display
+			(string-to-vector " …"))
 
 (fset 'yes-or-no-p 'y-or-n-p)
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
 (remove-hook 'find-file-hooks 'vc-find-file-hook)
 
-(set-face-attribute 'default nil :font "Hack" :height 100)
+(set-face-font 'default "Hack 8")
+(setq default-frame-alist
+      (append (list '(width  . 72) '(height . 40)
+		    '(vertical-scroll-bars . nil)
+		    '(internal-border-width . 2)
+		    '(font . "Hack 8"))))
+(set-frame-parameter (selected-frame)
+		     'internal-border-width 2)
 
 (add-hook 'emacs-startup-hook
 	  (lambda ()
@@ -178,6 +198,9 @@
 (use-package rainbow-delimiters
   :straight t
   :hook (prog-mode-hook . rainbow-delimiters-mode))
+
+(use-package zig-mode
+  :straight t)
 
 (use-package js-mode
   :hook (js-mode-hook . electric-pair-mode)
