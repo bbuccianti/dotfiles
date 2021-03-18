@@ -190,6 +190,7 @@
 
 (use-package prettier
   :commands prettier-mode
+  :hook (prettier-mode-hook . exec-path-from-shell-initialize)
   :straight (:host github :repo "jscheid/prettier.el"))
 
 (use-package paredit
@@ -225,10 +226,16 @@
   :bind (:map ctl-z-map ("m" . monroe))
   :config (setq monroe-detail-stacktraces t))
 
+(use-package zig-mode
+  :straight t)
+
 (use-package php-mode
   :straight t
   :mode (("\\.php\\'" . php-mode))
-  :hook (php-mode-hook . flycheck-mode))
+  :hook ((php-mode-hook . flycheck-mode)
+	 (php-mode-hook . (lambda ()
+			    (set (make-local-variable 'company-backends)
+				 '(company-phpactor))))))
 
 (use-package phpunit
   :straight t
@@ -243,6 +250,12 @@
 (use-package flycheck-phpstan
   :straight t)
 
+(use-package company
+  :straight t
+  :bind (:map ctl-z-map ("i" . company-complete))
+  :hook (php-mode-hook . company-mode)
+  :config (setq company-idle-delay nil))
+
 (use-package phpactor
   :straight (phpactor
 	     :host github
@@ -250,12 +263,9 @@
 	     :branch "master"
 	     :files ("*.el" "composer.json" "composer.lock"
 		     (:exclude "*test.el")))
-  :hook (php-mode-hook . (lambda ()
-			   (make-local-variable 'eldoc-documentation-function)
-			   (setq eldoc-documentation-function 'phpactor-hover)))
   :config
   (define-key php-mode-map (kbd "M-.") #'phpactor-goto-definition)
-  (define-key php-mode-map (kbd "M-,") #'phpactor-find-references))
+  (define-key php-mode-map (kbd "M-?") #'phpactor-find-references))
 
 (use-package fennel-mode
   :straight t
