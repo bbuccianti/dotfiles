@@ -200,7 +200,12 @@
   :hook (prog-mode-hook . rainbow-delimiters-mode))
 
 (use-package zig-mode
-  :straight t)
+  :straight t
+  :config
+  (setq zig-return-to-buffer-after-format t))
+
+(use-package gdb
+  :config (setq gdb-delete-out-of-scope nil))
 
 (use-package js-mode
   :hook (js-mode-hook . electric-pair-mode)
