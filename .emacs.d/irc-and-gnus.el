@@ -88,11 +88,12 @@
   (setq rcirc-fill-column 'window-text-width
 	rcirc-omit-responses '("JOIN" "PART" "QUIT" "NICK" "AWAY")
 	rcirc-server-alist
-	`(("atom"
+	`(("alonzo"
 	   :nick "bbuccianti"
-	   :port 12345
+	   :port 6667
 	   :user-name "bbuccianti/freenode"
 	   :password ,(car (process-lines "pass" "irc/znc"))
-	   :server-alias "freenode"))))
+	   :server-alias "soju"))))
 
 (rcirc nil)
+
