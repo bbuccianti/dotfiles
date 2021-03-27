@@ -199,6 +199,13 @@
   :straight t
   :hook (prog-mode-hook . rainbow-delimiters-mode))
 
+(use-package format-all
+  :straight t
+  :hook ((c-mode-hook . format-all-mode)
+	 (c-mode-hook . (lambda ()
+			  (setq format-all-formatters
+				'(("C" (clang-format "-style={BasedOnStyle: llvm, IndentWidth: 4}"))))))))
+
 (use-package zig-mode
   :straight t
   :config
