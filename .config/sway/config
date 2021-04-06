@@ -6,7 +6,7 @@ set $up k
 set $right l
 set $term kitty
 set $menu exec st -c 'fzf-menu' -g 50x12 -f 'Hack:size=14' -e /home/bex/bin/menu
-set $clipboard exec st -c 'fzf-clipboard' -g 50x12 -f 'Hack:size=14' -e /home/bex/bin/cl
+set $clipboard exec st -c 'fzf-clipboard' -g 50x24 -f 'Hack:size=14' -e /home/bex/bin/cl
 
 ### Output configuration
 output HDMI-A-1 mode 1920x1080@60Hz
