@@ -1,0 +1,3 @@
+#!/bin/sh -eu
+
+clipman pick --notify --print0 --tool=CUSTOM --tool-args="fzf --prompt 'pick > ' --bind 'tab:up' --cycle --read0"

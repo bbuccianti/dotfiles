@@ -6,7 +6,7 @@ set $up k
 set $right l
 set $term kitty
 set $menu exec st -c 'fzf-menu' -g 50x12 -f 'Hack:size=14' -e /home/bex/bin/menu
-
+set $clipboard exec st -c 'fzf-clipboard' -g 50x12 -f 'Hack:size=14' -e /home/bex/bin/cl
 
 ### Output configuration
 output HDMI-A-1 mode 1920x1080@60Hz
@@ -58,6 +58,7 @@ seat "seat0" {
     bindsym $mod+Return exec $term
     bindsym $mod+Shift+q kill
     bindsym $mod+t exec $menu
+    bindsym $mod+c exec $clipboard
     floating_modifier $mod normal
     bindsym $mod+Shift+c reload
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
@@ -204,10 +205,13 @@ for_window [class="Toplevel"] floating enable
 for_window [class="^.*"] border pixel 2
 
 # Float menu
-for_window [class="^fzf.menu$"] floating enable
+for_window [class="^fzf.menu$|^fzf.clipboard$"] floating enable
 
 smart_borders on
 focus_follows_mouse no
 default_border pixel
 
 include /etc/sway/config.d/*
+
+exec wlsunset -l -34.6 -L -58.4
+exec wl-paste -t text --watch clipman store
