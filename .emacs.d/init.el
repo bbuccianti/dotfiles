@@ -145,6 +145,21 @@
     (dolist (mode '(eshell-smart eshell-tramp))
       (add-to-list 'eshell-modules-list mode))))
 
+(use-package tramp
+  :config (setq tramp-default-method "ssh"
+		vc-ignore-dir-regexp
+		(rx (seq bos
+			 (or (seq (any "/\\") (any "/\\")
+				  (one-or-more (not (any "/\\")))
+				  (any "/\\"))
+			     (seq "/" (or "net" "afs" "...") "/")
+			     ;; Ignore all tramp paths.
+			     (seq "/"
+				  (eval (cons 'or (mapcar #'car tramp-methods)))
+				  ":"
+				  (zero-or-more anything)))
+			 eos))))
+
 (use-package exec-path-from-shell
   :straight t
   :config (setq exec-path-from-shell-check-startup-files nil))
@@ -169,7 +184,7 @@
   :straight t
   :init (prescient-persist-mode +1)
   :config (setq prescient-history-length 1000
-		prescient-filter-method '(literal fuzzy)))
+		prescient-filter-method '(literal prefix fuzzy)))
 
 (use-package dired
   :config
