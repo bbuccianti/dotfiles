@@ -204,7 +204,7 @@
   :hook ((c-mode-hook . format-all-mode)
 	 (c-mode-hook . (lambda ()
 			  (setq format-all-formatters
-				'(("C" (clang-format "-style={BasedOnStyle: llvm, IndentWidth: 4}"))))))))
+				'(("C" (clang-format "-style={BasedOnStyle: llvm, IndentWidth: 4, SortIncludes: false}"))))))))
 
 (use-package zig-mode
   :straight t
