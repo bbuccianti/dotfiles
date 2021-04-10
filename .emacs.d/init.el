@@ -219,7 +219,10 @@
   :hook ((c-mode-hook . format-all-mode)
 	 (c-mode-hook . (lambda ()
 			  (setq format-all-formatters
-				'(("C" (clang-format "-style={BasedOnStyle: llvm, IndentWidth: 4, SortIncludes: false}"))))))))
+				'(("C" (clang-format))))))))
+
+(use-package c-mode
+  :hook (c-mode-hook . (lambda () (c-set-style "linux"))))
 
 (use-package zig-mode
   :straight t
