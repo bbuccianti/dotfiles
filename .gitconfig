@@ -17,3 +17,5 @@
 	smtpauth = PLAIN LOGIN
 [credential]
 	helper = store
+[init]
+	defaultBranch = main
