@@ -1,0 +1,3 @@
+#!/bin/sh -eu
+
+ps -U $USER -u $USER f | fzf | awk '{print $1}' | xargs kill -9
