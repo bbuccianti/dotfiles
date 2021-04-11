@@ -4,6 +4,16 @@
 ;; Benjamín Buccianti <benjamin@buccianti.dev>
 ;;
 
+(setq bb-font "Hack 8")
+(set-face-font 'default bb-font)
+(setq default-frame-alist
+      (append (list '(width  . 72) '(height . 40)
+		    '(vertical-scroll-bars . nil)
+		    '(internal-border-width . 2)
+		    '(font . bb-font))))
+(set-frame-parameter (selected-frame) 'internal-border-width 2)
+
+
 (use-package message
   :config
   (setq smtpmail-debug-info nil ;; TOGGLE FOR DEBUG ONLY!

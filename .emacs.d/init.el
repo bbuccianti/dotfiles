@@ -41,8 +41,6 @@
       use-dialog-box nil
       visible-cursor nil
       make-backup-files nil
-      browse-url-generic-program "/usr/bin/qutebrowser"
-      browse-url-browser-function 'browse-url-generic
       auto-window-vscroll nil
       auto-save-default nil
       vc-follow-symlinks t
@@ -69,14 +67,14 @@
 (put 'downcase-region 'disabled nil)
 (remove-hook 'find-file-hooks 'vc-find-file-hook)
 
-(set-face-font 'default "FiraCode 8")
+(setq bb-font "Source Code Pro 8")
+(set-face-font 'default bb-font)
 (setq default-frame-alist
       (append (list '(width  . 72) '(height . 40)
 		    '(vertical-scroll-bars . nil)
 		    '(internal-border-width . 2)
-		    '(font . "FiraCode 8"))))
-(set-frame-parameter (selected-frame)
-		     'internal-border-width 2)
+		    '(font . bb-font))))
+(set-frame-parameter (selected-frame) 'internal-border-width 2)
 
 (add-hook 'emacs-startup-hook
 	  (lambda ()
@@ -124,10 +122,6 @@
   :bind (:map ctl-x-map
 	      ("C-k" . kill-region)
 	      ("C-b" . ibuffer)))
-
-(use-package gcmh
-  :straight t
-  :init (gcmh-mode +1))
 
 (use-package isearch
   :config (setq isearch-allow-scroll t
@@ -298,3 +292,8 @@
 
 (use-package mpc
   :commands mpc)
+
+(use-package browse-url
+  :config
+  (setq browse-url-generic-program "/usr/bin/qutebrowser"
+	browse-url-browser-function 'browse-url-generic))
