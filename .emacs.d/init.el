@@ -108,6 +108,7 @@
 	       (global-hl-line-mode))
   :hook (prog-mode-hook . prettify-symbols-mode)
   :hook (prog-mode-hook . whitespace-mode)
+  :hook (minibuffer-setup-hook . cursor-intangible-mode)
   :bind (:map global-map
 	      ("C-z" . ctl-z-map)
 	      ("M-SPC" . cycle-spacing)
@@ -123,7 +124,9 @@
 	      ("C-r" . recompile))
   :bind (:map ctl-x-map
 	      ("C-k" . kill-region)
-	      ("C-b" . ibuffer)))
+	      ("C-b" . ibuffer))
+  :config (setq minibuffer-prompt-properties
+		'(read-only t cursor-intangible t face minibuffer-prompt)))
 
 (use-package gcmh
   :straight t
@@ -170,21 +173,9 @@
 		    ".cljs_node_repl" ".shadow-cljs"))
     (add-to-list 'vc-directory-exclusion-list folder)))
 
-(use-package selectrum
-  :straight (:host github :repo "raxod502/selectrum")
-  :init (selectrum-mode +1))
-
-(use-package selectrum-prescient
-  :straight (:host github
-	     :repo "raxod502/prescient.el"
-	     :files ("selectrum-prescient.el"))
-  :init (selectrum-prescient-mode +1))
-
-(use-package prescient
-  :straight t
-  :init (prescient-persist-mode +1)
-  :config (setq prescient-history-length 1000
-		prescient-filter-method '(literal prefix fuzzy)))
+(use-package vertico
+  :straight (:host github :repo "minad/vertico")
+  :init (vertico-mode +1))
 
 (use-package dired
   :config
@@ -216,18 +207,14 @@
 
 (use-package format-all
   :straight t
-  :hook ((c-mode-hook . format-all-mode)
-	 (c-mode-hook . (lambda ()
-			  (setq format-all-formatters
-				'(("C" (clang-format))))))))
+  :hook (format-all-mode-hook . (lambda ()
+				  (setq format-all-formatters
+					'(("C" (clang-format))
+					  ("Go" (gofmt)))))))
 
 (use-package c-mode
-  :hook (c-mode-hook . (lambda () (c-set-style "linux"))))
-
-(use-package zig-mode
-  :straight t
-  :config
-  (setq zig-return-to-buffer-after-format t))
+  :hook ((c-mode-hook . format-all-mode)
+	 (c-mode-hook . (lambda () (c-set-style "linux")))))
 
 (use-package gdb
   :config (setq gdb-delete-out-of-scope nil))
@@ -238,7 +225,12 @@
 
 (use-package prettier
   :straight t
+  :hook (prettier-mode-hook . exec-path-from-shell-initialize)
   :commands prettier-mode)
+
+(use-package go-mode
+  :straight t
+  :hook (go-mode-hook . format-all-mode))
 
 (use-package paredit
   :straight t
@@ -273,21 +265,6 @@
   :hook (monroe-mode-hook . enable-paredit-mode)
   :bind (:map ctl-z-map ("m" . monroe))
   :config (setq monroe-detail-stacktraces t))
-
-(use-package php-mode
-  :straight t
-  :mode (("\\.php\\'" . php-mode))
-  :hook (php-mode-hook . flycheck-mode))
-
-(use-package phpunit
-  :straight t
-  :bind (:map php-mode-map
-	      ("C-c C-t C-t" . phpunit-current-test)
-	      ("C-c C-t C-c" . phpunit-current-class)
-	      ("C-c C-t C-p" . phpunit-current-project)))
-
-(use-package flycheck
-  :straight t)
 
 (use-package fennel-mode
   :straight t
