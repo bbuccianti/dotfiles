@@ -67,13 +67,12 @@
 (put 'downcase-region 'disabled nil)
 (remove-hook 'find-file-hooks 'vc-find-file-hook)
 
-(setq bb-font "Source Code Pro 8")
-(set-face-font 'default bb-font)
+(set-face-font 'default "Source Code Pro 8")
 (setq default-frame-alist
       (append (list '(width  . 72) '(height . 40)
 		    '(vertical-scroll-bars . nil)
 		    '(internal-border-width . 2)
-		    '(font . bb-font))))
+		    '(font . "Source Code Pro 8"))))
 (set-frame-parameter (selected-frame) 'internal-border-width 2)
 
 (add-hook 'emacs-startup-hook
@@ -140,19 +139,9 @@
       (add-to-list 'eshell-modules-list mode))))
 
 (use-package tramp
-  :config (setq tramp-default-method "ssh"
-		vc-ignore-dir-regexp
-		(rx (seq bos
-			 (or (seq (any "/\\") (any "/\\")
-				  (one-or-more (not (any "/\\")))
-				  (any "/\\"))
-			     (seq "/" (or "net" "afs" "...") "/")
-			     ;; Ignore all tramp paths.
-			     (seq "/"
-				  (eval (cons 'or (mapcar #'car tramp-methods)))
-				  ":"
-				  (zero-or-more anything)))
-			 eos))))
+  :config
+  (setq tramp-default-method "ssh"
+	vc-ignore-dir-regexp "\\`\\(?:[/\\][/\\][^/\\]+[/\\]\\|/\\(?:\\.\\.\\.\\|afs\\|net\\)/\\|/\\(?:a\\(?:db\\|fp\\)\\|d\\(?:avs?\\|oas\\)\\|f\\(?:[ct]p\\)\\|gdrive\\|k\\(?:rlogin\\|su\\)\\|mtp\\|n\\(?:c\\|extcloud\\)\\|p\\(?:linkx?\\|s\\(?:\\(?:c\\|ft\\)p\\)\\)\\|r\\(?:c\\(?:lone\\|p\\)\\|em\\(?:cp\\|sh\\)\\|s\\(?:h\\|ync\\)\\)\\|s\\(?:cpx?\\|ftp\\|mb\\|sh\\(?:fs\\|x\\)?\\|udo\\(?:edit\\)?\\|[gu]\\)\\|telnet\\):[^z-a]*\\)\\'"))
 
 (use-package exec-path-from-shell
   :straight t
