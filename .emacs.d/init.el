@@ -69,12 +69,12 @@
 (put 'downcase-region 'disabled nil)
 (remove-hook 'find-file-hooks 'vc-find-file-hook)
 
-(set-face-font 'default "Hack 8")
+(set-face-font 'default "FiraCode 8")
 (setq default-frame-alist
       (append (list '(width  . 72) '(height . 40)
 		    '(vertical-scroll-bars . nil)
 		    '(internal-border-width . 2)
-		    '(font . "Hack 8"))))
+		    '(font . "FiraCode 8"))))
 (set-frame-parameter (selected-frame)
 		     'internal-border-width 2)
 
