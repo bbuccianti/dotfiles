@@ -100,7 +100,7 @@
   :init (setq modus-operandi-theme-parent-match 'subtle-bold
 	      modus-operandi-theme-intense-paren-match t
 	      modus-operandi-theme-mode-line '3d
-	      modus-operandi-theme-completions 'opinionated))
+	      modus-operandi-theme-completions 'moderate))
 
 (use-package personal-keybindings
   :init (progn (global-unset-key "\C-z")
@@ -108,7 +108,6 @@
 	       (global-hl-line-mode))
   :hook (prog-mode-hook . prettify-symbols-mode)
   :hook (prog-mode-hook . whitespace-mode)
-  :hook (minibuffer-setup-hook . cursor-intangible-mode)
   :bind (:map global-map
 	      ("C-z" . ctl-z-map)
 	      ("M-SPC" . cycle-spacing)
@@ -124,9 +123,7 @@
 	      ("C-r" . recompile))
   :bind (:map ctl-x-map
 	      ("C-k" . kill-region)
-	      ("C-b" . ibuffer))
-  :config (setq minibuffer-prompt-properties
-		'(read-only t cursor-intangible t face minibuffer-prompt)))
+	      ("C-b" . ibuffer)))
 
 (use-package gcmh
   :straight t
@@ -175,7 +172,18 @@
 
 (use-package vertico
   :straight (:host github :repo "minad/vertico")
-  :init (vertico-mode +1))
+  :init (vertico-mode +1)
+  :config
+  (setq completion-styles '(basic substring partial-completion flex)
+	completion-ignore-case t
+	read-buffer-completion-ignore-case t
+	read-file-name-completion-ignore-case t
+	enable-recursive-minibuffers t))
+
+(use-package marginalia
+  :straight t
+  :init (marginalia-mode +1)
+  :config (setq marginalia-annotators '(marginalia-annotators-heavy nil)))
 
 (use-package dired
   :config
