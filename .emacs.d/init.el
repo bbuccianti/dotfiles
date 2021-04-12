@@ -66,6 +66,8 @@
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
 (remove-hook 'find-file-hooks 'vc-find-file-hook)
+(global-unset-key "\C-z")
+(define-prefix-command 'ctl-z-map)
 
 (set-face-font 'default "Source Code Pro 8")
 (setq default-frame-alist
@@ -91,36 +93,45 @@
 ;; packages
 (straight-use-package 'use-package)
 
+(define-key global-map "\C-z" #'ctl-z-map)
+
 (use-package modus-operandi-theme
   :straight t
-  :hook (after-init-hook . (lambda () (load-theme 'modus-operandi t)))
+  :hook (after-init-hook . (lambda ()
+			     (load-theme 'modus-operandi t nil)
+			     (global-hl-line-mode)))
   :init (setq modus-operandi-theme-parent-match 'subtle-bold
 	      modus-operandi-theme-intense-paren-match t
 	      modus-operandi-theme-mode-line '3d
 	      modus-operandi-theme-completions 'moderate))
 
-(use-package personal-keybindings
-  :init (progn (global-unset-key "\C-z")
-	       (define-prefix-command 'ctl-z-map)
-	       (global-hl-line-mode))
-  :hook (prog-mode-hook . prettify-symbols-mode)
-  :hook (prog-mode-hook . whitespace-mode)
+(use-package hippie-exp
+  :bind (:map global-map ("M-/" . hippie-expand)))
+
+(use-package ibuffer
+  :bind (:map ctl-x-map ("C-b" . ibuffer)))
+
+(use-package simple
   :bind (:map global-map
-	      ("C-z" . ctl-z-map)
 	      ("M-SPC" . cycle-spacing)
-	      ("M-o" . other-window)
-	      ("M-/" . hippie-expand)
-	      ("C-w" . backward-kill-word)
+	      ("C-w" . backward-kill-word))
+  :bind (:map ctl-x-map ("C-k" . kill-region)))
+
+(use-package compile
+  :bind (:map ctl-z-map
+	      ("r" . compile)
+	      ("C-r" . recompile)))
+
+(use-package windmove
+  :bind (:map global-map
 	      ("S-<left>" . windmove-left)
 	      ("S-<up>" . windmove-up)
 	      ("S-<down>" . windmove-down)
-	      ("S-<right>" . windmove-right))
-  :bind (:map ctl-z-map
-	      ("r" . compile)
-	      ("C-r" . recompile))
-  :bind (:map ctl-x-map
-	      ("C-k" . kill-region)
-	      ("C-b" . ibuffer)))
+	      ("S-<right>" . windmove-right)))
+
+(use-package prog-mode
+  :hook ((prog-mode-hook . prettify-symbols-mode)
+	 (prog-mode-hook . whitespace-mode)))
 
 (use-package isearch
   :config (setq isearch-allow-scroll t
@@ -153,12 +164,17 @@
 		    ".cljs_node_repl" ".shadow-cljs"))
     (add-to-list 'vc-directory-exclusion-list folder)))
 
+(use-package orderless
+  :straight t)
+
 (use-package vertico
   :straight (:host github :repo "minad/vertico")
   :init (vertico-mode +1)
   :config
-  (setq completion-styles '(basic substring partial-completion flex)
+  (setq completion-styles '(orderless)
 	completion-ignore-case t
+	completion-category-defaults nil
+        completion-category-overrides '((file (styles . (partial-completion))))
 	read-buffer-completion-ignore-case t
 	read-file-name-completion-ignore-case t
 	enable-recursive-minibuffers t))
@@ -213,6 +229,9 @@
 (use-package js-mode
   :hook (js-mode-hook . electric-pair-mode)
   :config (setq js-indent-level 2))
+
+(use-package rjsx-mode
+  :straight t)
 
 (use-package prettier
   :straight t

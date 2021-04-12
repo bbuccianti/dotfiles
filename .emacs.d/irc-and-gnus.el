@@ -4,13 +4,12 @@
 ;; Benjamín Buccianti <benjamin@buccianti.dev>
 ;;
 
-(setq bb-font "Hack 8")
-(set-face-font 'default bb-font)
+(set-face-font 'default "Hack 8")
 (setq default-frame-alist
       (append (list '(width  . 72) '(height . 40)
 		    '(vertical-scroll-bars . nil)
 		    '(internal-border-width . 2)
-		    '(font . bb-font))))
+		    '(font . "Hack 8"))))
 (set-frame-parameter (selected-frame) 'internal-border-width 2)
 
 
