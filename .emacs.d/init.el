@@ -66,9 +66,8 @@
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
 (remove-hook 'find-file-hooks 'vc-find-file-hook)
-(global-unset-key "\C-z")
-(define-prefix-command 'ctl-z-map)
 
+;; font config
 (set-face-font 'default "Source Code Pro 8")
 (setq default-frame-alist
       (append (list '(width  . 72) '(height . 40)
@@ -90,10 +89,28 @@
 	    (garbage-collect))
 	  t)
 
+;; useful keybindings
+(global-unset-key "\C-z")
+(define-prefix-command 'ctl-z-map)
+
+(define-key global-map (kbd "C-z")	  #'ctl-z-map)
+(define-key global-map (kbd "M-/")	  #'hippie-expand)
+(define-key global-map (kbd "M-SPC")	  #'cycle-spacing)
+(define-key global-map (kbd "C-w")	  #'backward-kill-word)
+(define-key global-map (kbd "S-<left>")	  #'windmove-left)
+(define-key global-map (kbd "S-<up>")	  #'windmove-up)
+(define-key global-map (kbd "S-<down>")	  #'windmove-down)
+(define-key global-map (kbd "S-<right>")  #'windmove-right)
+
+(define-key ctl-x-map  (kbd "C-b")	  #'ibuffer)
+(define-key ctl-x-map  (kbd "C-k")	  #'kill-region)
+
+(define-key ctl-z-map  (kbd "r")	  #'compile)
+(define-key ctl-z-map  (kbd "C-r")	  #'recompile)
+
+
 ;; packages
 (straight-use-package 'use-package)
-
-(define-key global-map "\C-z" #'ctl-z-map)
 
 (use-package modus-operandi-theme
   :straight t
@@ -105,29 +122,6 @@
 	      modus-operandi-theme-mode-line '3d
 	      modus-operandi-theme-completions 'moderate))
 
-(use-package hippie-exp
-  :bind (:map global-map ("M-/" . hippie-expand)))
-
-(use-package ibuffer
-  :bind (:map ctl-x-map ("C-b" . ibuffer)))
-
-(use-package simple
-  :bind (:map global-map
-	      ("M-SPC" . cycle-spacing)
-	      ("C-w" . backward-kill-word))
-  :bind (:map ctl-x-map ("C-k" . kill-region)))
-
-(use-package compile
-  :bind (:map ctl-z-map
-	      ("r" . compile)
-	      ("C-r" . recompile)))
-
-(use-package windmove
-  :bind (:map global-map
-	      ("S-<left>" . windmove-left)
-	      ("S-<up>" . windmove-up)
-	      ("S-<down>" . windmove-down)
-	      ("S-<right>" . windmove-right)))
 
 (use-package prog-mode
   :hook ((prog-mode-hook . prettify-symbols-mode)
