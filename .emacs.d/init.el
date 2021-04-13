@@ -116,11 +116,15 @@
   :straight t
   :hook (after-init-hook . (lambda ()
 			     (load-theme 'modus-operandi t nil)
-			     (global-hl-line-mode)))
+			     (global-hl-line-mode)
+			     (savehist-mode +1)))
   :init (setq modus-operandi-theme-parent-match 'subtle-bold
 	      modus-operandi-theme-intense-paren-match t
 	      modus-operandi-theme-mode-line '3d
-	      modus-operandi-theme-completions 'moderate))
+	      modus-operandi-theme-completions 'moderate
+	      modus-operandi-theme-slanted-constructs t
+	      modus-operandi-theme-bold-constructs t
+	      modus-operandi-theme-scale-headings t))
 
 
 (use-package prog-mode
