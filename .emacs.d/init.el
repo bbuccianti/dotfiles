@@ -50,18 +50,10 @@
       echo-keystrokes 0.5
       line-spacing 0
       x-underline-at-descent-line t
-      widget-image-enable nil)
+      widget-image-enable nil
+      tab-always-indent 'complete)
 
 (fringe-mode '(5 . 5))
-(defface fallback '((t :family "Fira Code Light"
-		       :inherit 'face-faded)) "Fallback")
-(set-display-table-slot standard-display-table 'truncation
-			(make-glyph-code ?… 'fallback))
-(set-display-table-slot standard-display-table 'wrap
-			(make-glyph-code ?↩ 'fallback))
-(set-display-table-slot standard-display-table 'selective-display
-			(string-to-vector " …"))
-
 (fset 'yes-or-no-p 'y-or-n-p)
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
@@ -107,7 +99,6 @@
 
 (define-key ctl-z-map  (kbd "r")	  #'compile)
 (define-key ctl-z-map  (kbd "C-r")	  #'recompile)
-
 
 ;; packages
 (straight-use-package 'use-package)
@@ -175,12 +166,18 @@
         completion-category-overrides '((file (styles . (partial-completion))))
 	read-buffer-completion-ignore-case t
 	read-file-name-completion-ignore-case t
-	enable-recursive-minibuffers t))
+	enable-recursive-minibuffers t
+	resize-mini-windows nil))
 
 (use-package marginalia
   :straight t
   :init (marginalia-mode +1)
   :config (setq marginalia-annotators '(marginalia-annotators-heavy nil)))
+
+(use-package corfu
+  :straight (:host github :repo "minad/corfu" :files ("*.el"))
+  :hook ((prog-mode-hook . corfu-mode)
+	 (eshell-mode-hook . corfu-mode)))
 
 (use-package dired
   :config
