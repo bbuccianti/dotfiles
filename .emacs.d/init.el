@@ -5,22 +5,23 @@
 ;;
 
 (setq-default straight-check-for-modifications 'live
-	      straight-cache-autoloads t
-	      use-package-always-defer t
-	      use-package-verbose nil
-	      use-package-expand-minimally t
-	      use-package-hook-name-suffix "")
+              straight-cache-autoloads t
+              use-package-always-defer t
+              use-package-verbose nil
+              use-package-expand-minimally t
+              use-package-hook-name-suffix ""
+              indent-tabs-mode nil)
 
 (defvar bootstrap-version)
 (let ((bootstrap-file
        (expand-file-name "straight/repos/straight.el/bootstrap.el"
-			 user-emacs-directory))
+                         user-emacs-directory))
       (bootstrap-version 5))
   (unless (file-exists-p bootstrap-file)
     (with-current-buffer
-	(url-retrieve-synchronously
-	 "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
-	 'silent 'inhibit-cookies)
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
       (goto-char (point-max))
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
@@ -53,6 +54,7 @@
       widget-image-enable nil
       tab-always-indent 'complete)
 
+
 (fringe-mode '(5 . 5))
 (fset 'yes-or-no-p 'y-or-n-p)
 (put 'upcase-region 'disabled nil)
@@ -63,23 +65,23 @@
 (set-face-font 'default "Source Code Pro 8")
 (setq default-frame-alist
       (append (list '(width  . 72) '(height . 40)
-		    '(vertical-scroll-bars . nil)
-		    '(internal-border-width . 2)
-		    '(font . "Source Code Pro 8"))))
+                    '(vertical-scroll-bars . nil)
+                    '(internal-border-width . 2)
+                    '(font . "Source Code Pro 8"))))
 (set-frame-parameter (selected-frame) 'internal-border-width 2)
 
 (add-hook 'emacs-startup-hook
-	  (lambda ()
-	    (message "Emacs ready in %s with %d garbage collections."
-		     (format "%.2f seconds"
-			     (float-time (time-subtract after-init-time
-							before-init-time)))
-		     gcs-done)
-	    (setq file-name-handler-alist old--file-name-handler-alist
-		  gc-cons-threshold 16777216 ; 16mb
-		  gc-cons-percentage 0.1)
-	    (garbage-collect))
-	  t)
+          (lambda ()
+            (message "Emacs ready in %s with %d garbage collections."
+                     (format "%.2f seconds"
+                             (float-time (time-subtract after-init-time
+                                                        before-init-time)))
+                     gcs-done)
+            (setq file-name-handler-alist old--file-name-handler-alist
+                  gc-cons-threshold 16777216 ; 16mb
+                  gc-cons-percentage 0.1)
+            (garbage-collect))
+          t)
 
 ;; useful keybindings
 (global-unset-key "\C-z")
@@ -106,25 +108,25 @@
 (use-package modus-operandi-theme
   :straight t
   :hook (after-init-hook . (lambda ()
-			     (load-theme 'modus-operandi t nil)
-			     (global-hl-line-mode)
-			     (savehist-mode +1)))
+                             (load-theme 'modus-operandi t nil)
+                             (global-hl-line-mode)
+                             (savehist-mode +1)))
   :init (setq modus-operandi-theme-parent-match 'subtle-bold
-	      modus-operandi-theme-intense-paren-match t
-	      modus-operandi-theme-mode-line '3d
-	      modus-operandi-theme-completions 'moderate
-	      modus-operandi-theme-slanted-constructs t
-	      modus-operandi-theme-bold-constructs t
-	      modus-operandi-theme-scale-headings t))
+              modus-operandi-theme-intense-paren-match t
+              modus-operandi-theme-mode-line '3d
+              modus-operandi-theme-completions 'moderate
+              modus-operandi-theme-slanted-constructs t
+              modus-operandi-theme-bold-constructs t
+              modus-operandi-theme-scale-headings t))
 
 
 (use-package prog-mode
   :hook ((prog-mode-hook . prettify-symbols-mode)
-	 (prog-mode-hook . whitespace-mode)))
+         (prog-mode-hook . whitespace-mode)))
 
 (use-package isearch
   :config (setq isearch-allow-scroll t
-		search-whitespace-regexp ".*"))
+                search-whitespace-regexp ".*"))
 
 (use-package eshell
   :hook (eshell-mode-hook . exec-path-from-shell-initialize)
@@ -133,15 +135,15 @@
   :config
   (progn
     (setq eshell-where-to-jump 'begin
-	  eshell-review-quick-commands nil
-	  eshell-smart-space-goes-to-end t)
+          eshell-review-quick-commands nil
+          eshell-smart-space-goes-to-end t)
     (dolist (mode '(eshell-smart eshell-tramp))
       (add-to-list 'eshell-modules-list mode))))
 
 (use-package tramp
   :config
   (setq tramp-default-method "ssh"
-	vc-ignore-dir-regexp "\\`\\(?:[/\\][/\\][^/\\]+[/\\]\\|/\\(?:\\.\\.\\.\\|afs\\|net\\)/\\|/\\(?:a\\(?:db\\|fp\\)\\|d\\(?:avs?\\|oas\\)\\|f\\(?:[ct]p\\)\\|gdrive\\|k\\(?:rlogin\\|su\\)\\|mtp\\|n\\(?:c\\|extcloud\\)\\|p\\(?:linkx?\\|s\\(?:\\(?:c\\|ft\\)p\\)\\)\\|r\\(?:c\\(?:lone\\|p\\)\\|em\\(?:cp\\|sh\\)\\|s\\(?:h\\|ync\\)\\)\\|s\\(?:cpx?\\|ftp\\|mb\\|sh\\(?:fs\\|x\\)?\\|udo\\(?:edit\\)?\\|[gu]\\)\\|telnet\\):[^z-a]*\\)\\'"))
+        vc-ignore-dir-regexp "\\`\\(?:[/\\][/\\][^/\\]+[/\\]\\|/\\(?:\\.\\.\\.\\|afs\\|net\\)/\\|/\\(?:a\\(?:db\\|fp\\)\\|d\\(?:avs?\\|oas\\)\\|f\\(?:[ct]p\\)\\|gdrive\\|k\\(?:rlogin\\|su\\)\\|mtp\\|n\\(?:c\\|extcloud\\)\\|p\\(?:linkx?\\|s\\(?:\\(?:c\\|ft\\)p\\)\\)\\|r\\(?:c\\(?:lone\\|p\\)\\|em\\(?:cp\\|sh\\)\\|s\\(?:h\\|ync\\)\\)\\|s\\(?:cpx?\\|ftp\\|mb\\|sh\\(?:fs\\|x\\)?\\|udo\\(?:edit\\)?\\|[gu]\\)\\|telnet\\):[^z-a]*\\)\\'"))
 
 (use-package exec-path-from-shell
   :straight t
@@ -150,7 +152,7 @@
 (use-package project
   :config
   (dolist (folder '("node_modules" "target" "out"
-		    ".cljs_node_repl" ".shadow-cljs"))
+                    ".cljs_node_repl" ".shadow-cljs"))
     (add-to-list 'vc-directory-exclusion-list folder)))
 
 (use-package orderless
@@ -161,13 +163,13 @@
   :init (vertico-mode +1)
   :config
   (setq completion-styles '(orderless)
-	completion-ignore-case t
-	completion-category-defaults nil
+        completion-ignore-case t
+        completion-category-defaults nil
         completion-category-overrides '((file (styles . (partial-completion))))
-	read-buffer-completion-ignore-case t
-	read-file-name-completion-ignore-case t
-	enable-recursive-minibuffers t
-	resize-mini-windows nil))
+        read-buffer-completion-ignore-case t
+        read-file-name-completion-ignore-case t
+        enable-recursive-minibuffers t
+        resize-mini-windows nil))
 
 (use-package marginalia
   :straight t
@@ -177,15 +179,15 @@
 (use-package corfu
   :straight (:host github :repo "minad/corfu" :files ("*.el"))
   :hook ((prog-mode-hook . corfu-mode)
-	 (eshell-mode-hook . corfu-mode)))
+         (eshell-mode-hook . corfu-mode)))
 
 (use-package dired
   :config
   (setq dired-recursive-copies 'always
-	dired-recursive-deletes 'top
-	dired-use-ls-dired nil
-	dired-dwim-target t
-	dired-listing-switches "-lha1v"))
+        dired-recursive-deletes 'top
+        dired-use-ls-dired nil
+        dired-dwim-target t
+        dired-listing-switches "-lha1v"))
 
 (use-package text-mode
   :hook (text-mode-hook . turn-off-auto-fill))
@@ -194,14 +196,18 @@
   :hook (emacs-lisp-mode-hook . turn-on-eldoc-mode)
   :config
   (setq eldoc-idle-delay 0.3
-	eldoc-echo-area-use-multiline-p nil))
+        eldoc-echo-area-use-multiline-p nil))
 
 (use-package whitespace
   :bind (:map ctl-z-map ("C-." . whitespace-cleanup))
   :config
   (setq whitespace-line-column 80
-	whitespace-style '(face lines-tail trailing indentation
-			   space-before-tab space-after-tab)))
+        whitespace-style '(face
+                           lines-tail
+                           trailing
+                           indentation::space
+                           space-before-tab
+                           space-after-tab)))
 
 (use-package rainbow-delimiters
   :straight t
@@ -210,13 +216,13 @@
 (use-package format-all
   :straight t
   :hook (format-all-mode-hook . (lambda ()
-				  (setq format-all-formatters
-					'(("C" (clang-format))
-					  ("Go" (gofmt)))))))
+                                  (setq format-all-formatters
+                                        '(("C" (clang-format))
+                                          ("Go" (gofmt)))))))
 
 (use-package c-mode
   :hook ((c-mode-hook . format-all-mode)
-	 (c-mode-hook . (lambda () (c-set-style "linux")))))
+         (c-mode-hook . (lambda () (c-set-style "linux")))))
 
 (use-package gdb
   :config (setq gdb-delete-out-of-scope nil))
@@ -240,8 +246,10 @@
 (use-package paredit
   :straight t
   :bind (:map paredit-mode-map ("C-w" . paredit-backward-kill-word))
-  :hook ((clojure-mode-hook lisp-interaction-mode-hook
-	  emacs-lisp-mode-hook lisp-mode-hook) . enable-paredit-mode))
+  :hook ((clojure-mode-hook
+          lisp-interaction-mode-hook
+          emacs-lisp-mode-hook
+          lisp-mode-hook) . enable-paredit-mode))
 
 (use-package expand-region
   :straight t
@@ -287,7 +295,7 @@
 (use-package ediff
   :config
   (setq ediff-window-setup-function 'ediff-setup-windows-plain
-	ediff-split-window-function 'split-window-horizontally))
+        ediff-split-window-function 'split-window-horizontally))
 
 (use-package markdown-mode
   :straight t
@@ -299,4 +307,4 @@
 (use-package browse-url
   :config
   (setq browse-url-generic-program "/usr/bin/qutebrowser"
-	browse-url-browser-function 'browse-url-generic))
+        browse-url-browser-function 'browse-url-generic))
