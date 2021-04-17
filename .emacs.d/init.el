@@ -10,7 +10,31 @@
               use-package-verbose nil
               use-package-expand-minimally t
               use-package-hook-name-suffix ""
-              indent-tabs-mode nil)
+              indent-tabs-mode nil
+              user-full-name "Benjamín Buccianti"
+              user-mail-address "benjamin@buccianti.dev"
+              message-log-max 16384
+              show-trailing-whitespace t
+              cursor-in-non-selected-windows nil
+              large-file-warning-threshold 100000000
+              blink-matching-paren nil
+              transient-mark-mode nil
+              font-lock-maximum-decoration 2
+              tooltip-use-echo-area t
+              use-dialog-box nil
+              visible-cursor nil
+              make-backup-files nil
+              auto-window-vscroll nil
+              auto-save-default nil
+              vc-follow-symlinks t
+              epg-gpg-program "gpg"
+              explicit-shell-file-name "/bin/bash"
+              uniquify-buffer-name-style 'forward
+              echo-keystrokes 0.5
+              line-spacing 0
+              x-underline-at-descent-line t
+              widget-image-enable nil
+              tab-always-indent 'complete)
 
 (defvar bootstrap-version)
 (let ((bootstrap-file
@@ -28,32 +52,6 @@
 
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file 'noerror 'nomessage)
-
-(setq user-full-name "Benjamín Buccianti"
-      user-mail-address "benjamin@buccianti.dev"
-      message-log-max 16384
-      show-trailing-whitespace t
-      cursor-in-non-selected-windows nil
-      large-file-warning-threshold 100000000
-      blink-matching-paren nil
-      transient-mark-mode nil
-      font-lock-maximum-decoration 2
-      tooltip-use-echo-area t
-      use-dialog-box nil
-      visible-cursor nil
-      make-backup-files nil
-      auto-window-vscroll nil
-      auto-save-default nil
-      vc-follow-symlinks t
-      epg-gpg-program "gpg"
-      explicit-shell-file-name "/bin/bash"
-      uniquify-buffer-name-style 'forward
-      echo-keystrokes 0.5
-      line-spacing 0
-      x-underline-at-descent-line t
-      widget-image-enable nil
-      tab-always-indent 'complete)
-
 
 (fringe-mode '(5 . 5))
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -105,19 +103,19 @@
 ;; packages
 (straight-use-package 'use-package)
 
-(use-package modus-operandi-theme
+(use-package modus-themes
   :straight t
+  :demand t
   :hook (after-init-hook . (lambda ()
-                             (load-theme 'modus-operandi t nil)
                              (global-hl-line-mode)
-                             (savehist-mode +1)))
-  :init (setq modus-operandi-theme-parent-match 'subtle-bold
-              modus-operandi-theme-intense-paren-match t
-              modus-operandi-theme-mode-line '3d
-              modus-operandi-theme-completions 'moderate
-              modus-operandi-theme-slanted-constructs t
-              modus-operandi-theme-bold-constructs t
-              modus-operandi-theme-scale-headings t))
+                             (savehist-mode +1)
+                             (modus-themes-load-operandi)))
+  :init (setq modus-themes-paren-match 'intense-bold
+              modus-themes-mode-line 'borderless
+              modus-themes-completions 'moderate
+              modus-themes-bold-constructs t
+              modus-themes-scale-headings t)
+  :config (modus-themes-load-themes))
 
 
 (use-package prog-mode
