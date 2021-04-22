@@ -89,10 +89,6 @@
 (define-key global-map (kbd "M-/")	  #'hippie-expand)
 (define-key global-map (kbd "M-SPC")	  #'cycle-spacing)
 (define-key global-map (kbd "C-w")	  #'backward-kill-word)
-(define-key global-map (kbd "S-<left>")	  #'windmove-left)
-(define-key global-map (kbd "S-<up>")	  #'windmove-up)
-(define-key global-map (kbd "S-<down>")	  #'windmove-down)
-(define-key global-map (kbd "S-<right>")  #'windmove-right)
 
 (define-key ctl-x-map  (kbd "C-b")	  #'ibuffer)
 (define-key ctl-x-map  (kbd "C-k")	  #'kill-region)
@@ -117,6 +113,8 @@
               modus-themes-scale-headings t)
   :config (modus-themes-load-themes))
 
+(use-package windmove
+  :init (windmove-default-keybindings))
 
 (use-package prog-mode
   :hook ((prog-mode-hook . prettify-symbols-mode)
@@ -230,7 +228,8 @@
   :config (setq js-indent-level 2))
 
 (use-package rjsx-mode
-  :straight t)
+  :straight t
+  :mode (("\\.jsx'" . rjsx-mode)))
 
 (use-package prettier
   :straight t
