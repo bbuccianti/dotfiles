@@ -152,7 +152,13 @@
     (add-to-list 'vc-directory-exclusion-list folder)))
 
 (use-package orderless
-  :straight t)
+  :straight t
+  :demand t)
+
+(use-package marginalia
+  :straight t
+  :init (marginalia-mode +1)
+  :config (setq marginalia-annotators '(marginalia-annotators-heavy nil)))
 
 (use-package vertico
   :straight (:host github :repo "minad/vertico")
@@ -166,11 +172,6 @@
         read-file-name-completion-ignore-case t
         enable-recursive-minibuffers t
         resize-mini-windows nil))
-
-(use-package marginalia
-  :straight t
-  :init (marginalia-mode +1)
-  :config (setq marginalia-annotators '(marginalia-annotators-heavy nil)))
 
 (use-package corfu
   :straight (:host github :repo "minad/corfu" :files ("*.el"))
