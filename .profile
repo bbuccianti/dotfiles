@@ -4,7 +4,7 @@ export EDITOR="$VISUAL"
 set -o emacs
 
 # Wayland stuff
-#export GDK_BACKEND=wayland
+export GDK_BACKEND=wayland
 export MOZ_ENABLE_WAYLAND=1
 
 # Useful
