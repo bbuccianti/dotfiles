@@ -1,3 +1,3 @@
 #!/bin/sh -eu
 
-dbus-launch --exit-with-session /usr/local/bin/sway
+dbus-run-session /usr/local/bin/sway
