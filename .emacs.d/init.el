@@ -116,6 +116,18 @@
 (use-package windmove
   :init (windmove-default-keybindings))
 
+(use-package tree-sitter
+  :straight t
+  :hook (tree-sitter-mode-hook . tree-sitter-hl-mode))
+
+(use-package tree-sitter-langs
+  :straight t
+  :init
+  (setq tree-sitter-major-mode-language-alist '((go-mode . go)
+                                                (c-mode . c)
+                                                (rjsx-mode . javascript)
+                                                (js-mode . javascript))))
+
 (use-package prog-mode
   :hook ((prog-mode-hook . prettify-symbols-mode)
          (prog-mode-hook . whitespace-mode)))
@@ -219,17 +231,27 @@
 
 (use-package c-mode
   :hook ((c-mode-hook . format-all-mode)
+         (c-mode-hook . tree-sitter-mode)
          (c-mode-hook . (lambda () (c-set-style "linux")))))
 
 (use-package gdb
   :config (setq gdb-delete-out-of-scope nil))
 
+(use-package tern
+  :straight t)
+
 (use-package js-mode
-  :hook (js-mode-hook . electric-pair-mode)
+  :hook ((js-mode-hook . electric-pair-mode)
+         (js-mode-hook . tree-sitter-mode)
+         (js-mode-hook . prettier-mode)
+         (js-mode-hook . tern-mode))
   :config (setq js-indent-level 2))
 
 (use-package rjsx-mode
   :straight t
+  :hook ((rjsx-mode-hook . tree-sitter-mode)
+         (rjsx-mode-hook . prettier-mode)
+         (rjsx-mode-hook . tern-mode))
   :mode (("\\.jsx'" . rjsx-mode)))
 
 (use-package prettier
@@ -239,7 +261,8 @@
 
 (use-package go-mode
   :straight t
-  :hook (go-mode-hook . format-all-mode))
+  :hook ((go-mode-hook . tree-sitter-mode)
+         (go-mode-hook . format-all-mode)))
 
 (use-package paredit
   :straight t
