@@ -60,13 +60,7 @@
 (remove-hook 'find-file-hooks 'vc-find-file-hook)
 
 ;; font config
-(set-face-font 'default "Source Code Pro 8")
-(setq default-frame-alist
-      (append (list '(width  . 72) '(height . 40)
-                    '(vertical-scroll-bars . nil)
-                    '(internal-border-width . 2)
-                    '(font . "Source Code Pro 8"))))
-(set-frame-parameter (selected-frame) 'internal-border-width 2)
+(set-face-font 'default "Fira Code 9")
 
 (add-hook 'emacs-startup-hook
           (lambda ()
@@ -85,16 +79,16 @@
 (global-unset-key "\C-z")
 (define-prefix-command 'ctl-z-map)
 
-(define-key global-map (kbd "C-z")	  #'ctl-z-map)
-(define-key global-map (kbd "M-/")	  #'hippie-expand)
-(define-key global-map (kbd "M-SPC")	  #'cycle-spacing)
-(define-key global-map (kbd "C-w")	  #'backward-kill-word)
+(define-key global-map (kbd "C-z")	#'ctl-z-map)
+(define-key global-map (kbd "M-/")	#'hippie-expand)
+(define-key global-map (kbd "M-SPC")	#'cycle-spacing)
+(define-key global-map (kbd "C-w")	#'backward-kill-word)
 
-(define-key ctl-x-map  (kbd "C-b")	  #'ibuffer)
-(define-key ctl-x-map  (kbd "C-k")	  #'kill-region)
+(define-key ctl-x-map  (kbd "C-b")	#'ibuffer)
+(define-key ctl-x-map  (kbd "C-k")	#'kill-region)
 
-(define-key ctl-z-map  (kbd "r")	  #'compile)
-(define-key ctl-z-map  (kbd "C-r")	  #'recompile)
+(define-key ctl-z-map  (kbd "r")	#'compile)
+(define-key ctl-z-map  (kbd "C-r")	#'recompile)
 
 ;; packages
 (straight-use-package 'use-package)
@@ -106,11 +100,13 @@
                              (global-hl-line-mode)
                              (savehist-mode +1)
                              (modus-themes-load-operandi)))
-  :init (setq modus-themes-paren-match 'intense-bold
+  :init (setq modus-themes-paren-match 'bold
               modus-themes-mode-line 'borderless
               modus-themes-completions 'moderate
-              modus-themes-bold-constructs t
-              modus-themes-scale-headings t)
+              modus-themes-bold-constructs nil
+              modus-themes-scale-headings t
+              modus-themes-variable-pitch-ui t
+              modus-themes-variable-pitch-headings t)
   :config (modus-themes-load-themes))
 
 (use-package windmove
@@ -158,10 +154,12 @@
   :config (setq exec-path-from-shell-check-startup-files nil))
 
 (use-package project
+  :bind (:map project-prefix-map ("m" . magit-status))
   :config
   (dolist (folder '("node_modules" "target" "out"
                     ".cljs_node_repl" ".shadow-cljs"))
-    (add-to-list 'vc-directory-exclusion-list folder)))
+    (add-to-list 'vc-directory-exclusion-list folder))
+  (add-to-list 'project-switch-commands '(magit-status "Magit") t))
 
 (use-package orderless
   :straight t
@@ -329,3 +327,7 @@
   :config
   (setq browse-url-generic-program "/usr/bin/qutebrowser"
         browse-url-browser-function 'browse-url-generic))
+
+(use-package nov
+  :straight t
+  :mode (("\\.epub\\'" . nov-mode)))

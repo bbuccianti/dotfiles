@@ -18,8 +18,10 @@ output HDMI-A-1 bg ~/wallpapers/ship.jpg fill
 
 output DVI-D-1 mode 1360x768@60Hz
 output DVI-D-1 scale_filter nearest
-output DVI-D-1 subpixel vbgr
-output DVI-D-1 pos 1920 0 transform 90
+# output DVI-D-1 subpixel vbgr
+# output DVI-D-1 pos 1920 0 transform 90
+output DVI-D-1 subpixel rgb
+output DVI-D-1 pos 1920 0
 output DVI-D-1 bg ~/wallpapers/rubik.jpg fill
 
 input 4617:41445:Technomancy_Atreus {

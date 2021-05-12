@@ -4,14 +4,7 @@
 ;; Benjamín Buccianti <benjamin@buccianti.dev>
 ;;
 
-(set-face-font 'default "Hack 8")
-(setq default-frame-alist
-      (append (list '(width  . 72) '(height . 40)
-		    '(vertical-scroll-bars . nil)
-		    '(internal-border-width . 2)
-		    '(font . "Hack 8"))))
-(set-frame-parameter (selected-frame) 'internal-border-width 2)
-
+(set-frame-font "Hack 8")
 
 (use-package message
   :config
