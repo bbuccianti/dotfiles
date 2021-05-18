@@ -5,9 +5,9 @@ set $down j
 set $up k
 set $right l
 set $term kitty
-set $menu exec st -c 'fzf-menu' -g 50x12 -f 'Hack:size=14' -e /home/bex/bin/menu
-set $clipboard exec st -c 'fzf-clipboard' -g 50x24 -f 'Hack:size=14' -e /home/bex/bin/cl
-set $killer exec st -c 'fzf-killer' -g 100x24 -f 'Hack:size=14' -e /home/bex/bin/killer
+set $menu st -c 'fzf-menu' -g 50x12 -f 'Hack:size=14' -e /home/bex/bin/menu
+set $clipboard st -c 'fzf-clipboard' -g 50x24 -f 'Hack:size=14' -e /home/bex/bin/cl
+set $killer st -c 'fzf-killer' -g 100x24 -f 'Hack:size=14' -e /home/bex/bin/killer
 
 ### Output configuration
 output HDMI-A-1 mode 1920x1080@60Hz
@@ -220,4 +220,5 @@ include /etc/sway/config.d/*
 
 exec wlsunset -l -34.6 -L -58.4
 exec wl-paste -t text --watch clipman store
-exec pipewire -c /usr/local/etc/pipewire/pipewire.conf
+exec pipewire
+exec pipewire-pulse

@@ -86,6 +86,7 @@
 
 (define-key ctl-x-map  (kbd "C-b")	#'ibuffer)
 (define-key ctl-x-map  (kbd "C-k")	#'kill-region)
+(define-key ctl-x-map  (kbd "g")	#'magit-status)
 
 (define-key ctl-z-map  (kbd "r")	#'compile)
 (define-key ctl-z-map  (kbd "C-r")	#'recompile)

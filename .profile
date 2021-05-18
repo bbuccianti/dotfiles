@@ -21,7 +21,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-export LC_ALL=C.UTF-8
+# export LC_ALL=C.UTF-8
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib/x86_64-linux-gnu:/usr/local/lib
 
 if test -z "${XDG_RUNTIME_DIR}"; then
