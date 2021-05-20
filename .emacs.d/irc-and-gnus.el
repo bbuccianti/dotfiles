@@ -95,7 +95,13 @@
 	   :port 6667
 	   :user-name "bbuccianti/freenode"
 	   :password ,(car (process-lines "pass" "irc/znc"))
-	   :server-alias "soju"))))
+	   :server-alias "freenode")
+          ("alonzo"
+	   :nick "bbuccianti"
+	   :port 6667
+	   :user-name "bbuccianti/libera"
+	   :password ,(car (process-lines "pass" "irc/znc"))
+	   :server-alias "libera"))))
 
 (rcirc nil)
 
