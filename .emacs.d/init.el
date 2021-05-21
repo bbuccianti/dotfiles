@@ -60,7 +60,7 @@
 (remove-hook 'find-file-hooks 'vc-find-file-hook)
 
 ;; font config
-(set-face-font 'default "Fira Code 9")
+(set-face-font 'default "Hack 8")
 
 (add-hook 'emacs-startup-hook
           (lambda ()
@@ -188,6 +188,15 @@
   :straight (:host github :repo "minad/corfu" :files ("*.el"))
   :hook ((prog-mode-hook . corfu-mode)
          (eshell-mode-hook . corfu-mode)))
+
+(use-package consult
+  :straight t)
+
+(use-package affe
+  :straight (:host github :repo "minad/affe" :files ("*.el"))
+  :bind (:map ctl-z-map
+              ("f" . affe-find)
+              ("g" . affe-grep)))
 
 (use-package dired
   :config
