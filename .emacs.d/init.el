@@ -245,21 +245,16 @@
 (use-package gdb
   :config (setq gdb-delete-out-of-scope nil))
 
-(use-package tern
-  :straight t)
-
 (use-package js-mode
   :hook ((js-mode-hook . electric-pair-mode)
          (js-mode-hook . tree-sitter-mode)
-         (js-mode-hook . prettier-mode)
-         (js-mode-hook . tern-mode))
+         (js-mode-hook . prettier-mode))
   :config (setq js-indent-level 2))
 
 (use-package rjsx-mode
   :straight t
   :hook ((rjsx-mode-hook . tree-sitter-mode)
-         (rjsx-mode-hook . prettier-mode)
-         (rjsx-mode-hook . tern-mode))
+         (rjsx-mode-hook . prettier-mode))
   :mode (("\\.jsx'" . rjsx-mode)))
 
 (use-package prettier
