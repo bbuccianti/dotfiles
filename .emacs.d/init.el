@@ -196,7 +196,10 @@
   :straight (:host github :repo "minad/affe" :files ("*.el"))
   :bind (:map ctl-z-map
               ("f" . affe-find)
-              ("g" . affe-grep)))
+              ("g" . affe-grep))
+  :config
+  (setq affe-regexp-function #'orderless-pattern-compiler
+        affe-highlight-function #'orderless-highlight-matches))
 
 (use-package dired
   :config
