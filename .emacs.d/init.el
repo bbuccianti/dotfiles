@@ -199,7 +199,8 @@
               ("g" . affe-grep))
   :config
   (setq affe-regexp-function #'orderless-pattern-compiler
-        affe-highlight-function #'orderless-highlight-matches))
+        affe-highlight-function #'orderless-highlight-matches
+        affe-find-command "fd -HI -c never -t f"))
 
 (use-package dired
   :config

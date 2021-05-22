@@ -6,7 +6,11 @@
 
 (set-frame-font "Hack 8")
 
+(use-package bbdb
+  :straight t)
+
 (use-package message
+  :hook (message-mode-hook . bbdb-insinuate-message)
   :config
   (setq smtpmail-debug-info nil ;; TOGGLE FOR DEBUG ONLY!
 	mail-user-agent 'message-user-agent
@@ -23,6 +27,7 @@
 
 (use-package gnus
   :bind (:map ctl-z-map ("g" . gnus))
+  :hook (gnus-startup-hook . bbdb-insinuate-gnus)
   :config
   (setq gnus-select-method '(nntp "news.gmane.io")
 	gnus-novice-user nil
