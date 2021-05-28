@@ -32,6 +32,7 @@
   (setq gnus-select-method '(nntp "news.gmane.io")
 	gnus-novice-user nil
 	gnus-suppress-duplicates t
+        gnus-use-full-window nil
 	gnus-secondary-select-methods
 	'((nnimap "todo"
 		  (nnimap-stream network)
@@ -96,13 +97,7 @@
 	rcirc-omit-responses '("JOIN" "PART" "QUIT" "NICK" "AWAY")
 	rcirc-server-alist
 	`(("alonzo"
-	   :nick "bbuccianti"
-	   :port 6667
-	   :user-name "bbuccianti/freenode"
-	   :password ,(car (process-lines "pass" "irc/znc"))
-	   :server-alias "freenode")
-          ("alonzo"
-	   :nick "bbuccianti"
+	   :nick "roto"
 	   :port 6667
 	   :user-name "bbuccianti/libera"
 	   :password ,(car (process-lines "pass" "irc/znc"))
