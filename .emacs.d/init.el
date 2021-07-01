@@ -213,6 +213,10 @@
 (use-package text-mode
   :hook (text-mode-hook . turn-off-auto-fill))
 
+(use-package devdocs-browser
+  :straight (:host github :repo "blahgeek/emacs-devdocs-browser" :file ("*.el"))
+  :bind (:map ctl-z-map ("h" . devdocs-browser-open-in)))
+
 (use-package eldoc-mode
   :hook (emacs-lisp-mode-hook . turn-on-eldoc-mode)
   :config
@@ -328,9 +332,6 @@
 (use-package markdown-mode
   :straight t
   :mode (("\\.md\\'" . markdown-mode)))
-
-(use-package mpc
-  :commands mpc)
 
 (use-package browse-url
   :config

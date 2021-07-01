@@ -1,3 +1,6 @@
 #!/bin/sh -eu
 
-dmenu_path | fzf --reverse --no-multi --no-hscroll | xargs swaymsg exec
+dmenu_path \
+    | fzf --print-query --reverse --no-multi --no-hscroll \
+    | tail -n1 \
+    | xargs -I '{}' -r swaymsg -t command exec '{}'
