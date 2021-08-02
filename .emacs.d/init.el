@@ -122,6 +122,7 @@
   :init
   (setq tree-sitter-major-mode-language-alist '((go-mode . go)
                                                 (c-mode . c)
+                                                (c++-mode . cpp)
                                                 (rjsx-mode . javascript)
                                                 (js-mode . javascript))))
 
@@ -243,6 +244,7 @@
   :hook (format-all-mode-hook . (lambda ()
                                   (setq format-all-formatters
                                         '(("C" (clang-format))
+                                          ("C++" (clang-format))
                                           ("Go" (gofmt)))))))
 
 (use-package c-mode
