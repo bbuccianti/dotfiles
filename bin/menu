@@ -1,6 +1,6 @@
-#!/bin/sh -eu
+#!/bin/bash
 
 dmenu_path \
     | fzf --print-query --reverse --no-multi --no-hscroll \
     | tail -n1 \
-    | xargs -I '{}' -r swaymsg -t command exec '{}'
+    | xargs -i -t sh -c "exec {}"
