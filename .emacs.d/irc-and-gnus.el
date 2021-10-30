@@ -96,12 +96,11 @@
   (setq rcirc-fill-column 'window-text-width
 	rcirc-omit-responses '("JOIN" "PART" "QUIT" "NICK" "AWAY")
 	rcirc-server-alist
-	`(("alonzo"
+	`(("chat.sr.ht"
 	   :nick "roto"
-	   :port 6667
-	   :user-name "bbuccianti/libera"
-	   :password ,(car (process-lines "pass" "irc/znc"))
-	   :server-alias "libera"))))
+	   :port 6697
+	   :user-name "bbuccianti/libera@rcirc"
+	   :password ,(car (process-lines "pass" "irc/chat.sr.ht"))
+           :encryption tls))))
 
 (rcirc nil)
-

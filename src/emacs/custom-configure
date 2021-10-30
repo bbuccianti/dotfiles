@@ -1,4 +1,5 @@
 #!/bin/sh
+
 export CFLAGS="-O2 -mtune=native -march=native -pipe -falign-functions=64 -fomit-frame-pointer -ftracer -funit-at-a-time -fweb -fforce-addr -fpeel-loops -funswitch-loops -frename-registers -mfpmath=sse -ffast-math -fno-finite-math-only -fstack-check"
 
 ../configure --with-sound=no \
@@ -18,7 +19,7 @@ export CFLAGS="-O2 -mtune=native -march=native -pipe -falign-functions=64 -fomit
   --with-ns=no \
   --with-xwidgets=no \
   --without-compress-install \
-  --with-x-toolkit=lucid \
+  --with-x-toolkit=gtk3 \
   --with-mailutils \
   --without-pop \
   --with-jpeg \

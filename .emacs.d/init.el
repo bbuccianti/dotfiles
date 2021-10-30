@@ -211,6 +211,12 @@
         dired-dwim-target t
         dired-listing-switches "-lha1v"))
 
+(use-package popper
+  :straight t
+  :bind (("M-o" . popper-toggle-latest)
+	 ("M-O" . popper-cycle))
+  :init (popper-mode +1))
+
 (use-package text-mode
   :hook (text-mode-hook . turn-off-auto-fill))
 
@@ -231,7 +237,6 @@
         whitespace-style '(face
                            lines-tail
                            trailing
-                           indentation::space
                            space-before-tab
                            space-after-tab)))
 
@@ -251,6 +256,9 @@
   :hook ((c-mode-hook . format-all-mode)
          (c-mode-hook . tree-sitter-mode)
          (c-mode-hook . (lambda () (c-set-style "linux")))))
+
+(use-package c++-mode
+  :hook (c++-mode-hook . format-all-mode))
 
 (use-package gdb
   :config (setq gdb-delete-out-of-scope nil))
