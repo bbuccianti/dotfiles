@@ -34,7 +34,13 @@
               line-spacing 0
               x-underline-at-descent-line t
               widget-image-enable nil
-              tab-always-indent 'complete)
+              tab-always-indent 'complete
+              resize-mini-windows nil
+              completion-ignore-case t
+              completion-category-defaults nil
+              completion-category-overrides '((file (styles . (partial-completion))))
+              read-buffer-completion-ignore-case t
+              read-file-name-completion-ignore-case t)
 
 (defvar bootstrap-version)
 (let ((bootstrap-file
@@ -83,6 +89,7 @@
 (define-key global-map (kbd "M-/")	#'hippie-expand)
 (define-key global-map (kbd "M-SPC")	#'cycle-spacing)
 (define-key global-map (kbd "C-w")	#'backward-kill-word)
+(define-key global-map (kbd "M-o")	#'other-window)
 
 (define-key ctl-x-map  (kbd "C-b")	#'ibuffer)
 (define-key ctl-x-map  (kbd "C-k")	#'kill-region)
@@ -156,52 +163,28 @@
   :config (setq exec-path-from-shell-check-startup-files nil))
 
 (use-package project
-  :bind (:map project-prefix-map ("m" . magit-status))
+  :bind (:map ctl-z-map (("f" . project-find-file)
+                         ("g" . project-find-regexp)))
   :config
   (dolist (folder '("node_modules" "target" "out"
                     ".cljs_node_repl" ".shadow-cljs"))
-    (add-to-list 'vc-directory-exclusion-list folder))
-  (add-to-list 'project-switch-commands '(magit-status "Magit") t))
-
-(use-package orderless
-  :straight t
-  :demand t)
-
-(use-package marginalia
-  :straight t
-  :init (marginalia-mode +1)
-  :config (setq marginalia-annotators '(marginalia-annotators-heavy nil)))
-
-(use-package vertico
-  :straight (:host github :repo "minad/vertico")
-  :init (vertico-mode +1)
-  :config
-  (setq completion-styles '(orderless)
-        completion-ignore-case t
-        completion-category-defaults nil
-        completion-category-overrides '((file (styles . (partial-completion))))
-        read-buffer-completion-ignore-case t
-        read-file-name-completion-ignore-case t
-        enable-recursive-minibuffers t
-        resize-mini-windows nil))
+    (add-to-list 'vc-directory-exclusion-list folder)))
 
 (use-package corfu
   :straight (:host github :repo "minad/corfu" :files ("*.el"))
   :hook ((prog-mode-hook . corfu-mode)
          (eshell-mode-hook . corfu-mode)))
 
-(use-package consult
-  :straight t)
-
-(use-package affe
-  :straight (:host github :repo "minad/affe" :files ("*.el"))
-  :bind (:map ctl-z-map
-              ("f" . affe-find)
-              ("g" . affe-grep))
+(use-package minibuffer
   :config
-  (setq affe-regexp-function #'orderless-pattern-compiler
-        affe-highlight-function #'orderless-highlight-matches
-        affe-find-command "fd -HI -c never -t f"))
+  (setq completion-styles '(partial-completion substring initials flex)
+        completion-category-overrides '((buffer (styles (basic
+                                                         substring
+                                                         partial-completion)))
+                                        (info-menu (styles (substring))))))
+
+(use-package icomplete
+  :init (fido-mode))
 
 (use-package dired
   :config
@@ -211,11 +194,8 @@
         dired-dwim-target t
         dired-listing-switches "-lha1v"))
 
-(use-package popper
-  :straight t
-  :bind (("M-o" . popper-toggle-latest)
-	 ("M-O" . popper-cycle))
-  :init (popper-mode +1))
+(use-package rect
+  :bind (:map ctl-z-map ("i" . string-insert-rectangle)))
 
 (use-package text-mode
   :hook (text-mode-hook . turn-off-auto-fill))
@@ -345,8 +325,7 @@
 
 (use-package browse-url
   :config
-  (setq browse-url-generic-program "/usr/bin/qutebrowser"
-        browse-url-browser-function 'browse-url-generic))
+  (setq browse-url-browser-function 'eww))
 
 (use-package nov
   :straight t

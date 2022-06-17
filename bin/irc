@@ -1,4 +1,6 @@
 #!/bin/sh
 
-emacs -l ~/.emacs.d/irc-and-gnus.el
+emacs -nw -q -l ~/.emacs.d/elegant-emacs/sanity.el \
+      -l ~/.emacs.d/elegant-emacs/elegance.el \
+      -l ~/.emacs.d/irc-and-gnus.el
 
