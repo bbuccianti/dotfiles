@@ -120,19 +120,6 @@
 (use-package windmove
   :init (windmove-default-keybindings))
 
-(use-package tree-sitter
-  :straight t
-  :hook (tree-sitter-mode-hook . tree-sitter-hl-mode))
-
-(use-package tree-sitter-langs
-  :straight t
-  :init
-  (setq tree-sitter-major-mode-language-alist '((go-mode . go)
-                                                (c-mode . c)
-                                                (c++-mode . cpp)
-                                                (rjsx-mode . javascript)
-                                                (js-mode . javascript))))
-
 (use-package prog-mode
   :hook ((prog-mode-hook . prettify-symbols-mode)
          (prog-mode-hook . whitespace-mode)))
@@ -163,8 +150,6 @@
   :config (setq exec-path-from-shell-check-startup-files nil))
 
 (use-package project
-  :bind (:map ctl-z-map (("f" . project-find-file)
-                         ("g" . project-find-regexp)))
   :config
   (dolist (folder '("node_modules" "target" "out"
                     ".cljs_node_repl" ".shadow-cljs"))
@@ -234,7 +219,6 @@
 
 (use-package c-mode
   :hook ((c-mode-hook . format-all-mode)
-         (c-mode-hook . tree-sitter-mode)
          (c-mode-hook . (lambda () (c-set-style "linux")))))
 
 (use-package c++-mode
@@ -245,14 +229,12 @@
 
 (use-package js-mode
   :hook ((js-mode-hook . electric-pair-mode)
-         (js-mode-hook . tree-sitter-mode)
          (js-mode-hook . prettier-mode))
   :config (setq js-indent-level 2))
 
 (use-package rjsx-mode
   :straight t
-  :hook ((rjsx-mode-hook . tree-sitter-mode)
-         (rjsx-mode-hook . prettier-mode))
+  :hook (rjsx-mode-hook . prettier-mode)
   :mode (("\\.jsx'" . rjsx-mode)))
 
 (use-package prettier
@@ -262,8 +244,7 @@
 
 (use-package go-mode
   :straight t
-  :hook ((go-mode-hook . tree-sitter-mode)
-         (go-mode-hook . format-all-mode)))
+  :hook (go-mode-hook . format-all-mode))
 
 (use-package paredit
   :straight t
