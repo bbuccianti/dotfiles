@@ -28,13 +28,13 @@
 
 (use-package whitespace
   :bind (:map ctl-z-map ("C-." . whitespace-cleanup))
-  :config
-  (setq whitespace-line-column 80
-        whitespace-style '(face
-                           lines-tail
-                           trailing
-                           space-before-tab
-                           space-after-tab)))
+  :custom
+  (whitespace-line-column 80)
+  (whitespace-style '(face
+                      lines-tail
+                      trailing
+                      space-before-tab
+                      space-after-tab)))
 
 (use-package rainbow-delimiters
   :straight t
@@ -56,11 +56,11 @@
   :hook (c++-mode-hook . format-all-mode))
 
 (use-package gdb
-  :config (setq gdb-delete-out-of-scope nil))
+  :custom (gdb-delete-out-of-scope nil))
 
 (use-package js-mode
   :hook (js-mode-hook . electric-pair-mode)
-  :config (setq js-indent-level 2))
+  :custom (js-indent-level 2))
 
 (use-package rjsx-mode
   :straight t
@@ -91,7 +91,7 @@
   :hook (clojure-mode-hook . clojure-enable-monroe)
   :hook (monroe-mode-hook . enable-paredit-mode)
   :bind (:map ctl-z-map ("m" . monroe))
-  :config (setq monroe-detail-stacktraces t))
+  :custom (monroe-detail-stacktraces t))
 
 (use-package fennel-mode
   :straight t
@@ -102,9 +102,9 @@
   :mode (("\\.lua\\'" . lua-mode)))
 
 (use-package ediff
-  :config
-  (setq ediff-window-setup-function 'ediff-setup-windows-plain
-        ediff-split-window-function 'split-window-horizontally))
+  :custom
+  (ediff-window-setup-function 'ediff-setup-windows-plain)
+  (ediff-split-window-function 'split-window-horizontally))
 
 (use-package markdown-mode
   :straight t
