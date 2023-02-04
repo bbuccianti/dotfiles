@@ -15,7 +15,7 @@ export JAVA_HOME=/usr/lib/jvm/java-11-openjdk
 #export XDG_CURRENT_DESKTOP=sway
 
 # PATH
-export PATH="$HOME/bin:$PATH:/usr/sbin:/sbin:$HOME/.npm/bin:$HOME/go/bin"
+#export PATH="$HOME/bin:$PATH:/usr/sbin:/sbin:$HOME/.npm/bin:$HOME/go/bin"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -31,3 +31,7 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib64:/usr/local/lib
 #         chmod 0700 "${XDG_RUNTIME_DIR}"
 #     fi
 # fi
+
+if [ -d "${HOME}/bin" ]; then
+    export PATH="${HOME}/bin:${PATH}"
+fi

@@ -4,87 +4,9 @@
 ;; Benjamín Buccianti <benjamin@buccianti.dev>
 ;;
 
-;;(set-frame-font "Hack 8")
+(load-file "~/.emacs.d/useful.el")
 
-(setq-default straight-check-for-modifications 'live
-              straight-cache-autoloads t
-              use-package-always-defer t
-              use-package-verbose nil
-              use-package-expand-minimally t
-              use-package-hook-name-suffix ""
-              indent-tabs-mode nil
-              user-full-name "Benjamín Buccianti"
-              user-mail-address "benjamin@buccianti.dev"
-              message-log-max 16384
-              show-trailing-whitespace t
-              cursor-in-non-selected-windows nil
-              large-file-warning-threshold 100000000
-              blink-matching-paren nil
-              transient-mark-mode nil
-              font-lock-maximum-decoration 2
-              tooltip-use-echo-area t
-              use-dialog-box nil
-              visible-cursor nil
-              make-backup-files nil
-              auto-window-vscroll nil
-              auto-save-default nil
-              vc-follow-symlinks t
-              epg-gpg-program "gpg"
-              explicit-shell-file-name "/bin/bash"
-              uniquify-buffer-name-style 'forward
-              echo-keystrokes 0.5
-              line-spacing 0
-              x-underline-at-descent-line t
-              widget-image-enable nil
-              tab-always-indent 'complete
-              resize-mini-windows nil
-              completion-ignore-case t
-              completion-category-defaults nil
-              completion-category-overrides '((file (styles . (partial-completion))))
-              read-buffer-completion-ignore-case t
-              read-file-name-completion-ignore-case t)
-
-(defvar bootstrap-version)
-(let ((bootstrap-file
-       (expand-file-name "straight/repos/straight.el/bootstrap.el"
-                         user-emacs-directory))
-      (bootstrap-version 5))
-  (unless (file-exists-p bootstrap-file)
-    (with-current-buffer
-        (url-retrieve-synchronously
-         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
-         'silent 'inhibit-cookies)
-      (goto-char (point-max))
-      (eval-print-last-sexp)))
-  (load bootstrap-file nil 'nomessage))
-
-;; useful keybindings
-(global-unset-key "\C-z")
-(define-prefix-command 'ctl-z-map)
-
-(define-key global-map (kbd "C-z")	#'ctl-z-map)
-(define-key global-map (kbd "M-/")	#'hippie-expand)
-(define-key global-map (kbd "M-SPC")	#'cycle-spacing)
-(define-key global-map (kbd "C-w")	#'backward-kill-word)
-(define-key global-map (kbd "M-o")	#'other-window)
-
-(define-key ctl-x-map  (kbd "C-b")	#'ibuffer)
-(define-key ctl-x-map  (kbd "C-k")	#'kill-region)
-(define-key ctl-x-map  (kbd "g")	#'magit-status)
-
-(define-key ctl-z-map  (kbd "r")	#'compile)
-(define-key ctl-z-map  (kbd "C-r")	#'recompile)
-
-(menu-bar-mode 0)
-
-(straight-use-package 'use-package)
-
-(use-package icomplete
-  :init (fido-mode))
-
-(use-package expand-region
-  :straight t
-  :bind (:map global-map ("C-=" . er/expand-region)))
+(set-face-font 'default "Hack 8")
 
 (use-package bbdb
   :straight t)
@@ -148,6 +70,10 @@
 (use-package gnus-topic
   :hook (gnus-group-mode-hook . gnus-topic-mode))
 
+(use-package time
+  :init (display-time-mode t)
+  :config (setq display-time-24hr-format t))
+
 (use-package rcirc
   :hook ((rcirc-mode-hook . rcirc-track-minor-mode)
 	 (rcirc-mode-hook . rcirc-omit-mode))
@@ -157,28 +83,22 @@
         rcirc-time-format "%H:%M:%S "
 	rcirc-server-alist
 	`(("chat.sr.ht"
-	   :nick "roto"
+	   :nick "fold"
 	   :port 6697
 	   :user-name "bbuccianti/libera@rcirc"
 	   :password ,(car (process-lines "pass" "chat.sr.ht"))
+           :server-alias "libera"
            :encryption tls))))
 
-(rcirc nil)
+(use-package xclip
+  :straight t
+  :init (xclip-mode 1))
 
-;; (use-package circe
-;;   :straight t
-;;   :config
-;;   (setq circe-network-options
-;;         `(("chat.sr.ht"
-;;            :tls t
-;;            :nick "roto"
-;;            :user "bbuccianti/libera@rcirc"
-;;            :pass ,(car (process-lines "pass" "chat.sr.ht"))
-;;            :host "chat.sr.ht"
-;;            :port "6697"))
-;;         circe-reduce-lurker-spam t
-;;         circe-format-say "<{nick}> {body}"
-;;         lui-time-stamp-position nil)
-;;   (enable-circe-color-nicks))
-
-;; (circe "chat.sr.ht")
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (progn
+              (rcirc nil)
+              (switch-to-buffer "#emacs@libera")
+              (split-window-horizontally)
+              (other-window 1)
+              (switch-to-buffer "#argentina@libera"))))
