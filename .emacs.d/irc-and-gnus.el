@@ -74,31 +74,31 @@
   :init (display-time-mode t)
   :config (setq display-time-24hr-format t))
 
-(use-package rcirc
-  :hook ((rcirc-mode-hook . rcirc-track-minor-mode)
-	 (rcirc-mode-hook . rcirc-omit-mode))
-  :config
-  (setq rcirc-fill-column 'window-text-width
-	rcirc-omit-responses '("JOIN" "PART" "QUIT" "NICK" "AWAY")
-        rcirc-time-format "%H:%M:%S "
-	rcirc-server-alist
-	`(("chat.sr.ht"
-	   :nick "fold"
-	   :port 6697
-	   :user-name "bbuccianti/libera@rcirc"
-	   :password ,(car (process-lines "pass" "chat.sr.ht"))
-           :server-alias "libera"
-           :encryption tls))))
+;; (use-package rcirc
+;;   :hook ((rcirc-mode-hook . rcirc-track-minor-mode)
+;; 	 (rcirc-mode-hook . rcirc-omit-mode))
+;;   :config
+;;   (setq rcirc-fill-column 'window-text-width
+;; 	rcirc-omit-responses '("JOIN" "PART" "QUIT" "NICK" "AWAY")
+;;         rcirc-time-format "%H:%M:%S "
+;; 	rcirc-server-alist
+;; 	`(("chat.sr.ht"
+;; 	   :nick "fold"
+;; 	   :port 6697
+;; 	   :user-name "bbuccianti/libera@rcirc"
+;; 	   :password ,(car (process-lines "pass" "chat.sr.ht"))
+;;            :server-alias "libera"
+;;            :encryption tls))))
 
 (use-package xclip
   :straight t
   :init (xclip-mode 1))
 
-(add-hook 'emacs-startup-hook
-          (lambda ()
-            (progn
-              (rcirc nil)
-              (switch-to-buffer "#emacs@libera")
-              (split-window-horizontally)
-              (other-window 1)
-              (switch-to-buffer "#argentina@libera"))))
+;; (add-hook 'emacs-startup-hook
+;;           (lambda ()
+;;             (progn
+;;               (rcirc nil)
+;;               (switch-to-buffer "#emacs@libera")
+;;               (split-window-horizontally)
+;;               (other-window 1)
+;;               (switch-to-buffer "#argentina@libera"))))
