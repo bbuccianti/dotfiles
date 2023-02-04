@@ -1,6 +1,0 @@
-#!/bin/bash
-
-dmenu_path \
-    | fzf --print-query --reverse --no-multi --no-hscroll \
-    | tail -n1 \
-    | xargs -i -t sh -c "exec {}"

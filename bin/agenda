@@ -1,4 +1,0 @@
-#!/bin/sh
-
-emacs -l ~/.emacs.d/agenda.el -l ~/src/elegant-emacs/elegance.el
-
