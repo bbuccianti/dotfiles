@@ -13,15 +13,14 @@
   :hook (after-init-hook . (lambda ()
                              (global-hl-line-mode)
                              (savehist-mode +1)
-                             (modus-themes-load-operandi)))
-  :init (setq modus-themes-paren-match 'bold
-              modus-themes-mode-line 'borderless
-              modus-themes-completions 'moderate
-              modus-themes-bold-constructs nil
-              modus-themes-scale-headings t
-              modus-themes-variable-pitch-ui t
-              modus-themes-variable-pitch-headings t)
-  :config (modus-themes-load-themes))
+                             (load-theme 'modus-operandi t nil)))
+  :custom
+  (modus-themes-paren-match 'bold)
+  (modus-themes-mode-line 'borderless)
+  (modus-themes-bold-constructs nil)
+  (modus-themes-scale-headings t)
+  (modus-themes-variable-pitch-ui t)
+  (modus-themes-variable-pitch-headings t))
 
 (use-package prog-mode
   :hook ((prog-mode-hook . prettify-symbols-mode)
@@ -117,3 +116,7 @@
 
 (use-package diff-mode
   :custom (diff-default-read-only t))
+
+(use-package agitate
+  :straight t
+  :init (agitate-log-edit-informative-mode))
