@@ -114,3 +114,7 @@
 (use-package nov
   :straight t
   :mode (("\\.epub\\'" . nov-mode)))
+
+(use-package diff-mode
+  :custom (diff-default-read-only t)
+  :init (remove-hook 'log-edit-hook #'log-edit-show-files))
