@@ -114,15 +114,14 @@
 
 (use-package eshell
   :hook (eshell-mode-hook . exec-path-from-shell-initialize)
-  :hook (eshell-mode-hook . eshell-smart-initialize)
+  ;;  :hook (eshell-mode-hook . eshell-smart-initialize)
   :bind (:map ctl-z-map ("t" . eshell))
   :config
   (progn
     (setq eshell-where-to-jump 'begin
           eshell-review-quick-commands nil
           eshell-smart-space-goes-to-end t)
-    (dolist (mode '(eshell-smart eshell-tramp))
-      (add-to-list 'eshell-modules-list mode))))
+    (add-to-list 'eshell-modules-list 'eshell-tramp)))
 
 (use-package tramp
   :config

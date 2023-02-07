@@ -1,7 +1,7 @@
 ;; -*- lexical-binding: t; -*-
 ;;
 ;; Personal Emacs configuration
-;; Benjamín Buccianti <benjamin@buccianti.dev>
+;; Benjamín Buccianti <bbuccianti@pm.me>
 ;;
 
 (load-file "~/.emacs.d/useful.el")
@@ -16,9 +16,9 @@
   :config
   (setq smtpmail-debug-info nil ;; TOGGLE FOR DEBUG ONLY!
 	mail-user-agent 'message-user-agent
-	smtpmail-default-smtp-server "mail.buccianti.dev"
-	smtpmail-smtp-server "mail.buccianti.dev"
-	smtpmail-local-domain "buccianti.dev"
+	;; smtpmail-default-smtp-server ""
+	;; smtpmail-smtp-server ""
+	;; smtpmail-local-domain ""
 	smtpmail-stream-type 'ssl
 	smtpmail-smtp-service 465
 	message-send-mail-function 'smtpmail-send-it
@@ -37,14 +37,7 @@
         gnus-use-full-window nil
         gnus-read-newsrc-file nil
 	gnus-secondary-select-methods
-	'((nnimap "benjamin"
-		  (nnimap-stream network)
-		  (nnimap-address "atom")
-		  (nnimap-authenticator login)
-		  (nnimap-user "benjamin")
-		  (nnmail-expiry-target "nnimap+benjamin:Trash")
-			(nnmail-expiry-wait 'immediate))
-	  (nnimap "gmail"
+	'((nnimap "gmail"
 		  (nnimap-stream network)
 		  (nnimap-address "atom")
 		  (nnimap-authenticator login)
@@ -74,31 +67,31 @@
   :init (display-time-mode t)
   :config (setq display-time-24hr-format t))
 
-;; (use-package rcirc
-;;   :hook ((rcirc-mode-hook . rcirc-track-minor-mode)
-;; 	 (rcirc-mode-hook . rcirc-omit-mode))
-;;   :config
-;;   (setq rcirc-fill-column 'window-text-width
-;; 	rcirc-omit-responses '("JOIN" "PART" "QUIT" "NICK" "AWAY")
-;;         rcirc-time-format "%H:%M:%S "
-;; 	rcirc-server-alist
-;; 	`(("chat.sr.ht"
-;; 	   :nick "fold"
-;; 	   :port 6697
-;; 	   :user-name "bbuccianti/libera@rcirc"
-;; 	   :password ,(car (process-lines "pass" "chat.sr.ht"))
-;;            :server-alias "libera"
-;;            :encryption tls))))
+(use-package rcirc
+  :hook ((rcirc-mode-hook . rcirc-track-minor-mode)
+	 (rcirc-mode-hook . rcirc-omit-mode))
+  :config
+  (setq rcirc-fill-column 'window-text-width
+	rcirc-omit-responses '("JOIN" "PART" "QUIT" "NICK" "AWAY")
+        rcirc-time-format "%H:%M:%S "
+	rcirc-server-alist
+	`(("chat.sr.ht"
+	   :nick "fold"
+	   :port 6697
+	   :user-name "bbuccianti/libera@rcirc"
+	   :password ,(car (process-lines "pass" "chat.sr.ht"))
+           :server-alias "libera"
+           :encryption tls))))
 
 (use-package xclip
   :straight t
   :init (xclip-mode 1))
 
-;; (add-hook 'emacs-startup-hook
-;;           (lambda ()
-;;             (progn
-;;               (rcirc nil)
-;;               (switch-to-buffer "#emacs@libera")
-;;               (split-window-horizontally)
-;;               (other-window 1)
-;;               (switch-to-buffer "#argentina@libera"))))
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (progn
+              (rcirc nil)
+              (switch-to-buffer "#emacs@libera")
+              (split-window-horizontally)
+              (other-window 1)
+              (switch-to-buffer "#argentina@libera"))))
