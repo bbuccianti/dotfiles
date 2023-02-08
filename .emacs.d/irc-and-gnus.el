@@ -6,8 +6,6 @@
 
 (load-file "~/.emacs.d/useful.el")
 
-(set-face-font 'default "Hack 8")
-
 (use-package bbdb
   :straight t)
 
@@ -16,15 +14,14 @@
   :config
   (setq smtpmail-debug-info nil ;; TOGGLE FOR DEBUG ONLY!
 	mail-user-agent 'message-user-agent
-	;; smtpmail-default-smtp-server ""
-	;; smtpmail-smtp-server ""
-	;; smtpmail-local-domain ""
-	smtpmail-stream-type 'ssl
-	smtpmail-smtp-service 465
+	smtpmail-smtp-server "127.0.0.1"
+	smtpmail-local-domain ""
+	smtpmail-stream-type 'starttls
+	smtpmail-smtp-service 1025
 	message-send-mail-function 'smtpmail-send-it
 	send-mail-function 'smtpmail-send-it
 	message-default-mail-headers "Cc: \nBcc: \n"
-	message-auto-save-directory "~/.mail/benjamin/Drafts"
+	message-auto-save-directory "~/.mail/bbuccianti@pm.me/Drafts"
 	message-kill-buffer-on-exit t))
 
 (use-package gnus
@@ -35,15 +32,7 @@
 	gnus-novice-user nil
 	gnus-suppress-duplicates t
         gnus-use-full-window nil
-        gnus-read-newsrc-file nil
-	gnus-secondary-select-methods
-	'((nnimap "gmail"
-		  (nnimap-stream network)
-		  (nnimap-address "atom")
-		  (nnimap-authenticator login)
-		  (nnimap-user "gmail")
-		  (nnmail-expiry-target "nnimap+gmail:[Gmail]/Trash")
-		  (nnmail-expiry-wait 'immediate)))))
+        gnus-read-newsrc-file nil))
 
 (use-package gnus-search
   :init (setq gnus-search-use-parsed-queries t))
@@ -71,7 +60,7 @@
   :hook ((rcirc-mode-hook . rcirc-track-minor-mode)
 	 (rcirc-mode-hook . rcirc-omit-mode))
   :config
-  (setq rcirc-fill-column 'window-text-width
+  (setq ;;rcirc-fill-column 'window-text-width
 	rcirc-omit-responses '("JOIN" "PART" "QUIT" "NICK" "AWAY")
         rcirc-time-format "%H:%M:%S "
 	rcirc-server-alist
@@ -90,6 +79,7 @@
 (add-hook 'emacs-startup-hook
           (lambda ()
             (progn
+              (set-face-font 'default "Hack 8")
               (rcirc nil)
               (switch-to-buffer "#emacs@libera")
               (split-window-horizontally)
