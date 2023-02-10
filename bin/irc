@@ -2,6 +2,5 @@
 
 emacs $1 -q \
       -l ~/.emacs.d/early-init.el \
-      -l ~/.emacs.d/elegant-emacs/elegance.el \
       -l ~/.emacs.d/irc-and-gnus.el
 

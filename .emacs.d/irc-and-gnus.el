@@ -58,7 +58,10 @@
 
 (use-package rcirc
   :hook ((rcirc-mode-hook . rcirc-track-minor-mode)
-	 (rcirc-mode-hook . rcirc-omit-mode))
+	 (rcirc-mode-hook . rcirc-omit-mode)
+         (rcirc-mode-hook . (lambda ()
+                              (set (make-local-variable 'scroll-conservatively)
+                                   8192))))
   :config
   (setq ;;rcirc-fill-column 'window-text-width
 	rcirc-omit-responses '("JOIN" "PART" "QUIT" "NICK" "AWAY")
@@ -79,9 +82,10 @@
 (add-hook 'emacs-startup-hook
           (lambda ()
             (progn
-              (set-face-font 'default "Hack 8")
               (rcirc nil)
               (switch-to-buffer "#emacs@libera")
               (split-window-horizontally)
               (other-window 1)
               (switch-to-buffer "#argentina@libera"))))
+
+(set-face-font 'default "Hack 8")
