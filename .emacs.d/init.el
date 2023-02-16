@@ -120,3 +120,7 @@
 (use-package agitate
   :straight t
   :init (agitate-log-edit-informative-mode))
+
+(use-package abbrev
+  :preface
+  (advice-add 'add-global-abbrev :after (lambda (&rest _) (abbrev-edit-save-buffer))))
