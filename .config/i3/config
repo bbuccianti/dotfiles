@@ -200,8 +200,3 @@ bar {
 #workspace $ws1 output HDMI-A-0
 #workspace $ws4 output DVI-D-0
 #workspace $ws7 output DisplayPort-0
-
-#exec xrandr --output HDMI-A-0 --left-of DVI-D-0
-#exec xrandr --output DisplayPort-0 --above HDMI-A-0
-
-#exec xrandr --output DisplayPort-0 --above HDMI-A-0

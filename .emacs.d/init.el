@@ -112,6 +112,8 @@
 
 (use-package nov
   :straight t
+  :hook (nov-mode-hook . (lambda ()
+                           (face-remap-add-relative 'variable-pitch :family "Liberation Serif" :height 2.0)))
   :mode (("\\.epub\\'" . nov-mode)))
 
 (use-package diff-mode
@@ -122,5 +124,8 @@
   :init (agitate-log-edit-informative-mode))
 
 (use-package abbrev
-  :preface
-  (advice-add 'add-global-abbrev :after (lambda (&rest _) (abbrev-edit-save-buffer))))
+  :config
+  (advice-add 'add-global-abbrev :after (lambda (&rest _) (write-abbrev-file))))
+
+(use-package qrencode
+  :straight t)
