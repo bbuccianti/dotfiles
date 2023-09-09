@@ -1,6 +1,5 @@
 #!/bin/sh
 
 # $1 is magnet link
-# $2 is target folder
 
-transmission-remote atom:9091 -a "$1" -s -w "/home/atom/downloads/complete"
+transmission-remote alder:9091 -a "$1" -s

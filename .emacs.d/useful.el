@@ -4,15 +4,13 @@
 ;; Benjamín Buccianti <benjamin@buccianti.dev>
 ;;
 
-(setq-default straight-check-for-modifications 'live
-              straight-cache-autoloads t
-              use-package-always-defer t
+(setq-default use-package-always-defer t
               use-package-verbose nil
               use-package-expand-minimally t
               use-package-hook-name-suffix ""
               indent-tabs-mode nil
               user-full-name "Benjamín Buccianti"
-              user-mail-address "benjamin@buccianti.dev"
+              user-mail-address "bbuccianti@proton.me"
               message-log-max 16384
               show-trailing-whitespace t
               cursor-in-non-selected-windows nil
@@ -38,21 +36,8 @@
               resize-mini-windows nil
               completion-ignore-case t
               read-buffer-completion-ignore-case t
-              read-file-name-completion-ignore-case t)
-
-(defvar bootstrap-version)
-(let ((bootstrap-file
-       (expand-file-name "straight/repos/straight.el/bootstrap.el"
-                         user-emacs-directory))
-      (bootstrap-version 5))
-  (unless (file-exists-p bootstrap-file)
-    (with-current-buffer
-        (url-retrieve-synchronously
-         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
-         'silent 'inhibit-cookies)
-      (goto-char (point-max))
-      (eval-print-last-sexp)))
-  (load bootstrap-file nil 'nomessage))
+              read-file-name-completion-ignore-case t
+              inferior-lisp-program "sbcl")
 
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file 'noerror 'nomessage)
@@ -99,7 +84,9 @@
 
 ;; packages
 
-(straight-use-package 'use-package)
+(use-package package
+  :config
+  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t))
 
 (use-package windmove
   :init (windmove-default-keybindings))
@@ -109,7 +96,7 @@
                 search-whitespace-regexp ".*"))
 
 (use-package exec-path-from-shell
-  :straight t
+  :ensure t
   :config (setq exec-path-from-shell-check-startup-files nil))
 
 (use-package eshell
@@ -139,9 +126,9 @@
   :hook (minibuffer-setup-hook . (lambda () (setq truncate-lines nil)))
   :config
   (setq completion-styles '(partial-completion substring initials flex)
-        completion-category-overrides '((buffer (styles (basic
-                                                         substring
-                                                         partial-completion)))
+        completion-category-overrides '(;; (buffer (styles (basic
+                                        ;;                  substring
+                                        ;;                  partial-completion)))
                                         (info-menu (styles (substring))))))
 
 (use-package icomplete
@@ -168,7 +155,7 @@
         eldoc-echo-area-use-multiline-p nil))
 
 (use-package expand-region
-  :straight t
+  :ensure t
   :bind (:map global-map ("C-=" . er/expand-region)))
 
 (use-package xref
@@ -180,26 +167,7 @@
         eww-download-directory "~/papers"))
 
 (use-package org
-  :straight t)
+  :ensure t)
 
 (use-package hl-line
   :init (global-hl-line-mode t))
-
-(use-package deft
-  :straight t
-  :commands deft
-  :bind (:map ctl-z-map ("d" . deft))
-  :bind (:map deft-mode-map ("C-w" . deft-filter-decrement-word))
-  :config
-  (setq deft-directory "/home/bex/notes"
-        deft-recursive t
-        deft-extensions '("org")
-        deft-default-extension "org"
-        deft-text-mode 'org-mode
-        deft-use-filename-as-title t
-        deft-separator " "
-        deft-use-filter-string-for-filename t
-        deft-time-format " %Y/%m/%d"
-        deft-file-naming-rules '((noslash . "-")
-                                 (nospace . "-")
-                                 (case-fn . downcase))))

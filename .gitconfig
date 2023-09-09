@@ -1,6 +1,6 @@
 [user]
 	name = Benjamin Buccianti
-	email = benjamin@buccianti.dev
+	email = bbuccianti@proton.me
 	signingkey = 5A2C1CEEA1F500020454BD0CBF431C87F615B0E7
 [pull]
 	rebase = true
@@ -19,3 +19,5 @@
 	helper = store
 [init]
 	defaultBranch = main
+[transfer]
+	fsckObjects = true

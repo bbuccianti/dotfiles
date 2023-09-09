@@ -8,7 +8,7 @@
 
 ;; packages
 (use-package modus-themes
-  :straight t
+  :ensure t
   :demand t
   :hook (after-init-hook . (lambda ()
                              (global-hl-line-mode)
@@ -37,23 +37,11 @@
                       space-after-tab)))
 
 (use-package rainbow-delimiters
-  :straight t
+  :ensure t
   :hook (prog-mode-hook . rainbow-delimiters-mode))
 
-(use-package format-all
-  :straight t
-  :hook (format-all-mode-hook . (lambda ()
-                                  (setq format-all-formatters
-                                        '(("C" (clang-format))
-                                          ("C++" (clang-format))
-                                          ("Go" (gofmt)))))))
-
 (use-package c-mode
-  :hook ((c-mode-hook . format-all-mode)
-         (c-mode-hook . (lambda () (c-set-style "linux")))))
-
-(use-package c++-mode
-  :hook (c++-mode-hook . format-all-mode))
+  :hook (c-mode-hook . (lambda () (c-set-style "linux"))))
 
 (use-package gdb
   :custom (gdb-delete-out-of-scope nil))
@@ -62,16 +50,11 @@
   :hook (js-mode-hook . electric-pair-mode)
   :custom (js-indent-level 2))
 
-(use-package rjsx-mode
-  :straight t
-  :mode (("\\.jsx'" . rjsx-mode)))
-
 (use-package go-mode
-  :straight t
-  :hook (go-mode-hook . format-all-mode))
+  :ensure t)
 
 (use-package paredit
-  :straight t
+  :ensure t
   :bind (:map paredit-mode-map ("C-w" . paredit-backward-kill-word))
   :hook ((clojure-mode-hook
           lisp-interaction-mode-hook
@@ -79,7 +62,7 @@
           lisp-mode-hook) . enable-paredit-mode))
 
 (use-package clojure-mode
-  :straight t
+  :ensure t
   :mode (("\\.clj\\[s\\*\\'" . clojure-mode))
   :config
   (progn
@@ -87,18 +70,18 @@
     (put-clojure-indent 'fn-traced 1)))
 
 (use-package monroe
-  :straight t
+  :ensure t
   :hook (clojure-mode-hook . clojure-enable-monroe)
   :hook (monroe-mode-hook . enable-paredit-mode)
   :bind (:map ctl-z-map ("m" . monroe))
   :custom (monroe-detail-stacktraces t))
 
 (use-package fennel-mode
-  :straight t
+  :ensure t
   :mode (("\\.fnl\\'" . fennel-mode)))
 
 (use-package lua-mode
-  :straight t
+  :ensure t
   :mode (("\\.lua\\'" . lua-mode)))
 
 (use-package ediff
@@ -107,11 +90,11 @@
   (ediff-split-window-function 'split-window-horizontally))
 
 (use-package markdown-mode
-  :straight t
+  :ensure t
   :mode (("\\.md\\'" . markdown-mode)))
 
 (use-package nov
-  :straight t
+  :ensure t
   :hook (nov-mode-hook . (lambda ()
                            (face-remap-add-relative 'variable-pitch :family "Liberation Serif" :height 2.0)))
   :mode (("\\.epub\\'" . nov-mode)))
@@ -119,13 +102,23 @@
 (use-package diff-mode
   :custom (diff-default-read-only t))
 
-(use-package agitate
-  :straight t
-  :init (agitate-log-edit-informative-mode))
+;; (use-package agitate
+;;   :ensure t
+;;   :init (agitate-log-edit-informative-mode))
 
 (use-package abbrev
   :config
   (advice-add 'add-global-abbrev :after (lambda (&rest _) (write-abbrev-file))))
 
-(use-package qrencode
-  :straight t)
+(use-package sly
+  :ensure t)
+
+(use-package isearch
+  :custom
+  (isearch-lazy-count t))
+
+(use-package eglot
+  :ensure t)
+
+(use-package gptel
+  :ensure t)

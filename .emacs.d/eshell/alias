@@ -1,8 +1,9 @@
-alias trr transmission-remote atom:9091 $*
-alias m doas mount /mnt/$1
-alias u doas umount /mnt/$1
-alias musb doas mount $1 /mnt/usb -o umask=000,async
-alias umusb doas umount /mnt/usb
-alias ll ls -alh $*
-alias scihub ~/.local/bin/scihub -O . -s $*
+alias trl transmission-remote alder:9091 -l
 alias pushall git remote | xargs -L1 git push --all
+alias scihub ~/.local/bin/scihub -O . -s $*
+alias ll ls -alh $*
+alias umusb doas umount /mnt/usb
+alias musb doas mount $1 /mnt/usb -o umask=000,async
+alias u doas umount /mnt/$1
+alias m doas mount /mnt/$1
+alias trr transmission-remote atom:9091 $*

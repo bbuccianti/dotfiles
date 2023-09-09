@@ -7,32 +7,38 @@
 (load-file "~/.emacs.d/useful.el")
 
 (use-package bbdb
-  :straight t)
+  :ensure t)
 
 (use-package message
   :hook (message-mode-hook . bbdb-insinuate-message)
   :config
-  (setq smtpmail-debug-info nil ;; TOGGLE FOR DEBUG ONLY!
-	mail-user-agent 'message-user-agent
-	smtpmail-smtp-server "127.0.0.1"
-	smtpmail-local-domain ""
-	smtpmail-stream-type 'starttls
-	smtpmail-smtp-service 1025
+  (setq mail-user-agent 'message-user-agent
 	message-send-mail-function 'smtpmail-send-it
 	send-mail-function 'smtpmail-send-it
-	message-default-mail-headers "Cc: \nBcc: \n"
-	message-auto-save-directory "~/.mail/bbuccianti@pm.me/Drafts"
+	message-auto-save-directory "~/.mail/bbuccianti@proton.me/Drafts"
 	message-kill-buffer-on-exit t))
+
+(use-package smtpmail
+  :config
+  (setq smtpmail-smtp-server "alder"
+	smtpmail-stream-type 'plain
+	smtpmail-smtp-service 1025))
 
 (use-package gnus
   :bind (:map ctl-z-map ("g" . gnus))
-  :hook (gnus-startup-hook . bbdb-insinuate-gnus)
+  ;;:hook (gnus-startup-hook . bbdb-insinuate-gnus)
   :config
   (setq gnus-select-method '(nntp "news.gmane.io")
 	gnus-novice-user nil
 	gnus-suppress-duplicates t
         gnus-use-full-window nil
-        gnus-read-newsrc-file nil))
+        gnus-read-newsrc-file nil
+        gnus-secondary-select-methods '((nnimap "alder"
+                                                (nnimap-inbox "Inbox")
+                                                (nnimap-stream plain)
+                                                (nnimap-address "alder")
+                                                (nnimap-authenticator login)
+                                                (nnimap-server-port 1143)))))
 
 (use-package gnus-search
   :init (setq gnus-search-use-parsed-queries t))
@@ -75,9 +81,9 @@
            :server-alias "libera"
            :encryption tls))))
 
-(use-package xclip
-  :straight t
-  :init (xclip-mode 1))
+;;(use-package xclip
+;;  :ensure t
+;;  :init (xclip-mode 1))
 
 (add-hook 'emacs-startup-hook
           (lambda ()
