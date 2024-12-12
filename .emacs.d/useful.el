@@ -42,7 +42,7 @@
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file 'noerror 'nomessage)
 
-(fringe-mode '(5 . 5))
+;(fringe-mode '(5 . 5))
 (fset 'yes-or-no-p 'y-or-n-p)
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
@@ -97,10 +97,9 @@
 
 (use-package exec-path-from-shell
   :ensure t
-  :config (setq exec-path-from-shell-check-startup-files nil))
+  :hook (eshell-mode-hook . exec-path-from-shell-initialize))
 
 (use-package eshell
-  :hook (eshell-mode-hook . exec-path-from-shell-initialize)
   ;;  :hook (eshell-mode-hook . eshell-smart-initialize)
   :bind (:map ctl-z-map ("t" . eshell))
   :config
@@ -122,17 +121,19 @@
                     ".cljs_node_repl" ".shadow-cljs"))
     (add-to-list 'vc-directory-exclusion-list folder)))
 
-(use-package minibuffer
-  :hook (minibuffer-setup-hook . (lambda () (setq truncate-lines nil)))
-  :config
-  (setq completion-styles '(partial-completion substring initials flex)
-        completion-category-overrides '(;; (buffer (styles (basic
-                                        ;;                  substring
-                                        ;;                  partial-completion)))
-                                        (info-menu (styles (substring))))))
+(use-package vertico
+  :ensure t
+  :init (vertico-mode +1))
 
-(use-package icomplete
-  :init (fido-mode))
+(use-package orderless
+  :ensure t
+  :init
+  ;; Configure a custom style dispatcher (see the Consult wiki)
+  ;; (setq orderless-style-dispatchers '(+orderless-consult-dispatch orderless-affix-dispatch)
+  ;;       orderless-component-separator #'orderless-escapable-split-on-space)
+  (setq completion-styles '(orderless basic)
+        completion-category-defaults nil
+        completion-category-overrides '((file (styles partial-completion)))))
 
 (use-package dired
   :config
@@ -166,8 +167,26 @@
   (setq browse-url-browser-function 'eww
         eww-download-directory "~/papers"))
 
+(defun bb/agenda (arg)
+  (interactive "P")
+  (if arg
+      (call-interactively 'org-agenda)
+    (org-agenda nil "n")))
+
 (use-package org
-  :ensure t)
+  :ensure t
+  :config (add-to-list 'org-modules 'org-habit t)
+  :custom
+  (org-log-done 'time)
+  (org-log-into-drawer t)
+  (org-habit-show-all-today t)
+  (org-directory "/home/bex/Journal")
+  (org-default-notes-file "/home/bex/Journal/todo.org"))
+
+(use-package org-agenda
+  :bind (:map ctl-z-map ("C-a" . bb/agenda))
+  :custom
+  (org-agenda-files '("/home/bex/Journal/")))
 
 (use-package hl-line
   :init (global-hl-line-mode t))

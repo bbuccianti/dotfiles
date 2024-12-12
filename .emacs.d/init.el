@@ -64,6 +64,7 @@
 (use-package clojure-mode
   :ensure t
   :mode (("\\.clj\\[s\\*\\'" . clojure-mode))
+  :hook (before-save-hook . eglot-format-buffer)
   :config
   (progn
     (put-clojure-indent 'match 1)
@@ -74,6 +75,8 @@
   :hook (clojure-mode-hook . clojure-enable-monroe)
   :hook (monroe-mode-hook . enable-paredit-mode)
   :bind (:map ctl-z-map ("m" . monroe))
+  :bind (:map monroe-interaction-mode-map (("M-." . xref-find-definitions)
+                                           ("M-," . xref-go-back)))
   :custom (monroe-detail-stacktraces t))
 
 (use-package fennel-mode
@@ -117,8 +120,32 @@
   :custom
   (isearch-lazy-count t))
 
+(use-package jarchive
+  :ensure t
+  :demand t)
+
 (use-package eglot
-  :ensure t)
+  :ensure t
+  :custom
+  (eglot-extend-to-xref t)
+  (eglot-autoshutdown t)
+  :config
+  (progn
+    (add-to-list 'file-name-handler-alist jarchive--file-name-handler)
+    (add-to-list 'find-file-not-found-functions #'jarchive--find-file-not-found)))
 
 (use-package gptel
+  :ensure t)
+
+(use-package debbugs
+  :ensure t)
+
+(use-package docview
+  :custom (doc-view-resolution 300))
+
+(use-package multiple-cursors
+  :ensure t
+  :bind (:map ctl-z-map (("C-n" . mc/mark-next-like-this))))
+
+(use-package qrencode
   :ensure t)

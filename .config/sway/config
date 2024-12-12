@@ -5,15 +5,13 @@ set $down j
 set $up k
 set $right l
 set $term kitty
-set $menu st -c 'fzf-menu' -g 50x12 -f 'Hack:size=14' -e /home/bex/bin/menu
-set $clipboard st -c 'fzf-clipboard' -g 50x24 -f 'Hack:size=14' -e /home/bex/bin/cl
-set $killer st -c 'fzf-killer' -g 100x24 -f 'Hack:size=14' -e /home/bex/bin/killer
+#set $killer st -c 'fzf-killer' -g 100x24 -f 'Hack:size=14' -e /home/bex/bin/killer
 
 ### Output configuration
 output HDMI-A-1 mode 1920x1080@60Hz
 output HDMI-A-1 scale_filter nearest
 output HDMI-A-1 subpixel rgb
-output HDMI-A-1 pos 0 0 res 1920x1080
+output HDMI-A-1 pos 1920 0
 output HDMI-A-1 bg ~/wallpapers/ship.jpg fill
 
 output DVI-D-1 mode 1360x768@60Hz
@@ -21,8 +19,11 @@ output DVI-D-1 scale_filter nearest
 # output DVI-D-1 subpixel vbgr
 # output DVI-D-1 pos 1920 0 transform 90
 output DVI-D-1 subpixel rgb
-output DVI-D-1 pos 1920 0
+output DVI-D-1 pos 0 0 res 1920x1080
+
 output DVI-D-1 bg ~/wallpapers/rubik.jpg fill
+
+output DP-1 bg ~/wallpapers/circle.jpg fill
 
 input 4617:41445:Technomancy_Atreus {
       xkb_layout us,us
@@ -45,11 +46,19 @@ input 1133:16448:Logitech_M280/320/275 {
       pointer_accel 1
 }
 
+input 5426:156:Razer_Razer_DeathAdder_V2_X_HyperSpeed_Mouse {
+      accel_profile "flat"
+      dwt enabled
+      pointer_accel -1
+}
+
 seat "seat0" {
      attach *
      hide_cursor 2000
 }
 
+bindsym $mod+t exec dmenu-wl_run -m "$(swaymsg -t get_outputs | jq 'map(.focused) | index(true)')" -i
+bindsym $mod+p exec /home/bex/bin/screenshot
 
 ### Key bindings
     bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
@@ -60,8 +69,6 @@ seat "seat0" {
     bindsym XF86MonBrightnessUp exec brightnessctl set +5%
     bindsym $mod+Return exec $term
     bindsym $mod+Shift+q kill
-    bindsym $mod+t exec $menu
-    bindsym $mod+c exec $clipboard
     bindsym $mod+x exec $killer
     floating_modifier $mod normal
     bindsym $mod+Shift+c reload
@@ -185,16 +192,17 @@ bindsym $mod+r mode "resize"
 # Read `man 5 sway-bar` for more information about this section.
 bar {
     position top
-    font pango:Hack 12
     mode hide
     hidden_state hide
     modifier Mod4
 
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
-    status_command while ~/.config/sway/status.sh; do sleep 30; done
-    #swaybar_command waybar -s /home/bex/.config/waybar/styles.css -c /home/bex/.config/waybar/config
+    #status_command while ~/.config/sway/status.sh; do sleep 30; done
+    #swaybar_command waybar #-s /home/bex/.config/waybar/styles.css -c /home/bex/.config/waybar/config
     #status_command i3status-rs ~/.config/sway/status.toml
+    swaybar_command waybar
+    #status_command ~/.config/sway/bar.sh
 }
 
 set $gnome-schema org.gnome.desktop.interface
@@ -221,4 +229,4 @@ include /etc/sway/config.d/*
 exec wlsunset -l -34.6 -L -58.4
 exec wl-paste -t text --watch clipman store
 exec pipewire
-exec pipewire-pulse
+exec syncthing

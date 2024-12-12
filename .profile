@@ -23,15 +23,15 @@ export NVM_DIR="$HOME/.nvm"
 
 # export LC_ALL=C.UTF-8
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib64:/usr/local/lib
-
+export XDG_RUNTIME_DIR=/run/user/$(id -u)
 # if test -z "${XDG_RUNTIME_DIR}"; then
 #     export XDG_RUNTIME_DIR=/tmp/${UID}-runtime-dir
 #     if ! test -d "${XDG_RUNTIME_DIR}"; then
 #         mkdir "${XDG_RUNTIME_DIR}"
-#         chmod 0700 "${XDG_RUNTIME_DIR}"
-#     fi
+#        chmod 0700 "${XDG_RUNTIME_DIR}"
+#    fi
 # fi
 
 if [ -d "${HOME}/bin" ]; then
-    export PATH="${HOME}/bin:${PATH}"
+    export PATH="${HOME}/bin:${PATH}:/usr/sbin/"
 fi

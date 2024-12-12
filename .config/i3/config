@@ -202,3 +202,6 @@ bar {
 #workspace $ws1 output HDMI-A-0
 #workspace $ws4 output DVI-D-0
 #workspace $ws7 output DisplayPort-0
+
+#exec gentoo-pipewire-launcher &
+exec nitrogen --restore
