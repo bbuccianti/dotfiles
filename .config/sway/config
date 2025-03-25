@@ -201,8 +201,8 @@ bar {
     #status_command while ~/.config/sway/status.sh; do sleep 30; done
     #swaybar_command waybar #-s /home/bex/.config/waybar/styles.css -c /home/bex/.config/waybar/config
     #status_command i3status-rs ~/.config/sway/status.toml
-    swaybar_command waybar
-    #status_command ~/.config/sway/bar.sh
+    #swaybar_command waybar
+    status_command ~/.config/sway/bar.sh
 }
 
 set $gnome-schema org.gnome.desktop.interface

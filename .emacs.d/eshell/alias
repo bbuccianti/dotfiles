@@ -1,3 +1,4 @@
+alias piku /home/bex/bin/piku $*
 alias nvm /home/bex/.nvm/nvm-exec
 alias trr transmission-remote alder:9091 $*
 alias m doas mount /mnt/$1
