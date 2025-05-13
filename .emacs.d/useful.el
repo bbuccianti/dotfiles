@@ -97,6 +97,8 @@
 
 (use-package exec-path-from-shell
   :ensure t
+  :demand t
+  :init (exec-path-from-shell-initialize)
   :hook (eshell-mode-hook . exec-path-from-shell-initialize))
 
 (use-package eshell

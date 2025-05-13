@@ -15,6 +15,8 @@ export NVM_DIR="$HOME/.nvm"
 #source /usr/share/fzf/key-bindings.bash
 source /usr/share/doc/fzf/examples/key-bindings.bash
 
+~/.rbenv/bin/rbenv init
+
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"

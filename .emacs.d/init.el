@@ -99,7 +99,7 @@
 (use-package nov
   :ensure t
   :hook (nov-mode-hook . (lambda ()
-                           (face-remap-add-relative 'variable-pitch :family "Liberation Serif" :height 2.0)))
+                           (face-remap-add-relative 'variable-pitch :family "Liberation Serif" :height 1.0)))
   :mode (("\\.epub\\'" . nov-mode)))
 
 (use-package diff-mode
@@ -132,7 +132,9 @@
   :config
   (progn
     (add-to-list 'file-name-handler-alist jarchive--file-name-handler)
-    (add-to-list 'find-file-not-found-functions #'jarchive--find-file-not-found)))
+    (add-to-list 'find-file-not-found-functions #'jarchive--find-file-not-found)
+    (add-to-list 'eglot-server-programs '(org-mode . ("/home/bex/.cargo/bin/harper-ls" "--stdio")))
+    (add-to-list 'eglot-server-programs '(markdown-mode . ("/home/bex/.cargo/bin/harper-ls" "--stdio")))))
 
 (use-package gptel
   :ensure t)
@@ -149,3 +151,25 @@
 
 (use-package qrencode
   :ensure t)
+
+(use-package nvm
+  :ensure t)
+
+(use-package vterm
+  :ensure t)
+
+(use-package rbenv
+  :ensure t
+  :demand t
+  :config (rbenv--setup))
+
+(use-package robe
+  :ensure t
+  :hook ((ruby-mode-hook . robe-mode)
+         (ruby-ts-mode-hook . robe-mode)))
+
+(use-package denote
+  :ensure t
+  :bind (:map ctl-z-map (("n" . denote-open-or-create)))
+  :hook (org-mode-hook . eglot)
+  :custom (denote-directory "/home/bex/notes"))

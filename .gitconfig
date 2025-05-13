@@ -21,3 +21,5 @@
 	defaultBranch = main
 [transfer]
 	fsckObjects = true
+[alias]
+	amend = commit --amend --no-edit

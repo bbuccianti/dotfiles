@@ -203,7 +203,8 @@ bar {
 #workspace $ws4 output DVI-D-0
 #workspace $ws7 output DisplayPort-0
 
-#exec nitrogen --restore
+exec nitrogen --restore
+exec deskflow
 
 bindsym $mod+c exec /home/bex/bin/switch-monitors.sh
 
